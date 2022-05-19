@@ -41,10 +41,10 @@ class Story {
         this.creatorVersion = this.storyDataElement.attr('creator-version');
 
         /**
-        * @property {Element} storyElement - Reference to tw-story element
-        * @type {Element}
+        * @property {string} ifid - Internal IFID
+        * @type {string}
         */
-        this.storyElement = $('tw-story');
+        this.ifid = this.storyDataElement.attr('ifid');
 
         /**
         * @property {array} passages - Internal array of passages
@@ -75,6 +75,12 @@ class Story {
               elementReference.html()
             ));
         });
+
+       /**
+        * @property {Element} storyElement - Reference to tw-story element
+        * @type {Element}
+        */
+        this.storyElement = $('tw-story');
 
         // Catch all navigation events
         this.storyElement.on('click', 'a[data-passage]', (e) => {
@@ -167,7 +173,7 @@ class Story {
 
         // The passage exists.
         // Ask the passage to render
-        this.passageElement.html(passage.render());
+        this.passageElement.html( Markdown.unescape( passage.render() ) );
     }
 
     /**
@@ -180,7 +186,7 @@ class Story {
         const passage = this.getPassageById(this.startPassage);
 
         if(passage !== null) {
-            this.passageElement.html(passage.render());
+            this.passageElement.html( Markdown.unescape( passage.render() ) );
         }
    }
 }
