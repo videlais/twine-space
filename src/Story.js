@@ -4,7 +4,7 @@ const Markdown = require('./Markdown.js');
 
 class Story {
     constructor() {
-    
+        
        /**
         * @property {Element} storyDataElement - Reference to tw-storydata element
         * @type {Element}
@@ -101,7 +101,7 @@ class Story {
     }
 
    /**
-    * Returns the Passage object corresponding to name.
+    * Returns a Passage object by name.
     * If none exists, returns null.
     *
     * @function getPassageByName
@@ -153,11 +153,10 @@ class Story {
     }
 
    /**
-    * Render current passage object into passage 
+    * Render named passage object into passage element
     *
     * @function show
     * @param {string} name - name of the passage
-    * @returns {object} - Passage object or null
     */
     show(name) {
         // Does this passage exist?
@@ -172,8 +171,7 @@ class Story {
         }
 
         // The passage exists.
-        // Ask the passage to render
-        this.passageElement.html( Markdown.unescape( passage.render() ) );
+        this.passageElement.html( passage.render() );
     }
 
     /**
@@ -185,8 +183,10 @@ class Story {
         // Retrieve Passage object matching starting passage.
         const passage = this.getPassageById(this.startPassage);
 
+        // Does the passage exist?
         if(passage !== null) {
-            this.passageElement.html( Markdown.unescape( passage.render() ) );
+            // Replace passageElement content with passage.render()
+            this.passageElement.html( passage.render() );
         }
    }
 }
