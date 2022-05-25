@@ -2,7 +2,7 @@ const $ = require('jquery');
 const Passage = require('./Passage.js');
 const Markdown = require('./Markdown.js');
 
-// Require AFrame
+// Require AFrameProxy
 const AFrameProxy = require('./AFrameProxy.js');
 
 class Story {
@@ -102,8 +102,8 @@ class Story {
         // Append the passage element to the tw-story
         this.storyElement.append(this.passageElement);
 
-        // Create local object and append scene
-        this.aframeProxy = new AFrameProxy();
+        // Make a scene
+        AFrameProxy.makeScene();
     }
 
    /**

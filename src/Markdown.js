@@ -1,3 +1,6 @@
+// Require AFrameProxy
+const AFrameProxy = require('./AFrameProxy.js');
+
 class Markdown {
     static parse (text) {
       const rules = [
@@ -9,6 +12,11 @@ class Markdown {
         [/\[\[(.*?)<-(.*?)\]\]/g, '<a role="link" data-passage="$1">$2</a>'],
         // [[destination]]
         [/\[\[(.*?)\]\]/g, '<a role="link" data-passage="$1">$1</a>'],
+        // (box:)
+        [/\((box:)\)/g, () => {
+          AFrameProxy.add('box', 'position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"');
+          return '';
+        }],
         // Break Rule
         [/[\r\n\n]/g, '<br>']
       ];
