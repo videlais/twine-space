@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "browserify src/index.js -t babelify --outfile bundle.js",
+    "build": "webpack --config webpack.config.js",
     "package": "npm run build && node build-format.js"
   },
   "repository": {
@@ -30,15 +30,13 @@
     "jquery": "^3.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.12",
-    "@babel/preset-env": "^7.17.12",
-    "babelify": "^10.0.0",
-    "browserify": "^17.0.0",
-    "browserify-css": "^0.15.0",
     "colors": "^1.4.0",
+    "ejs": "^3.1.8",
     "envify": "^4.1.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.8.5",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   }
 }

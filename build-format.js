@@ -4,32 +4,24 @@ const fs = require('fs');
 const shelljs = require('shelljs');
 // Require 'colors' package
 const colors = require('colors');
-
-/*
- * Part 1:
- *  a) Read the story.json file for story format values
- */
+// Require ejs
+const ejs = require('ejs');
 
 // Read the "story.json" file using 'utf8' encoding
-const storyFile = fs.readFileSync("story.json", 'utf8');
+const storyFile = fs.readFileSync("story.json", {'encoding': 'utf8'});
 // Parse the string into an object
 const story = JSON.parse(storyFile);
 
-/*
- * Part 2:
- *  a) Read bundle.js,
- *  b) Replace SCRIPT in index.html with content, and 
- *  c) Save prepared story source
- */
+// Load source index.html
+const srcIndex = fs.readFileSync("src/index.ejs", {'encoding': 'utf8'});
 
-// Read bundle.js (created using "node run build")
-const compiledSource = fs.readFileSync("bundle.js", 'utf8');
+const formatSource = fs.readFileSync("build/format.bundle.js", {'encoding': 'utf8'});
+const aframeSource = fs.readFileSync("build/arjs.bundle.js", {'encoding': 'utf8'});
+const storyCSS = fs.readFileSync("src/story.css", {'encoding': 'ascii'});
 
-// Read index.html (contains markers Twine editor will later replace)
-let indexSource = fs.readFileSync("src/index.html", 'utf8');
+const indexSource = ejs.render(srcIndex, {format: formatSource, aframe: aframeSource, story_css: storyCSS});
 
-// Replace SCRIPT with compiledSource
-indexSource = indexSource.replace('SCRIPT', compiledSource);
+fs.writeFileSync("build/index.html", indexSource);
 
 // Set source value of story object
 story.source = indexSource;
@@ -47,7 +39,7 @@ let format = "window.storyFormat(" + JSON.stringify(story) + ");";
 // Write the "format.js" file using
 fs.writeFileSync("dist/format.js", format);
 // Delete bundle.js
-fs.unlinkSync("bundle.js");
+//fs.unlinkSync("bundle.js");
 // Move to 'dist' folder
 shelljs.cd('./dist');
 // Get full path to file
