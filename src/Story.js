@@ -3,7 +3,7 @@ const Passage = require('./Passage.js');
 const Markdown = require('./Markdown.js');
 
 // Require AFrameProxy
-const AFrameProxy = require('./AFrameProxy.js');
+const AFrameProxy = require('./aframe-build/AFrameProxy.js');
 
 class Story {
     constructor() {

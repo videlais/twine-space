@@ -1,5 +1,5 @@
 // Require AFrameProxy
-const AFrameProxy = require('./AFrameProxy.js');
+const AFrameProxy = require('./aframe-build/AFrameProxy.js');
 
 class Markdown {
     static parse (text) {

@@ -1,7 +1,7 @@
 // Require jQuery
 const $ = require('jquery');
 // Require Story
-const Story = require('./Story');
+const Story = require('../Story.js');
 // Create global jQuery
 window.$ = $;
 // Create global Story object

@@ -31,11 +31,15 @@
   },
   "devDependencies": {
     "colors": "^1.4.0",
+    "css-loader": "^6.7.1",
     "ejs": "^3.1.8",
     "envify": "^4.1.0",
+    "extwee": "^2.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
+    "open": "^8.4.0",
     "shelljs": "^0.8.5",
+    "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   }

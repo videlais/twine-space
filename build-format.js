@@ -15,7 +15,7 @@ const story = JSON.parse(storyFile);
 // Load source index.html
 const srcIndex = fs.readFileSync("src/index.ejs", {'encoding': 'utf8'});
 
-const formatSource = fs.readFileSync("build/format.bundle.js", {'encoding': 'utf8'});
+const formatSource = fs.readFileSync("build/core.bundle.js", {'encoding': 'utf8'});
 const aframeSource = fs.readFileSync("build/arjs.bundle.js", {'encoding': 'utf8'});
 const storyCSS = fs.readFileSync("src/story.css", {'encoding': 'ascii'});
 
@@ -30,7 +30,7 @@ story.source = indexSource;
  * Part 3:
  *  a) Write out format.js,
  *  b) Clean up temporary files,
- *  c) Tell user local path to use to load story format file 
+ *  c) Tell user local path to use to load story format file
  */
 
 // Build a "format.js" file contents
@@ -46,3 +46,4 @@ shelljs.cd('./dist');
 const storyFormatFilePath = `${shelljs.pwd()}/format.js`;
 // Show path to user
 console.log(`format.js path is: ${colors.blue(storyFormatFilePath)}`);
+
