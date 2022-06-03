@@ -46,11 +46,7 @@ class AFrameProxy {
     * @static
     */
     static removeScene() {
-        // Is there an a-scene element?
-        if($('a-scene').length > 0) {
-            // Remove the a-scene element.
-            $('a-scene').remove();
-        }
+        $('a-scene').remove();
     }
 }
 

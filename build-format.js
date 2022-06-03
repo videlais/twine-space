@@ -29,6 +29,8 @@ fs.writeFileSync("build/index.html", indexSource);
 // Set source value of story object
 story.source = indexSource;
 
+story.name += ` - Build ${new Date()}`;
+
 // Build a "format.js" file contents
 // Convert the 'story' back into a string
 let format = "window.storyFormat(" + JSON.stringify(story) + ");";
