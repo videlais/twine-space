@@ -1,0 +1,12 @@
+a[role="link"] {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
