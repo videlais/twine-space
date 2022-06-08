@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "webpack",
-    "package": "node build-format.js"
+    "package": "node build-format.js",
+    "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli quicktest/index.html"
   },
   "repository": {
     "type": "git",
@@ -34,10 +35,11 @@
     "css-loader": "^6.7.1",
     "ejs": "^3.1.8",
     "envify": "^4.1.0",
-    "extwee": "^2.0.0",
+    "extwee": "^2.0.3",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "open": "^8.4.0",
+    "open-cli": "^7.0.1",
     "shelljs": "^0.8.5",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
