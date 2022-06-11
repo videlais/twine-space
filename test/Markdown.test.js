@@ -1,19 +1,27 @@
 const Markdown = require('../src/Markdown.js');
 
 describe('Markdown class', () => {
-  test('Should produce classic link', () => {
-    expect(Markdown.parse('[[dest]]')).toBe('<a role="link" data-passage="dest">dest</a>');
+  describe('parse()', () => {
+    it('Should produce classic link', () => {
+      expect(Markdown.parse('[[dest]]')).toBe('<tw-link role="link" data-passage="dest">dest</tw-link>');
+    });
+
+    it('Should produce bar link', () => {
+      expect(Markdown.parse('[[rename|dest]]')).toBe('<tw-link role="link" data-passage="dest">rename</tw-link>');
+    });
+
+    it('Should produce right arrow link', () => {
+      expect(Markdown.parse('[[rename->dest]]')).toBe('<tw-link role="link" data-passage="dest">rename</tw-link>');
+    });
+
+    it('Should produce left arrow link', () => {
+      expect(Markdown.parse('[[dest<-rename]]')).toBe('<tw-link role="link" data-passage="dest">rename</tw-link>');
+    });
   });
 
-  test('Should produce bar link', () => {
-    expect(Markdown.parse('[[rename|dest]]')).toBe('<a role="link" data-passage="dest">rename</a>');
-  });
-
-  test('Should produce right arrow link', () => {
-    expect(Markdown.parse('[[rename->dest]]')).toBe('<a role="link" data-passage="dest">rename</a>');
-  });
-
-  test('Should produce left arrow link', () => {
-    expect(Markdown.parse('[[dest<-rename]]')).toBe('<a role="link" data-passage="dest">rename</a>');
+  describe('unescape()', () => {
+    it('Should unescape HTML', () => {
+      expect(Markdown.unescape('&lt;p&gt;Test&lt;/p&gt;')).toBe('<p>Test</p>');
+    });
   });
 });

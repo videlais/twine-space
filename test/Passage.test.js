@@ -9,12 +9,12 @@ describe('constructor()', () => {
 
 describe('#render()', () => {
   it('Should render empty string', () => {
-    const p = new Passage(1,'Default',[],'');
+    const p = new Passage(1, 'Default', [], '');
     expect(p.render()).toBe('');
   });
 
-  it('Should ignore any <script> tags', () => {
-    const p = new Passage(1,'Default',[],'<div><script>console.log("Hello world")</script></div>');
-    expect(p.render()).toBe('<div><script>console.log("Hello world")</script></div>');
+  it('Should return contents', () => {
+    const p = new Passage(1, 'Default', [], '<div>Hey</div>');
+    expect(p.render()).toBe('<div>Hey</div>');
   });
 });

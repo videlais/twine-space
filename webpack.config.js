@@ -1,6 +1,9 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
+  mode: 'production',
   entry: {
     core: './src/core-build/core-index.js',
     aframe: './src/aframe-build/aframe-index.js',
@@ -10,12 +13,24 @@ module.exports = {
     path: path.resolve(__dirname, './build'),
     filename: "[name].bundle.js"
   },
+  resolve: {
+    fallback: {
+      "path": false,
+      "fs": false
+    }
+  },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin()
+    ]
+  },
+  plugins: [new MiniCssExtractPlugin()]
 }

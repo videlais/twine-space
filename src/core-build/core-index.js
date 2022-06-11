@@ -1,3 +1,5 @@
+// Import story CSS (used by WebPack)
+import '../story.css';
 // Require jQuery
 const $ = require('jquery');
 // Require Story

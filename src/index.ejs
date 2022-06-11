@@ -5,18 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>{{STORY_NAME}}</title>
-		<style>
-			<%- story_css %>
-		</style>
-		<script>
-			<%- aframe %>
-		</script>
+		<%- story_css %>
+		<%- aframe %>
 	</head>
 	<body>
 		<tw-story class="centered"></tw-story>
 		{{STORY_DATA}}
-		<script>
-			<%- format %>
-		</script>
+		<%- format %>
 	</body>
 </html>

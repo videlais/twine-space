@@ -1,4 +1,4 @@
-:: :: StoryData
+:: StoryData
 {
     "ifid": "B72FBEAD-6B06-455C-860C-CC96AD49AF82",
     "format": "Twine Space",
@@ -9,4 +9,14 @@
 Twine Space Testing
 
 :: Start
-Some content
+This is some content. It has a [[link]].
+
+:: link
+This is more content.
+(box: position="-1 0.5 -3" color="#4CC3D9" id="test")
+[[Another]]
+
+:: Another
+(sky: color="#001337")
+(plane: width="100" height="100" position=" 0.00 0.00 0.00"  rotation="-90 0 0" color="#666666" shadow="cast: false; receive: true")
+(torus-knot: p="2" q="3" radius="0.5" radius-tubular="0.1" position = "-2.5 1.5 -4" color="#CC3333" shadow = "cast: true; receive: true")

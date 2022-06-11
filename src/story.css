@@ -1,8 +1,9 @@
-a[role="link"] {
+tw-link, a {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
 }
+
 .centered {
     position: fixed;
     top: 50%;
