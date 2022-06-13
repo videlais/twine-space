@@ -99,7 +99,7 @@ class Story {
         id,
         elementReference.attr('name'),
         tags,
-        elementReference.html()
+        Markdown.unescape(elementReference.html())
       ));
     });
 
@@ -200,19 +200,7 @@ class Story {
    * @param {string} name - name of the passage
    */
   show (name) {
-    // Does this passage exist?
-    const passage = this.getPassageByName(name);
-
-    // The passage does not exist.
-    if (passage === null) {
-      // Throw an error
-      throw new Error(
-        'There is no passage with the name "' + name + '"'
-      );
-    }
-
-    // The passage exists.
-    this.passageElement.html(passage.render());
+    this.passageElement.html(this.render(name));
   }
 
   /**
@@ -236,25 +224,10 @@ class Story {
 
     // Are there any user scripts to parse?
     if (this.userScripts.length > 0) {
-      // For each, append them to the <body>
+      // For each, run them
       this.userScripts.forEach((script) => {
         try {
-          ejs.render(`<%${script}%>`, { $: $ });
-        } catch (error) {
-          throw new Error(`User script error: ${error}`);
-        }
-      });
-    }
-
-    // Look for any passages with the 'script' tag
-    const scriptPassages = this.getPassagesByTags('script');
-
-    // Are there any to append?
-    if (scriptPassages.length > 0) {
-      // For each, append them to the <body>
-      scriptPassages.forEach((script) => {
-        try {
-          ejs.render(`<%${script}%>`, { $: $ });
+          ejs.render(`<%${script}%>`, { $ });
         } catch (error) {
           throw new Error(`User script error: ${error}`);
         }
@@ -266,9 +239,33 @@ class Story {
 
     // Does the passage exist?
     if (passage !== null) {
-      // Replace passageElement content with passage.render()
-      this.passageElement.html(passage.render());
+      // Replace passageElement content
+      this.show(passage.name);
     }
+  }
+
+  /**
+   * Returns the HTML source of a passage.
+   *
+   * 1. Find passage by name
+   * 2. Parse passage source using Markdown.parse()
+   *
+   * @function render
+   * @param {string} name - name of the passage
+   * @returns {string} HTML source code
+   */
+  render (name) {
+    // Search for passage by name
+    const passage = this.getPassageByName(name);
+
+    // Does this passage exist?
+    if (passage === null) {
+      // It does not exist.
+      // Throw error.
+      throw new Error('There is no passage with name ' + name);
+    }
+
+    return Markdown.parse(passage.source);
   }
 }
 

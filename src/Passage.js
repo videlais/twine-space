@@ -1,5 +1,3 @@
-const Markdown = require('./Markdown.js');
-
 /**
  * @class Passage
  */
@@ -32,18 +30,7 @@ class Passage {
      * @type {string}
      */
 
-    this.source = Markdown.unescape(source);
-  }
-
-  /**
-   * Produce HTML from Markdown input
-   *
-   * @function render
-   * @returns {string}
-   */
-
-  render () {
-    return Markdown.parse(this.source);
+    this.source = source;
   }
 }
 

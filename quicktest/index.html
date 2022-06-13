@@ -76957,17 +76957,44 @@ __webpack_require__(569);
 	</head>
 	<body>
 		<tw-story class="centered"></tw-story>
-		<tw-storydata name="Twine Space Testing" startnode="3" creator="twine-space" creator-version="1.0.0" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Fri Jun 10 2022 23:49:24 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
+		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.5" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Mon Jun 13 2022 04:46:52 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
-	<script role="script" id="twine-user-script" type="text/twine-javascript"></script>
+	<script role="script" id="twine-user-script" type="text/twine-javascript">AFRAME.registerComponent('updater', {
+	
+	init: function()
+	{
+		this.num = 0;
+	},
+	
+	tick: function (time, timeDelta) 
+	{
+		this.num += 1;
+		this.el.setAttribute("value", "Tick counter: " + this.num)
+	}
+	
+});</script>
 	<tw-passagedata pid="2" name="StoryTitle">Twine Space Testing</tw-passagedata>
 	<tw-passagedata pid="3" name="Start">This is some content. It has a [[link]].</tw-passagedata>
 	<tw-passagedata pid="4" name="link">This is more content.
-(box: position=&quot;-1 0.5 -3&quot; color=&quot;#4CC3D9&quot; id=&quot;test&quot;)
+(text: position=&quot;-1 0.5 -3&quot; color=&quot;#4CC3D9&quot; updater)
 [[Another]]</tw-passagedata>
 	<tw-passagedata pid="5" name="Another">(sky: color=&quot;#001337&quot;)
 (plane: width=&quot;100&quot; height=&quot;100&quot; position=&quot; 0.00 0.00 0.00&quot;  rotation=&quot;-90 0 0&quot; color=&quot;#666666&quot; shadow=&quot;cast: false; receive: true&quot;)
 (torus-knot: p=&quot;2&quot; q=&quot;3&quot; radius=&quot;0.5&quot; radius-tubular=&quot;0.1&quot; position = &quot;-2.5 1.5 -4&quot; color=&quot;#CC3333&quot; shadow = &quot;cast: true; receive: true&quot;)</tw-passagedata>
+	<tw-passagedata pid="6" name="AFrameScript" tags="script" >AFRAME.registerComponent(&#x27;updater&#x27;, {
+	
+	init: function()
+	{
+		this.num = 0;
+	},
+	
+	tick: function (time, timeDelta) 
+	{
+		this.num += 1;
+		this.el.setAttribute(&quot;value&quot;, &quot;Tick counter: &quot; + this.num)
+	}
+	
+});</tw-passagedata>
 </tw-storydata>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
@@ -89137,9 +89164,7 @@ module.exports = Markdown;
 /***/ }),
 
 /***/ 67:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-const Markdown = __webpack_require__(456);
+/***/ ((module) => {
 
 /**
  * @class Passage
@@ -89173,18 +89198,7 @@ class Passage {
      * @type {string}
      */
 
-    this.source = Markdown.unescape(source);
-  }
-
-  /**
-   * Produce HTML from Markdown input
-   *
-   * @function render
-   * @returns {string}
-   */
-
-  render () {
-    return Markdown.parse(this.source);
+    this.source = source;
   }
 }
 
@@ -89297,7 +89311,7 @@ class Story {
         id,
         elementReference.attr('name'),
         tags,
-        elementReference.html()
+        Markdown.unescape(elementReference.html())
       ));
     });
 
@@ -89398,19 +89412,7 @@ class Story {
    * @param {string} name - name of the passage
    */
   show (name) {
-    // Does this passage exist?
-    const passage = this.getPassageByName(name);
-
-    // The passage does not exist.
-    if (passage === null) {
-      // Throw an error
-      throw new Error(
-        'There is no passage with the name "' + name + '"'
-      );
-    }
-
-    // The passage exists.
-    this.passageElement.html(passage.render());
+    this.passageElement.html(this.render(name));
   }
 
   /**
@@ -89434,25 +89436,10 @@ class Story {
 
     // Are there any user scripts to parse?
     if (this.userScripts.length > 0) {
-      // For each, append them to the <body>
+      // For each, run them
       this.userScripts.forEach((script) => {
         try {
-          ejs.render(`<%${script}%>`, { $: $ });
-        } catch (error) {
-          throw new Error(`User script error: ${error}`);
-        }
-      });
-    }
-
-    // Look for any passages with the 'script' tag
-    const scriptPassages = this.getPassagesByTags('script');
-
-    // Are there any to append?
-    if (scriptPassages.length > 0) {
-      // For each, append them to the <body>
-      scriptPassages.forEach((script) => {
-        try {
-          ejs.render(`<%${script}%>`, { $: $ });
+          ejs.render(`<%${script}%>`, { $ });
         } catch (error) {
           throw new Error(`User script error: ${error}`);
         }
@@ -89464,9 +89451,33 @@ class Story {
 
     // Does the passage exist?
     if (passage !== null) {
-      // Replace passageElement content with passage.render()
-      this.passageElement.html(passage.render());
+      // Replace passageElement content
+      this.show(passage.name);
     }
+  }
+
+  /**
+   * Returns the HTML source of a passage.
+   *
+   * 1. Find passage by name
+   * 2. Parse passage source using Markdown.parse()
+   *
+   * @function render
+   * @param {string} name - name of the passage
+   * @returns {string} HTML source code
+   */
+  render (name) {
+    // Search for passage by name
+    const passage = this.getPassageByName(name);
+
+    // Does this passage exist?
+    if (passage === null) {
+      // It does not exist.
+      // Throw error.
+      throw new Error('There is no passage with name ' + name);
+    }
+
+    return Markdown.parse(passage.source);
   }
 }
 

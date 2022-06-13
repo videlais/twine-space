@@ -1,20 +1,23 @@
 const Passage = require('../src/Passage.js');
 
 describe('constructor()', () => {
-  it('Should contain default values when initialized with no arguments', () => {
+  it('Should contain default id when initialized with no arguments', () => {
+    const p = new Passage();
+    expect(p.id).toBe(1);
+  });
+
+  it('Should contain default name when initialized with no arguments', () => {
     const p = new Passage();
     expect(p.name).toBe('Default');
   });
-});
 
-describe('#render()', () => {
-  it('Should render empty string', () => {
-    const p = new Passage(1, 'Default', [], '');
-    expect(p.render()).toBe('');
+  it('Should contain default tags when initialized with no arguments', () => {
+    const p = new Passage();
+    expect(p.tags.length).toBe(0);
   });
 
-  it('Should return contents', () => {
-    const p = new Passage(1, 'Default', [], '<div>Hey</div>');
-    expect(p.render()).toBe('<div>Hey</div>');
+  it('Should contain default source when initialized with no arguments', () => {
+    const p = new Passage();
+    expect(p.source).toBe('');
   });
 });
