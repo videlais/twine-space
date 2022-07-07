@@ -8,6 +8,7 @@
     "build": "webpack",
     "lint": "eslint src/*.js test/*.js --fix",
     "package": "node build-format.js",
+    "init": "docsify init ./docs",
     "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli quicktest/index.html",
     "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli http://localhost:3000 && serve quicktest"
   },
