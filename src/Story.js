@@ -1,8 +1,18 @@
+/**
+ * @external Element
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
+ */
 const $ = require('jquery');
+const ejs = require('ejs');
 const Passage = require('./Passage.js');
 const Markdown = require('./Markdown.js');
-const ejs = require('ejs');
 
+/**
+ * An object representing the entire story. After the document has completed
+ * loading, an instance of this class will be available at `window.story`.
+ *
+ * @class Story
+ */
 class Story {
   constructor () {
     /**
@@ -20,13 +30,6 @@ class Story {
     this.name = this.storyDataElement.attr('name');
 
     /**
-     * @property {number} startPassage - The ID of the first passage to be displayed.
-     * @type {number}
-     * @readonly
-     */
-    this.startPassage = parseInt(this.storyDataElement.attr('startnode'));
-
-    /**
      * @property {string} creator - The program that created this story.
      * @type {string}
      * @readonly
@@ -41,15 +44,40 @@ class Story {
     this.creatorVersion = this.storyDataElement.attr('creator-version');
 
     /**
-     * @property {string} ifid - Internal IFID
-     * @type {string}
+     * An array of all passages, indexed by ID.
+     *
+     * @property {Array} passages - Passages array
+     * @type {Array}
      */
-    this.ifid = this.storyDataElement.attr('ifid');
+    this.passages = [];
+
+    // For each child element of the tw-storydata element,
+    //  create a new Passage object based on its attributes.
+    this.storyDataElement.children('tw-passagedata').each((index, element) => {
+      const elementReference = $(element);
+      let tags = elementReference.attr('tags');
+
+      // Does the 'tags' attribute exist?
+      if (tags !== '' && tags !== undefined) {
+        // Attempt to split by space
+        tags = tags.split(' ');
+      } else {
+        // It did not exist, so we create it as an empty array.
+        tags = [];
+      }
+
+      // Push the new passage.
+      this.passages.push(new Passage(
+        elementReference.attr('name'),
+        tags,
+        Markdown.unescape(elementReference.html())
+      ));
+    });
 
     /**
      * An array of user-specific scripts to run when the story is begun.
      *
-     * @property {Array} userScripts - Array of user-added JavaScript
+     * @property {Array} userScripts - Array of user-added JavaScript.
      * @type {Array}
      */
     this.userScripts = [];
@@ -63,7 +91,7 @@ class Story {
      * An array of user-specific style declarations to add when the story is
      * begun.
      *
-     * @property {Array} userStyles - Array of user-added styles
+     * @property {Array} userStyles - Array of user-added styles.
      * @type {Array}
      */
     this.userStyles = [];
@@ -74,119 +102,104 @@ class Story {
     });
 
     /**
-     * @property {Array} passages - Internal array of passages
-     * @type {Array}
-     */
-    this.passages = [];
-
-    // For each child element of the tw-storydata element,
-    //  create a new Passage object based on its attributes.
-    this.storyDataElement.children('tw-passagedata').each((index, element) => {
-      const elementReference = $(element);
-      const id = parseInt(elementReference.attr('pid'));
-      let tags = elementReference.attr('tags');
-
-      // Does the 'tags' attribute exist?
-      if (tags !== '' && tags !== undefined) {
-        // Attempt to split by space
-        tags = tags.split(' ');
-      } else {
-        // It did not exist, so we create it as an empty array.
-        tags = [];
-      }
-
-      this.passages.push(new Passage(
-        id,
-        elementReference.attr('name'),
-        tags,
-        Markdown.unescape(elementReference.html())
-      ));
-    });
-
-    /**
-     * @property {Element} storyElement - Reference to tw-story element
+     * Story element.
+     *
+     * @property {Element} storyElement - Story element.
      * @type {Element}
+     * @readonly
      */
     this.storyElement = $('tw-story');
 
-    // Catch all navigation events
+    // Catch user clicking on links.
     this.storyElement.on('click', 'tw-link[data-passage]', (e) => {
-      // Retrieve the name of the passage from the attribute of the element
-      this.show(Markdown.unescape(
-        $(e.target).closest('[data-passage]').data('passage')
-      ));
+      // Pull destination passage name from the attribute.
+      const passageName = Markdown.unescape($(e.target).closest('[data-passage]').data('passage'));
+      // Show the passage by name.
+      this.show(passageName);
     });
 
     /**
-     * @property {Element} passageElement - Element containing currently displayed passage
+     * Passage element.
+     *
+     * @property {Element} passageElement - Passage element.
      * @type {Element}
      */
-    this.passageElement = $('<tw-passage class="passage" aria-live="polite"></tw-passage>');
-
-    // Append the passage element to the tw-story
-    this.storyElement.append(this.passageElement);
+    this.passageElement = $('tw-passage');
   }
 
   /**
-   * Returns a Passage object by name.
-   * If none exists, returns null.
+   * Begins playing this story based on data from tw-storydata.
    *
-   * @function getPassageByName
-   * @param {string} name - name of the passage
-   * @returns {Passage|null} - Passage object or null
+   * @function start
    */
-  getPassageByName (name) {
-    // Set a default value
-    let passage = null;
+  start () {
+    // For each style, add them to the body as extra style elements.
+    this.userStyles.forEach((style) => {
+      $(document.body).append(`<style>${style}</style>`);
+    });
 
-    // Look through (filter) the array of passages by name
-    const result = this.passages.filter((p) => p.name === name);
+    // For each script, run them.
+    this.userScripts.forEach((script) => {
+      try {
+        ejs.render(`<%${script}%>`, { $ });
+      } catch (error) {
+        throw new Error(`User script error: ${error}`);
+      }
+    });
 
-    // Did we find one?
-    // If so, the array length will not be 0.
-    if (result.length !== 0) {
-      // Grab the first entry of the array.
-      passage = result[0];
+    // TODO: Load all passages with 'script' tag.
+
+    // Get the startnode value (which is a number).
+    const startingPassageID = parseInt(this.storyDataElement.attr('startnode'));
+
+    // Try to find the starting passage
+    const startingPassageElement = $(`[pid="${startingPassageID}"]`);
+
+    // Was it found?
+    if (startingPassageElement.length === 0) {
+      // Was not found, throw error.
+      throw new Error('Starting passage not found!');
     }
 
-    // Return either the default (null) or found passage.
-    return passage;
+    // If the 'name' attribute does not exist,
+    //  show() will be passed undefined
+    //  and throw an error.
+    this.show(startingPassageElement.attr('name'));
   }
 
   /**
-   * Returns the Passage object corresponding to id.
-   * If none exists, returns null.
+   * Replaces current passage shown to reader with rendered source of named passage.
+   * If the named passage does not exist, an error is thrown.
    *
-   * @function getPassageById
-   * @param {number} id - name of the passage
-   * @returns {Passage|null} - Passage object or null
+   * @function show
+   * @param {string} name - name of the passage.
    */
-  getPassageById (id) {
-    // Set a default value
-    let passage = null;
+  show (name) {
+    // Attempt to find passage.
+    const passage = this.getPassageByName(name);
 
-    // Look through (filter) the array of passages by name
-    const result = this.passages.filter((p) => p.id === id);
-
-    // Did we find one?
-    // If so, the array length will not be 0.
-    if (result.length !== 0) {
-      // Grab the first entry of the array.
-      passage = result[0];
+    // Does passage exist?
+    if (passage === null) {
+      // Passage was not found.
+      // Throw error.
+      throw new Error(`There is no passage with the name ${name}`);
     }
 
-    // Return either the default (null) or found passage.
-    return passage;
+    // Overwrite current tags.
+    this.passageElement.attr('tags', passage.tags);
+
+    // Overwrite the parsed with the rendered.
+    this.passageElement.html(Markdown.parse(passage.source));
   }
 
   /**
    * Returns an array of none, one, or many passages matching a specific tag.
    *
-   * @function getPassagesByTags
-   * @param {string} tag - Tag to search for
-   * @returns {Array} Array containing none, one, or many passage objects
+   * @function getPassagesByTag
+   * @param {string} tag - Tag to search for.
+   * @returns {Array} Array containing none, one, or many passage objects.
    */
-  getPassagesByTags (tag) {
+  getPassagesByTag (tag) {
     // Search internal passages
     return this.passages.filter((p) => {
       return p.tags.includes(tag);
@@ -194,78 +207,29 @@ class Story {
   }
 
   /**
-   * Render named passage object into passage element
+   * Returns a Passage object by name from internal collection. If none exists, returns null.
+   * The Twine editor prevents multiple passages from having the same name, so
+   *  this always returns the first search result.
    *
-   * @function show
-   * @param {string} name - name of the passage
+   * @function getPassageByName
+   * @param {string} name - name of the passage.
+   * @returns {Passage|null} Passage object or null.
    */
-  show (name) {
-    this.passageElement.html(this.render(name));
-  }
+  getPassageByName (name) {
+    // Create default value
+    let passage = null;
 
-  /**
-   * Start the story:
-   * 1. Append any stylesheet content
-   * 2. Append any JavaScript content
-   * 3. Append any passages with the tag 'script'
-   * 4. Find the starting passage
-   * 5. Render and replace starting passage content in starting passage element
-   *
-   * @function start
-   */
-  start () {
-    // Are there any user styles to parse?
-    if (this.userStyles.length > 0) {
-      // For each, append them to the <body>
-      this.userStyles.forEach((style) => {
-        $(document.body).append(`<style>${style}</style>`);
-      });
+    // Search for any passages with the name
+    const result = this.passages.filter((p) => p.name === name);
+
+    // Were any found?
+    if (result.length !== 0) {
+      // Grab the first result.
+      passage = result[0];
     }
 
-    // Are there any user scripts to parse?
-    if (this.userScripts.length > 0) {
-      // For each, run them
-      this.userScripts.forEach((script) => {
-        try {
-          ejs.render(`<%${script}%>`, { $ });
-        } catch (error) {
-          throw new Error(`User script error: ${error}`);
-        }
-      });
-    }
-
-    // Retrieve Passage object matching starting passage.
-    const passage = this.getPassageById(this.startPassage);
-
-    // Does the passage exist?
-    if (passage !== null) {
-      // Replace passageElement content
-      this.show(passage.name);
-    }
-  }
-
-  /**
-   * Returns the HTML source of a passage.
-   *
-   * 1. Find passage by name
-   * 2. Parse passage source using Markdown.parse()
-   *
-   * @function render
-   * @param {string} name - name of the passage
-   * @returns {string} HTML source code
-   */
-  render (name) {
-    // Search for passage by name
-    const passage = this.getPassageByName(name);
-
-    // Does this passage exist?
-    if (passage === null) {
-      // It does not exist.
-      // Throw error.
-      throw new Error('There is no passage with name ' + name);
-    }
-
-    return Markdown.parse(passage.source);
+    // Return either null or first result found.
+    return passage;
   }
 }
 
