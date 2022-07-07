@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>{{STORY_NAME}}</title>
-		<style>a,tw-link{color:blue;cursor:pointer;text-decoration:underline}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%);z-index:1000}</style>
+		<style>body{font-size:2em}a,tw-link{color:blue;cursor:pointer;text-decoration:underline}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%);z-index:1000}</style>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -76949,6 +76949,7 @@ var __webpack_exports__ = {};
 (() => {
 // Require AFrame
 __webpack_require__(569);
+
 })();
 
 /******/ })()
@@ -89403,7 +89404,17 @@ class Story {
       }
     });
 
-    // TODO: Load all passages with 'script' tag.
+    // Look for passages with 'script' tag.
+    const scriptPassages = this.getPassagesByTag('script');
+
+    // For each script, run them.
+    scriptPassages.forEach((script) => {
+      try {
+        ejs.render(`<%${script.source}%>`, { $ });
+      } catch (error) {
+        throw new Error(`User script error: ${error}`);
+      }
+    });
 
     // Get the startnode value (which is a number).
     const startingPassageID = parseInt(this.storyDataElement.attr('startnode'));

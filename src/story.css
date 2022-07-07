@@ -1,3 +1,7 @@
+body {
+    font-size: 2em;
+}
+
 tw-link, a {
     color: blue;
     cursor: pointer;

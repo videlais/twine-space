@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title>Twine Space Testing</title>
-		<style>a,tw-link{color:blue;cursor:pointer;text-decoration:underline}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%);z-index:1000}</style>
+		<style>body{font-size:2em}a,tw-link{color:blue;cursor:pointer;text-decoration:underline}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%);z-index:1000}</style>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -76949,6 +76949,7 @@ var __webpack_exports__ = {};
 (() => {
 // Require AFrame
 __webpack_require__(569);
+
 })();
 
 /******/ })()
@@ -76958,7 +76959,7 @@ __webpack_require__(569);
 		<tw-story class="centered">
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
-		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.6" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Thu Jul 07 2022 17:52:10 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
+		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.6" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Thu Jul 07 2022 18:06:19 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
 	<script role="script" id="twine-user-script" type="text/twine-javascript"></script>
 	<tw-passagedata pid="3" name="Start">This is some content. It has a [[link]].</tw-passagedata>
@@ -89417,7 +89418,17 @@ class Story {
       }
     });
 
-    // TODO: Load all passages with 'script' tag.
+    // Look for passages with 'script' tag.
+    const scriptPassages = this.getPassagesByTag('script');
+
+    // For each script, run them.
+    scriptPassages.forEach((script) => {
+      try {
+        ejs.render(`<%${script.source}%>`, { $ });
+      } catch (error) {
+        throw new Error(`User script error: ${error}`);
+      }
+    });
 
     // Get the startnode value (which is a number).
     const startingPassageID = parseInt(this.storyDataElement.attr('startnode'));
