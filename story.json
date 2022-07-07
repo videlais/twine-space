@@ -3,5 +3,6 @@
 	"version": "1.0.0",
     "source": "",
     "description": "Twine 2 story format supporting locative and mixed reality projects",
-    "proofing": false
+    "proofing": false,
+    "license": "MIT"
 }

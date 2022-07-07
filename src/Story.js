@@ -147,7 +147,17 @@ class Story {
       }
     });
 
-    // TODO: Load all passages with 'script' tag.
+    // Look for passages with 'script' tag.
+    const scriptPassages = this.getPassagesByTag('script');
+
+    // For each script, run them.
+    scriptPassages.forEach((script) => {
+      try {
+        ejs.render(`<%${script.source}%>`, { $ });
+      } catch (error) {
+        throw new Error(`User script error: ${error}`);
+      }
+    });
 
     // Get the startnode value (which is a number).
     const startingPassageID = parseInt(this.storyDataElement.attr('startnode'));

@@ -118,6 +118,35 @@ describe('Story', () => {
       // Start story
       expect(() => window.story.start()).toThrow();
     });
+
+    it('Should run content in passages with "script" tag', () => {
+      $(document.body).html(`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
+      <tw-passagedata pid="2" name="Test Passage 2" tags="script">window.example = true;</tw-passagedata>
+      <script type="text/twine-javascript"></script>
+      <style type="text/twine-css"></style>
+      </tw-storydata>
+      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+      // Create a new Story.
+      window.story = new Story();
+      // Start story
+      window.story.start();
+      expect(window.example).toBe(true);
+    });
+
+    it('Should throw error if issue with passages with "script" tag', () => {
+      $(document.body).html(`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
+      <tw-passagedata pid="2" name="Test Passage 2" tags="script">window.example =</tw-passagedata>
+      <script type="text/twine-javascript"></script>
+      <style type="text/twine-css"></style>
+      </tw-storydata>
+      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+      // Create a new Story.
+      window.story = new Story();
+      // Start story
+      expect(() => window.story.start()).toThrow();
+    });
   });
 });
 
