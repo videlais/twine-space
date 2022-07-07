@@ -4,7 +4,7 @@
   "description": "Twine 2 story format supporting locative and mixed reality projects",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && jest test/Story.test.js --coverage",
+    "test": "npm run lint && jest --coverage",
     "build": "webpack",
     "lint": "eslint src/*.js test/*.js --fix",
     "package": "node build-format.js",

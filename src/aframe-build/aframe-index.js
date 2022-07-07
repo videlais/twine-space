@@ -1,2 +1,0 @@
-// Require AFrame
-require('aframe');

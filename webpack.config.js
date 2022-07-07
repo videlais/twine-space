@@ -5,9 +5,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 module.exports = {
   mode: 'production',
   entry: {
-    core: './src/core-build/core-index.js',
-    aframe: './src/aframe-build/aframe-index.js',
-    arjs: './src/arjs-build/arjs-index.js'
+    core: './src/index.js',
+    aframe: './src/aframe-index.js'
   },
   output: {
     path: path.resolve(__dirname, './build'),
