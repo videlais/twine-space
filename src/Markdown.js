@@ -1,8 +1,8 @@
 // Require AFrameProxy
-const AFrameProxy = require('./aframe-build/AFrameProxy.js');
+const AFrameProxy = require('./AFrameProxy.js');
 
 /**
- * Rules for unescaping and parsing author content from passages
+ * Rules for un-escaping and parsing author content from passages
  *  into visual effects and content for readers.
  *
  * @class Markdown
@@ -13,12 +13,12 @@ class Markdown {
    *  visual effects and content for readers.
    *
    * @function parse
-   * @param {string} text - Text to parse
-   * @returns {string} Parsed text
+   * @param {string} text - Text to parse.
+   * @returns {string} Parsed text.
    * @static
    */
   static parse (text) {
-    // Remove any a-scene elements, if they exist
+    // Remove any a-scene elements, if they exist.
     AFrameProxy.removeScene();
 
     const rules = [
@@ -30,10 +30,20 @@ class Markdown {
       [/\[\[(.*?)<-(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$2</tw-link>'],
       // [[destination]]
       [/\[\[(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$1</tw-link>'],
-      // (entity:attributes)
-      [/\((.*?):(.*?)\)/g, (match, entity, attributes) => {
-        AFrameProxy.createScene();
-        AFrameProxy.add(entity, attributes);
+      // Look for (entity:attributes)[children]
+      [/\((.*?):([^>]*?)\)\[([^>]*?)\]/gmi, (match, entity, attributes, children) => {
+        const rootParent = AFrameProxy.createScene();
+        const parentElement = AFrameProxy.add(rootParent, entity, attributes);
+        children.replace(/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
+          AFrameProxy.add(parentElement, entity, attributes);
+          return '';
+        });
+        return '';
+      }],
+      // Look for (entity:attributes)
+      [/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
+        const rootParent = AFrameProxy.createScene();
+        AFrameProxy.add(rootParent, entity, attributes);
         return '';
       }],
       // Break Rule
@@ -41,7 +51,7 @@ class Markdown {
     ];
 
     rules.forEach(([rule, template]) => {
-      text = text.replaceAll(rule, template);
+      text = text.replace(rule, template);
     });
 
     return text;
