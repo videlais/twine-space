@@ -13,19 +13,20 @@ const srcIndex = fs.readFileSync("src/index.ejs", {'encoding': 'utf8'});
 
 // Load bundled story format.
 const formatSource = fs.readFileSync("build/core.bundle.js", {'encoding': 'utf8'});
-// Load bundled AFrame.
-const aframeSource = fs.readFileSync("build/aframe.bundle.js", {'encoding': 'utf8'});
+
+// Load bundled AR.js.
+const arjsSource = fs.readFileSync("build/arjs.bundle.js", {'encoding': 'utf8'});
 // Load CSS.
 const storyCSS = fs.readFileSync("build/core.css", {'encoding': 'utf8'});
 
-// Replace the story format, bundled AFrame, and CSS code in the template index.html
+// Replace the story format, bundled AFrame + ARJS, and CSS code in the template index.html.
 const indexSource = ejs.render(srcIndex, {
     format: `<script>${formatSource}</script>`,
-    aframe: `<script>${aframeSource}</script>`,
+    arjs: `<script>${arjsSource}</script>`,
     story_css: `<style>${storyCSS}</style>`
 });
 
-// Write the completed index.html file based on the template replacements (for testing purposes)
+// Write the completed index.html file based on the template replacements (for testing purposes).
 fs.writeFileSync("build/index.html", indexSource);
 
 // Set source value of story object.

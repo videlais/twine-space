@@ -6,7 +6,8 @@ module.exports = {
   mode: 'production',
   entry: {
     core: './src/index.js',
-    aframe: './src/aframe-index.js'
+    aframe: './src/aframe-index.js',
+    arjs: './src/arjs-index.js'
   },
   output: {
     path: path.resolve(__dirname, './build'),

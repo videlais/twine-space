@@ -12,16 +12,12 @@ Twine Space Testing
 This is some content. It has a [[link]].
 
 :: link
-This has a parent with multiple children.
-(entity:)[
-	(text: value="Hi!" position="-1 0.5 -4" color="#4CC3D9")
-	(text: value="Hello there!" position="-1 0.5 3" color="#4CC3D9")
-	(text: value="More?" position="-1 0.5 -3" color="#4CC3D9")
+(marker: preset="hiro")[
+    (entity:
+          position="0 0 0"
+          scale="0.05 0.05 0.05"
+          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
+    )
 ]
 [[Another]]
-
-:: Another
-(sky: color="#001337")
-(plane: width="100" height="100" position=" 0.00 0.00 0.00" rotation="-90 0 0" color="#666666" shadow="cast: false; receive: true")
-(torus-knot: p="2" q="3" radius="0.5" radius-tubular="0.1" position = "-2.5 1.5 -4" color="#CC3333" shadow = "cast: true; receive: true")
 
