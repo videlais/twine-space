@@ -12,8 +12,12 @@ Twine Space Testing
 This is some content. It has a [[link]].
 
 :: link
-This is more content.
-(text: position="-1 0.5 -3" color="#4CC3D9" updater)
+This has a parent with multiple children.
+(entity:)[
+	(text: value="Hi!" position="-1 0.5 -4" color="#4CC3D9")
+	(text: value="Hello there!" position="-1 0.5 3" color="#4CC3D9")
+	(text: value="More?" position="-1 0.5 -3" color="#4CC3D9")
+]
 [[Another]]
 
 :: Another
@@ -21,17 +25,3 @@ This is more content.
 (plane: width="100" height="100" position=" 0.00 0.00 0.00" rotation="-90 0 0" color="#666666" shadow="cast: false; receive: true")
 (torus-knot: p="2" q="3" radius="0.5" radius-tubular="0.1" position = "-2.5 1.5 -4" color="#CC3333" shadow = "cast: true; receive: true")
 
-:: AFrameScript [script]
-AFRAME.registerComponent('updater', {
-	
-	init: function()
-	{
-		this.num = 0;
-	},
-	
-	tick: function (time, timeDelta) 
-	{
-		this.num += 1;
-		this.el.setAttribute("value", "Tick counter: " + this.num)
-	}
-});

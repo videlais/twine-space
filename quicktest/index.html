@@ -76958,24 +76958,16 @@ __webpack_require__(569);
 		<tw-story class="centered">
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
-		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.6" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Thu Jul 07 2022 17:42:55 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
+		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.6" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space - Build Thu Jul 07 2022 17:52:10 GMT-0400 (Eastern Daylight Time)" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
-	<script role="script" id="twine-user-script" type="text/twine-javascript">AFRAME.registerComponent('updater', {
-	
-	init: function()
-	{
-		this.num = 0;
-	},
-	
-	tick: function (time, timeDelta) 
-	{
-		this.num += 1;
-		this.el.setAttribute("value", "Tick counter: " + this.num)
-	}
-});</script>
+	<script role="script" id="twine-user-script" type="text/twine-javascript"></script>
 	<tw-passagedata pid="3" name="Start">This is some content. It has a [[link]].</tw-passagedata>
-	<tw-passagedata pid="4" name="link">This is more content.
-(text: position=&quot;-1 0.5 -3&quot; color=&quot;#4CC3D9&quot; updater)
+	<tw-passagedata pid="4" name="link">This has a parent with multiple children.
+(entity:)[
+	(text: value=&quot;Hi!&quot; position=&quot;-1 0.5 -4&quot; color=&quot;#4CC3D9&quot;)
+	(text: value=&quot;Hello there!&quot; position=&quot;-1 0.5 3&quot; color=&quot;#4CC3D9&quot;)
+	(text: value=&quot;More?&quot; position=&quot;-1 0.5 -3&quot; color=&quot;#4CC3D9&quot;)
+]
 [[Another]]</tw-passagedata>
 	<tw-passagedata pid="5" name="Another">(sky: color=&quot;#001337&quot;)
 (plane: width=&quot;100&quot; height=&quot;100&quot; position=&quot; 0.00 0.00 0.00&quot; rotation=&quot;-90 0 0&quot; color=&quot;#666666&quot; shadow=&quot;cast: false; receive: true&quot;)
