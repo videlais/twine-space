@@ -1,0 +1,12 @@
+:: :: StoryData
+{
+    "ifid": "43CC0D26-1EAA-4171-8F47-DB7F25D65958",
+    "format": "Twine Space",
+    "format-version": "1.0.0"
+}
+
+:: StoryTitle
+Puppeteer Tests - Canvas Generation
+
+:: Start
+(entity:)

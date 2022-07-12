@@ -16,26 +16,39 @@ const formatSource = fs.readFileSync("build/core.bundle.js", {'encoding': 'utf8'
 
 // Load bundled AR.js.
 const arjsSource = fs.readFileSync("build/arjs.bundle.js", {'encoding': 'utf8'});
+// Load bundled AFrame.
+const aframeSource = fs.readFileSync("build/aframe.bundle.js", {'encoding': 'utf8'});
 // Load CSS.
 const storyCSS = fs.readFileSync("build/core.css", {'encoding': 'utf8'});
 
-// Replace the story format, bundled AFrame + ARJS, and CSS code in the template index.html.
-const indexSource = ejs.render(srcIndex, {
+// Replace the story format, bundled AFrame, and CSS code in the template index.html.
+const indexAFrameSource = ejs.render(srcIndex, {
+    format: `<script>${formatSource}</script>`,
+    arjs: `<script>${aframeSource}</script>`,
+    story_css: `<style>${storyCSS}</style>`
+});
+
+// Replace the story format, bundled AR.js (which includes AFrame), and CSS code in the template index.html.
+const indexARJSSource = ejs.render(srcIndex, {
     format: `<script>${formatSource}</script>`,
     arjs: `<script>${arjsSource}</script>`,
     story_css: `<style>${storyCSS}</style>`
 });
 
-// Write the completed index.html file based on the template replacements (for testing purposes).
-fs.writeFileSync("build/index.html", indexSource);
-
 // Set source value of story object.
-story.source = indexSource;
+story.source = indexAFrameSource;
 
-story.name += ` - Build ${new Date()}`;
-
-// Build a "format.js" file contents
+// Build a "aframe-format.js" file contents
 // Convert the 'story' back into a string
 let storyformat = "window.storyFormat(" + JSON.stringify(story) + ");";
+// Write "aframe-format.js" file to docs/dist for remote loading.
+fs.writeFileSync("docs/dist/aframe-format.js", storyformat);
+
+// Set source value of story object.
+story.source = indexARJSSource;
+
+// Build a "arjs-format.js" file contents
+// Convert the 'story' back into a string
+storyformat = "window.storyFormat(" + JSON.stringify(story) + ");";
 // Write "format.js" file to docs/dist for remote loading.
-fs.writeFileSync("docs/dist/format.js", storyformat);
+fs.writeFileSync("docs/dist/arjs-format.js", storyformat);

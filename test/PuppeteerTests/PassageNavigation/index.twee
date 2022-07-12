@@ -1,0 +1,15 @@
+:: :: StoryData
+{
+    "ifid": "DD5934AF-129E-45F9-AB1D-6E0B806579E5",
+    "format": "Twine Space",
+    "format-version": "1.0.0"
+}
+
+:: StoryTitle
+Puppeteer Tests - Passage Navigation
+
+:: Start
+[[Another]]
+
+:: Another
+Some text.
