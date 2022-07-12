@@ -1,0 +1,5 @@
+:: StoryTitle
+Puppeteer Test - Entity Creation
+
+:: Start
+(text: value="Hi")

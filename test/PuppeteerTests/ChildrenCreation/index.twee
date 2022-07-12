@@ -1,0 +1,7 @@
+:: StoryTitle
+Puppeteer Test - Children Creation
+
+:: Start
+(entity:)[
+    (text: value="Hi")
+]
