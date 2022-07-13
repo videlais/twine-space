@@ -1,10 +1,15 @@
 # Twine Space
 
-Twine 2 story format supporting locative and mixed reality projects
+**Twine Space** is a Twine 2 story format supporting 3D models and mixed reality projects.
 
-## Project Description
+It comes in two variants:
 
-*Twine Space* is a story format for Twine 2. It includes [jQuery](https://jquery.com/) and [AR.js](https://github.com/AR-js-org/AR.js).
+* [Based on AFrame](https://aframe.io/)
+* [Based on AR.js (which also includes AFrame internally)](https://github.com/AR-js-org/AR.js)
+
+## Documentation
+
+**Twine Space** has [online documentation](https://videlais.github.io/twine-space/#/).
 
 ## Loading Twine Space
 
@@ -12,5 +17,7 @@ Twine 2 story format supporting locative and mixed reality projects
 2. Go to "Twine"
 3. Click on "Story Formats"
 4. Click on "+Add"
-5. In the prompt, enter the following URL: `https://videlais.github.io/twine-space/dist/format.js`
+5. In the prompt, enter the the variant wanted
+   1. Aframe: `https://videlais.github.io/twine-space/dist/aframe-format.js`
+   2. AR.js: `https://videlais.github.io/twine-space/dist/arjs-format.js`
 6. Click on "+Add" to confirm.

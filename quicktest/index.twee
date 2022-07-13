@@ -9,15 +9,21 @@
 Twine Space Testing
 
 :: Start
-This is some content. It has a [[link]].
+(entity: id="opacity" position="-2.5 0.7 0"
+    animation="property: components.text.material.uniforms.opacity.value; to: 0; dir: alternate; loop: true"
+    text="color: black; align: center; value: Animating opacity; width: 1.5")
+(entity: mixin="marker" position="0 0.7 0.01")
+(entity: id="color" position="0 0.7 0"
+    animation="property: components.text.material.uniforms.color.value; type: color; to: red; dir: alternate; loop: true"
+    text="color: black; align: center; value: Animating color; width: 1.5")
 
-:: link
-(marker: preset="hiro")[
-    (entity:
-          position="0 0 0"
-          scale="0.05 0.05 0.05"
-          gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-    )
-]
-[[Another]]
-
+:: UserScript[script]
+AFRAME.registerComponent('counter', {
+    init: function () {
+        this.counter = 0;
+    },
+    tick: function () {
+        this.counter++;
+        this.el.setAttribute('value', `Counter: ${this.counter}`)
+    }
+});

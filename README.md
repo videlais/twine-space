@@ -1,29 +1,23 @@
 # Twine Space
 
-Twine 2 story format supporting locative and mixed reality projects
+**Twine Space** is a Twine 2 story format supporting 3D models and mixed reality projects.
 
-## Project Description
+It comes in two variants:
 
-*Twine Space* is a story format for Twine 2. It includes [jQuery](https://jquery.com/) and [AR.js](https://github.com/AR-js-org/AR.js).
+* [Based on AFrame](https://aframe.io/)
+* [Based on AR.js (which also includes AFrame internally)](https://github.com/AR-js-org/AR.js)
 
-## Building and Testing Instructions
+## Documentation
 
-### Requirements
+**Twine Space** has [online documentation](https://videlais.github.io/twine-space/#/).
 
-* [Node.js](https://nodejs.org/en/) installed
-* [Twine 2](https://twinery.org/) installed
+## Loading Twine Space
 
-### Instructions
-
-1. Clone or download the repo from GitHub.
-2. Open the directory containing the files in Visual Studio Code.
-3. Go to Terminal -> New Terminal to open the command-line interface in Visual Studio Code.
-4. Run `npm install` in the command-line interface.
-5. Run `npm package` in the command-line interface to create the `format.js` file needed to load the story format locally.
-6. Copy the link provided by the previous step.
-7. Open a locally installed version of Twine.
-8. From the Story Listing, go to *Formats* and then *Add New Format* in Twine.
-9. Copy the link provided and click on *+Add* in Twine.
-10. Close the *Formats* window in Twine.
-11. Create or edit a story in Twine.
-12. From the Story Menu, go to *Change Story Format* and then select *Twine Space* to use the story format.
+1. Open Twine 2.
+2. Go to "Twine"
+3. Click on "Story Formats"
+4. Click on "+Add"
+5. In the prompt, enter the the variant wanted
+   1. Aframe: `https://videlais.github.io/twine-space/dist/aframe-format.js`
+   2. AR.js: `https://videlais.github.io/twine-space/dist/arjs-format.js`
+6. Click on "+Add" to confirm.

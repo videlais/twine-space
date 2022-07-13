@@ -8,8 +8,8 @@
     "build": "webpack && node build-format.js",
     "lint": "eslint src/*.js test/*.js --fix",
     "all": "npm run lint && npm run build && npm run test",
-    "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli quicktest/index.html",
-    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli http://localhost:3000 && serve quicktest"
+    "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli quicktest/index.html",
+    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli http://localhost:3000 && serve quicktest"
   },
   "repository": {
     "type": "git",
@@ -52,7 +52,7 @@
     "open": "^8.4.0",
     "open-cli": "^7.0.1",
     "puppeteer": "^15.3.2",
-    "serve": "^13.0.4",
+    "serve": "^14.0.0",
     "shelljs": "^0.8.5",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
