@@ -12165,6 +12165,7 @@ module.exports = AFrameProxy;
 
 // Require AFrameProxy
 const AFrameProxy = __webpack_require__(281);
+const $ = __webpack_require__(755);
 
 /**
  * Rules for un-escaping and parsing author content from passages
@@ -12207,9 +12208,23 @@ class Markdown {
       }],
       // Look for (entity:attributes)
       [/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
-        const rootParent = AFrameProxy.createScene();
-        AFrameProxy.add(rootParent, entity, attributes);
-        return '';
+        // Test for embed-scene.
+        if(entity.toLowerCase() === 'embed-scene') {
+          // Trim whitespace.
+          const trimmedName = attributes.trim();
+          // Slice off quotation marks.
+          const quoteName = trimmedName.slice(1, trimmedName.length - 1);
+          // Attempt to get source.
+          const passageSource = window.story.include(quoteName);
+          // Append to body.
+          $(document.body).append(passageSource);
+          // Return empty string.
+          return '';
+        } else {
+          const rootParent = AFrameProxy.createScene();
+          AFrameProxy.add(rootParent, entity, attributes);
+          return '';
+        }
       }],
       // Break Rule
       [/[\r\n\n]/g, '<br>']
@@ -12420,6 +12435,23 @@ class Story {
      * @type {Element}
      */
     this.passageElement = $('tw-passage');
+  }
+
+  /**
+   * Returns the source of a passage by name.
+   * 
+   * @function include
+   * @param {String} name Name of the passage.
+   * @returns {String} Passage source.
+   */
+  include(name) {
+    const passage = this.getPassageByName(name);
+
+    if(passage === null) {
+      throw new Error("Passage does not exist!");
+    }
+
+    return passage.source;
   }
 
   /**

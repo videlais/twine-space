@@ -1,5 +1,6 @@
 // Require AFrameProxy
 const AFrameProxy = require('./AFrameProxy.js');
+const $ = require('jquery');
 
 /**
  * Rules for un-escaping and parsing author content from passages
@@ -42,9 +43,23 @@ class Markdown {
       }],
       // Look for (entity:attributes)
       [/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
-        const rootParent = AFrameProxy.createScene();
-        AFrameProxy.add(rootParent, entity, attributes);
-        return '';
+        // Test for embed-scene.
+        if(entity.toLowerCase() === 'embed-scene') {
+          // Trim whitespace.
+          const trimmedName = attributes.trim();
+          // Slice off quotation marks.
+          const quoteName = trimmedName.slice(1, trimmedName.length - 1);
+          // Attempt to get source.
+          const passageSource = window.story.include(quoteName);
+          // Append to body.
+          $(document.body).append(passageSource);
+          // Return empty string.
+          return '';
+        } else {
+          const rootParent = AFrameProxy.createScene();
+          AFrameProxy.add(rootParent, entity, attributes);
+          return '';
+        }
       }],
       // Break Rule
       [/[\r\n\n]/g, '<br>']

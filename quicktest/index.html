@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Twine Space Testing</title>
+		<title>Scene Embedding</title>
 		<style>body{font-size:2em}a,tw-link{color:blue;cursor:pointer;text-decoration:underline}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%);z-index:1000}</style>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
@@ -76959,24 +76959,15 @@ __webpack_require__(569);
 		<tw-story class="centered">
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
-		<tw-storydata name="Twine Space Testing" startnode="3" creator="extwee" creator-version="2.0.6" ifid="B72FBEAD-6B06-455C-860C-CC96AD49AF82" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
+		<tw-storydata name="Scene Embedding" startnode="2" creator="extwee" creator-version="2.0.6" ifid="7D6149DD-068B-428F-A76C-B8522FFFD887" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
-	<script role="script" id="twine-user-script" type="text/twine-javascript">AFRAME.registerComponent('counter', {
-    init: function () {
-        this.counter = 0;
-    },
-    tick: function () {
-        this.counter++;
-        this.el.setAttribute('value', `Counter: ${this.counter}`)
-    }
-});</script>
-	<tw-passagedata pid="3" name="Start">(entity: id=&quot;opacity&quot; position=&quot;-2.5 0.7 0&quot;
-    animation=&quot;property: components.text.material.uniforms.opacity.value; to: 0; dir: alternate; loop: true&quot;
-    text=&quot;color: black; align: center; value: Animating opacity; width: 1.5&quot;)
-(entity: mixin=&quot;marker&quot; position=&quot;0 0.7 0.01&quot;)
-(entity: id=&quot;color&quot; position=&quot;0 0.7 0&quot;
-    animation=&quot;property: components.text.material.uniforms.color.value; type: color; to: red; dir: alternate; loop: true&quot;
-    text=&quot;color: black; align: center; value: Animating color; width: 1.5&quot;)</tw-passagedata>
+	<script role="script" id="twine-user-script" type="text/twine-javascript"></script>
+	<tw-passagedata pid="2" name="Start">(embed-scene: &quot;Another&quot;)</tw-passagedata>
+	<tw-passagedata pid="3" name="Another">&lt;a-scene&gt;
+    &lt;a-entity position=&quot;-6 -1 0&quot;&gt;
+        &lt;a-box position=&quot;0 0.2 0&quot; color=&quot;#4CC3D9&quot;&gt;&lt;/a-box&gt;
+    &lt;/a-entity&gt;
+&lt;/a-scene&gt;</tw-passagedata>
 </tw-storydata>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
@@ -89187,9 +89178,23 @@ class Markdown {
       }],
       // Look for (entity:attributes)
       [/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
-        const rootParent = AFrameProxy.createScene();
-        AFrameProxy.add(rootParent, entity, attributes);
-        return '';
+        // Test for embed-scene.
+        if(entity.toLowerCase() === 'embed-scene') {
+          // Trim whitespace.
+          const trimmedName = attributes.trim();
+          // Slice off quotation marks.
+          const quoteName = trimmedName.slice(1, trimmedName.length - 1);
+          // Attempt to get source.
+          const passageSource = window.story.include(quoteName);
+          // Append to body.
+          $(document.body).append(passageSource);
+          // Return empty string.
+          return '';
+        } else {
+          const rootParent = AFrameProxy.createScene();
+          AFrameProxy.add(rootParent, entity, attributes);
+          return '';
+        }
       }],
       // Break Rule
       [/[\r\n\n]/g, '<br>']
@@ -89400,6 +89405,23 @@ class Story {
      * @type {Element}
      */
     this.passageElement = $('tw-passage');
+  }
+
+  /**
+   * Returns the source of a passage by name.
+   * 
+   * @function include
+   * @param {String} name Name of the passage.
+   * @returns {String} Passage source.
+   */
+  include(name) {
+    const passage = this.getPassageByName(name);
+
+    if(passage === null) {
+      throw new Error("Passage does not exist!");
+    }
+
+    return passage.source;
   }
 
   /**

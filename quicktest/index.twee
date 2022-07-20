@@ -1,29 +1,12 @@
-:: StoryData
-{
-    "ifid": "B72FBEAD-6B06-455C-860C-CC96AD49AF82",
-    "format": "Twine Space",
-    "format-version": "1.0.0"
-}
-
 :: StoryTitle
-Twine Space Testing
+Scene Embedding
 
 :: Start
-(entity: id="opacity" position="-2.5 0.7 0"
-    animation="property: components.text.material.uniforms.opacity.value; to: 0; dir: alternate; loop: true"
-    text="color: black; align: center; value: Animating opacity; width: 1.5")
-(entity: mixin="marker" position="0 0.7 0.01")
-(entity: id="color" position="0 0.7 0"
-    animation="property: components.text.material.uniforms.color.value; type: color; to: red; dir: alternate; loop: true"
-    text="color: black; align: center; value: Animating color; width: 1.5")
+(embed-scene: "Another")
 
-:: UserScript[script]
-AFRAME.registerComponent('counter', {
-    init: function () {
-        this.counter = 0;
-    },
-    tick: function () {
-        this.counter++;
-        this.el.setAttribute('value', `Counter: ${this.counter}`)
-    }
-});
+:: Another
+<a-scene>
+    <a-entity position="-6 -1 0">
+        <a-box position="0 0.2 0" color="#4CC3D9"></a-box>
+    </a-entity>
+</a-scene>

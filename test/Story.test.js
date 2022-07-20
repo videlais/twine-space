@@ -148,6 +148,20 @@ describe('Story', () => {
       expect(() => window.story.start()).toThrow();
     });
   });
+
+  describe('include()', () => {
+    it('Should return passage source by name', () => {
+      expect(window.story.include('Test Passage 2')).toBe('Hello world 2');
+    });
+
+    it('Should throw error', () => {
+      expect(() => window.story.include('Nope')).toThrow();
+    });
+
+    it('Should throw error', () => {
+      expect(() => window.story.include('Nope')).toThrow();
+    });
+  });
 });
 
 describe('Story Events', () => {

@@ -1,4 +1,5 @@
 const Markdown = require('../src/Markdown.js');
+const Story = require('../src/Story.js');
 const $ = require('jquery');
 
 describe('Markdown class', () => {
@@ -17,6 +18,20 @@ describe('Markdown class', () => {
 
     it('Should produce left arrow link', () => {
       expect(Markdown.parse('[[dest<-rename]]')).toBe('<tw-link role="link" data-passage="dest">rename</tw-link>');
+    });
+
+    it('Should embed scene', () => {
+      $(document.body).html(`<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
+        <tw-passagedata pid="1" name="Test Passage" tags="">Hello world</tw-passagedata>
+        <tw-passagedata pid="2" name="Test Passage 2" tags=""><p>Test!</p></tw-passagedata>
+        <script type="text/twine-javascript"></script>
+        <style type="text/twine-css"></style>
+        </tw-storydata>
+        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+        // Create a new Story.
+        window.story = new Story();
+        Markdown.parse('(embed-scene: "Test Passage 2")');
+        expect($('body > p').text()).toBe("Test!");
     });
   });
 
