@@ -1,6 +1,6 @@
-# Twine Space
+# TwineSpace
 
-**Twine Space** is a Twine 2 story format supporting 3D models and mixed reality projects.
+**TwineSpace** is a Twine 2 story format supporting 3D models and mixed reality projects.
 
 It comes in two variants:
 
@@ -9,7 +9,7 @@ It comes in two variants:
 
 ## Documentation
 
-**Twine Space** has [online documentation](https://videlais.github.io/twine-space/#/).
+**TwineSpace** has [online documentation](https://videlais.github.io/twine-space/#/).
 
 ## Loading Twine Space
 
