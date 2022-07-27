@@ -21,3 +21,7 @@ It comes in two variants:
    1. Aframe: `https://videlais.github.io/twine-space/dist/aframe-format.js`
    2. AR.js: `https://videlais.github.io/twine-space/dist/arjs-format.js`
 6. Click on "+Add" to confirm.
+
+## Citation
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6915351.svg)](https://doi.org/10.5281/zenodo.6915351)
