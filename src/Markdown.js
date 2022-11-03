@@ -44,7 +44,7 @@ class Markdown {
       // Look for (entity:attributes)
       [/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
         // Test for embed-scene.
-        if(entity.toLowerCase() === 'embed-scene') {
+        if (entity.toLowerCase() === 'embed-scene') {
           // Trim whitespace.
           const trimmedName = attributes.trim();
           // Slice off quotation marks.

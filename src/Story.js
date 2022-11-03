@@ -129,16 +129,16 @@ class Story {
 
   /**
    * Returns the source of a passage by name.
-   * 
+   *
    * @function include
-   * @param {String} name Name of the passage.
-   * @returns {String} Passage source.
+   * @param {string} name Name of the passage.
+   * @returns {string} Passage source.
    */
-  include(name) {
+  include (name) {
     const passage = this.getPassageByName(name);
 
-    if(passage === null) {
-      throw new Error("Passage does not exist!");
+    if (passage === null) {
+      throw new Error('Passage does not exist!');
     }
 
     return passage.source;

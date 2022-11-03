@@ -28,10 +28,10 @@ describe('Markdown class', () => {
         <style type="text/twine-css"></style>
         </tw-storydata>
         <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
-        // Create a new Story.
-        window.story = new Story();
-        Markdown.parse('(embed-scene: "Test Passage 2")');
-        expect($('body > p').text()).toBe("Test!");
+      // Create a new Story.
+      window.story = new Story();
+      Markdown.parse('(embed-scene: "Test Passage 2")');
+      expect($('body > p').text()).toBe('Test!');
     });
   });
 

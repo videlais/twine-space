@@ -18,6 +18,7 @@ describe('Puppeteer Tests - Passage Navigation', () => {
    
     it('Should display "Some text."', async () => {
         await page.click('[data-passage="Another"');
-        await expect(page).toMatch('Some text.');
+        const text = await page.evaluate(() => document.body.textContent);
+        expect(text).toContain('Some text.');
     });
 });

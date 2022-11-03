@@ -32,7 +32,7 @@ The creation of the `<a-scene>` element is never needed in **Twine Space**, as a
 
 ## Using `(embed-scene: name)`
 
-In the cases where an author may want to embed an existing AFrame scene using only their HTML elements, the macro `(embed-scene: name)` allows them to specify an existing passage by `name`. 
+In the cases where an author may want to embed an existing AFrame scene using only their HTML elements, the macro `(embed-scene: name)` allows them to specify an existing passage by `name`.
 
 When the passage is run, these elements will be appended to the current document.
 
