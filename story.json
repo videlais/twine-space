@@ -4,5 +4,6 @@
     "source": "",
     "description": "Twine 2 story format supporting locative and mixed reality projects",
     "proofing": false,
-    "license": "MIT"
+    "license": "MIT",
+    "hydrate": "this.hydratedProperty = () => console.log('Hello Twine');"
 }
