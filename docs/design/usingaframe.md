@@ -1,6 +1,12 @@
-# Macros
+# Using AFrame
 
-**Twine Space** borrows from another Twine 2 story format, Harlowe. Macros uses parentheses around the name of the functionality.
+**Twine Space** draws heavily from the web framework AFrame for creating 3D, AR, and VR experiences.
+
+## Macros, Not Elements
+
+In AFrame, scenes are given structure through HTML elements and their attributes. This is changed slightly for **Twine Space**. Borrowing from another Twine 2 story format, **Harlowe**, macros are used to create a single scene per passage.
+
+Scenes are automatically created by any use of macros. it is then removed when a reader navigates to the next passage, which may or may not itself have macros and create a new scene.
 
 ## AFrame Mapping
 
@@ -51,3 +57,4 @@ When the passage is run, these elements will be appended to the current document
 When the above code is processed, **Twine Space** will embed the AFrame scene directly and not create a new scene.
 
 **Note:** The use of `(embed-scene: name)` should always be used before any other macros. These will then use the embedded `<a-scene>` rather than create a new one.
+
