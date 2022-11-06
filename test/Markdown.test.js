@@ -33,6 +33,10 @@ describe('Markdown class', () => {
       Markdown.parse('(embed-scene: "Test Passage 2")');
       expect($('body > p').text()).toBe('Test!');
     });
+
+    it('Should produce strong', () => {
+      expect(Markdown.parse('**example**')).toBe('<strong>example</strong>');
+    });
   });
 
   describe('unescape()', () => {
