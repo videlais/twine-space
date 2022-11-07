@@ -13,7 +13,7 @@ a-scene {
     top: 0;
     left: 0;
     transition: opacity ease 2s;
-    z-index: -1;
+    z-index: 999;
 }
 
 tw-story {
