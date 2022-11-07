@@ -2,11 +2,4 @@
 Scene Embedding
 
 :: Start
-(embed-scene: "Another")
-
-:: Another
-<a-scene>
-    <a-entity position="-6 -1 0">
-        <a-box position="0 0.2 0" color="#4CC3D9"></a-box>
-    </a-entity>
-</a-scene>
+**should be bold**. Should have *emphasis*.

@@ -1,6 +1,11 @@
 // Require AFrameProxy
 const AFrameProxy = require('./AFrameProxy.js');
 const $ = require('jquery');
+const markdown = require('markdown-it')({
+  html: true,
+  linkify: true,
+  typographer: true
+}); ;
 
 /**
  * Rules for un-escaping and parsing author content from passages
@@ -69,7 +74,8 @@ class Markdown {
       text = text.replace(rule, template);
     });
 
-    return text;
+    // Return Markdown rendered text.
+    return markdown.renderInline(text);
   }
 
   /**
