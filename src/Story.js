@@ -215,6 +215,13 @@ class Story {
     // Overwrite current tags.
     this.passageElement.attr('tags', passage.tags);
 
+    // Use Snowman approach to pre-processing.
+    try {
+      passage.source = ejs.render(passage.source, { $ }, { outputFunctionName: 'echo' });
+    } catch (error) {
+      throw new Error(`User script error: ${error}`);
+    }
+
     // Overwrite the parsed with the rendered.
     this.passageElement.html(Markdown.parse(passage.source));
   }

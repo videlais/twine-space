@@ -21032,9 +21032,9 @@ class Markdown {
     });
 
     // Silly, but if there is a marker, we need a camera.
-    if($("a-marker").length > 0) {
+    if ($('a-marker').length > 0) {
       // Add a camera.
-      $("a-scene").add("<a-entity camera>");
+      $('a-scene').add('<a-entity camera>');
     }
 
     // Return Markdown rendered text.
@@ -21328,6 +21328,13 @@ class Story {
 
     // Overwrite current tags.
     this.passageElement.attr('tags', passage.tags);
+
+    // Use Snowman approach to pre-processing.
+    try {
+      passage.source = ejs.render(passage.source, { $ }, { outputFunctionName: 'echo' });
+    } catch (error) {
+      throw new Error(`User script error: ${error}`);
+    }
 
     // Overwrite the parsed with the rendered.
     this.passageElement.html(Markdown.parse(passage.source));

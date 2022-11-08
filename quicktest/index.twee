@@ -1,5 +1,13 @@
 :: StoryTitle
-Scene Embedding
+Scriptlet Support
+
+:: UserScirpt[script]
+window.s = {};
+window.s.key = true;
 
 :: Start
-(box: position="0 1.6 -1" color="red")
+<%
+    if(window.s.key == true) {
+        echo("Has key!");
+    }
+%>

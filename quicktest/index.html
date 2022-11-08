@@ -76959,10 +76959,15 @@ __webpack_require__(5569);
 		<tw-story class="centered">
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
-		<tw-storydata name="Scene Embedding" startnode="2" creator="extwee" creator-version="2.0.6" ifid="722161D0-17F9-41BE-B73E-5631C4DFE00D" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
+		<tw-storydata name="Scene Embedding" startnode="3" creator="extwee" creator-version="2.0.6" ifid="8E93DC4A-2C4F-405D-8496-B90468F1721E" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
-	<script role="script" id="twine-user-script" type="text/twine-javascript"></script>
-	<tw-passagedata pid="2" name="Start">(box: position=&quot;0 1.6 -1&quot;)</tw-passagedata>
+	<script role="script" id="twine-user-script" type="text/twine-javascript">window.s = {};
+window.s.key = true;</script>
+	<tw-passagedata pid="3" name="Start">&lt;%
+    if(window.s.key == true) {
+        echo(&quot;Has key!&quot;);
+    }
+%&gt;</tw-passagedata>
 </tw-storydata>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
@@ -97998,9 +98003,9 @@ class Markdown {
     });
 
     // Silly, but if there is a marker, we need a camera.
-    if($("a-marker").length > 0) {
+    if ($('a-marker').length > 0) {
       // Add a camera.
-      $("a-scene").add("<a-entity camera>");
+      $('a-scene').add('<a-entity camera>');
     }
 
     // Return Markdown rendered text.
@@ -98294,6 +98299,13 @@ class Story {
 
     // Overwrite current tags.
     this.passageElement.attr('tags', passage.tags);
+
+    // Use Snowman approach to pre-processing.
+    try {
+      passage.source = ejs.render(passage.source, { $ }, {outputFunctionName: "echo"});
+    } catch (error) {
+      throw new Error(`User script error: ${error}`);
+    }
 
     // Overwrite the parsed with the rendered.
     this.passageElement.html(Markdown.parse(passage.source));
