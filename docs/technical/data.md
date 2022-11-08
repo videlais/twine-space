@@ -1,16 +1,16 @@
-# Understanding Story Formats
+# Story as Data
 
-In Twine, a *story format* controls the presentation (what CSS is used and where) and the interpretation (Markdown, links, and other code) data in Twine.
+Every Twine story begins as HTML. This includes two parts: the story as authored and a story format, the code needed to understand the authored content. In Twine, a *story format* controls the presentation (what CSS is used and where) and the interpretation of data (Markdown, links, and other code) in Twine.
 
-When a story is published using the Twine, it combines the story format with the content from the editor. How this combination works is defined as part of the [Twine Specifications: HTML Output](https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md).
+When a story is published using the Twine editor, it combines the story format with the content from the editor. How this combination works is defined as part of the [Twine Specifications: HTML Output](https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md).
 
 The following is a summary of the specification explaining two core Twine HTML elements: `<tw-storydata>` and `<tw-passagedata>`.
 
-## Story as Data
+## Storydata Element
 
 A published story contains HTML based on the content input from an author in Twine. This HTML starts with an element named `tw-storydata`. This holds the *story data* and is part of a set of elements beginning with `tw` for "Twine".
 
-The `tw-storydata` element contains multiple attributes with data based on the story itself. These include the following:
+The `tw-storydata` element contains multiple attributes with data based on the metadata of the story itself. These include the following attributes:
 
 * `name`: Name of story
 * `startnode`: The `pid` of the passage for the start of the story
@@ -41,6 +41,8 @@ Each passage is a child element of the parent `tw-storydata`.
 ## Passage as Data
 
 Each passage is encoded using an element named `tw-pasagedata`. This holds the *passage data* and is part of the set of elements beginning with `tw` for "Twine".
+
+Information about the passage such as its name and tags are stored as attributes. The content of the passage becomes the content of the element.
 
 The `tw-passagedata` element uses multiple attributes:
 

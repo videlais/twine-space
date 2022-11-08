@@ -1,14 +1,14 @@
 # Position
 
-Trying to position things in Twine Space (based on AFrame) can seem slightly confusing. This is because its positioning system places a camera by default at 0, 0, 0 in its world space.
+Trying to position things in Twine Space (based on AFrame) can seem slightly confusing. This is because its positioning system places a camera at 0, 1.6, 0 in its world space by default:
 
-Positioning:
+* 0 for x-axis (left and right)
+* 1.6 for y-axis (up and down)
+* 0 for z-axis (in front of and behind camera)
 
-* -X is to the left-hand side of the screen and +X is to the right-hand side.
-* -Y is toward the bottom of the screen and +Y is toward the top.
-* -Z is in front of the camera and +Z is "behind" the default camera position.
+AFrame used meters as its base measurement. Because AFrame is also used to create VR projects (which most people stand up to experience), the default height is 1.6 meters with the assumption a person would be standing on 0 on the y-axis.
 
-In order to perceive some shape based on the default camera position in a scene, generally the Z position should be negative and the Y value positive.
+In order to perceive some shape based on the default camera position in a scene, generally the Z position should be negative and the Y value at or slight more than 1.6.
 
 ## Setting position
 
@@ -17,7 +17,7 @@ In Twine Space, `position` is an attribute value of a macro.
 Example:
 
 ```twee
-(box: position="0 2 -5")
+(box: position="0 1.6 -2")
 ```
 
-In the above example, the box would be positioned close to or at the middle of the display space using the negative Z value to place it "in front of" the camera viewing the scene.
+In the above example, the box would match the default y-axis position of 1.6 meters and in front of the camera at `-2` away from is starting point.

@@ -6,10 +6,11 @@
 * Space and Shapes
   * [Positioning](space/positions.md)
   * [Basic shapes](space/shapes.md)
+  * [Working with text](space/text.md)
   * [Location-based](space/location.md)
   * [Marker-based](space/marker.md)
 * Technical
-  * [Story format definition](technical/storyformat.md)
-  * [Story progression](technical/progression.md)
-  * [Narrative creation](technical/narrative.md)
+  * [Story as data](technical/data.md)
+  * [Story as object](technical/object.md)
+  * [Passage navigation](technical/progression.md)
   * [AFrame Components](technical/components.md)

@@ -10,7 +10,7 @@
     "all": "npm run lint && npm run build && npm run test",
     "docs": "serve ./docs",
     "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli quicktest/index.html",
-    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/arjs-format.js && open-cli http://localhost:3000 && serve quicktest"
+    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli http://localhost:3000 && serve quicktest"
   },
   "repository": {
     "type": "git",
