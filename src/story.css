@@ -14,6 +14,7 @@ a-scene {
     left: 0;
     transition: opacity ease 2s;
     z-index: 999;
+    height: 80%;
 }
 
 tw-story {
@@ -22,6 +23,7 @@ tw-story {
    padding: 0;
    color: white;
    z-index: 1;
+   height: 20%;
 }
 
 tw-passage {

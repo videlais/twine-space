@@ -22,7 +22,7 @@ class AFrameProxy {
     //  another one to the document.
     if ($('a-scene').length === 0) {
       // Add the a-scene element to the body.
-      $(document.body).append($('<a-scene />'));
+      $(document.body).append($('<a-scene vr-mode-ui="enabled: false" arjs="debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" />'));
     }
 
     // Return either current `<a-scene>` or

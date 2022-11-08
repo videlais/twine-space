@@ -2,4 +2,6 @@
 Scene Embedding
 
 :: Start
-**should be bold**. Should have *emphasis*.
+(marker: type="barcode" value="2")[
+    (box: color="yellow" position="0 0.5 0")
+]
