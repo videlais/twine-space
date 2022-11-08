@@ -1,6 +1,6 @@
 {
   "name": "twine-space",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Twine 2 story format supporting 3D models and mixed reality projects",
   "main": "index.js",
   "scripts": {

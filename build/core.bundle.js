@@ -20995,7 +20995,18 @@ class Markdown {
       [/\[\[(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$1</tw-link>'],
       // Look for (entity:attributes)[children]
       [/\((.*?):([^>]*?)\)\[([^>]*?)\]/gmi, (match, entity, attributes, children) => {
-        const rootParent = AFrameProxy.createScene();
+        let rootParent = null;
+        if (entity.toLowerCase() === 'scene') {
+          // If we encounter 'a-scene', remove the current one (if it exists)
+          $('a-scene').remove();
+          // Create a new one with attributes
+          $(document.body).append($(`<a-scene ${attributes} />`));
+          // Set the parent as new 'a-scene'.
+          rootParent = $('a-scene');
+        } else {
+          rootParent = AFrameProxy.createScene();
+        }
+
         const parentElement = AFrameProxy.add(rootParent, entity, attributes);
         children.replace(/\((.*?):([^>]*?)\)/gmi, (match, entity, attributes) => {
           AFrameProxy.add(parentElement, entity, attributes);
@@ -21017,6 +21028,12 @@ class Markdown {
           $(document.body).append(passageSource);
           // Return empty string.
           return '';
+        }
+        if (entity.toLowerCase() === 'scene') {
+          // If we encounter 'a-scene', remove the current one (if it exists)
+          $('a-scene').remove();
+          // Create a new one with attributes
+          $(document.body).append($(`<a-scene ${attributes} />`));
         } else {
           const rootParent = AFrameProxy.createScene();
           AFrameProxy.add(rootParent, entity, attributes);
