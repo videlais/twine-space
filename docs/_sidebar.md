@@ -13,8 +13,8 @@
   * AFrame
     * [Creating a box](examples/aframe/box.md)
   * AR.js
-    * [Augmented Text - Hiro](examples/ar/augmented-hiro.md)
-    * [Augmented Text - Barcode](examples/ar/augmented-barcode.md)
+    * [Augmented - Hiro](examples/ar/augmented-hiro.md)
+    * [Augmented - Barcode](examples/ar/augmented-barcode.md)
 * Technical
   * [Story as data](technical/data.md)
   * [Story as object](technical/object.md)
