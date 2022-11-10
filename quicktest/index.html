@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Scene Embedding</title>
+		<title>Scriptlet Support</title>
 		<style>body{font-size:2em}a,tw-link{color:blue;cursor:pointer;text-decoration:underline}a-scene{height:80%;left:0;position:absolute;top:0;transition:opacity 2s ease;z-index:999}tw-story{background:transparent;color:#fff;height:20%;padding:0;pointer-events:none;z-index:1}tw-passage{background:#000;border:6px double #fff;color:#fff;font-size:1em;line-height:1em;margin:auto 2vw 2em;max-height:40vh;overflow:auto;padding:1vw;pointer-events:auto;width:calc(94vw - 12px);z-index:1}.centered,tw-passage{bottom:0;left:0;position:fixed}.centered{transform:translate(0);width:100vw;z-index:1000}.arjs-loader{align-items:center;background-color:rgba(0,0,0,.8);display:flex;height:50%;justify-content:center;left:0;position:absolute;top:0;width:50%;z-index:9999}.arjs-loader div{color:#fff;font-size:1.25em;text-align:center}</style>
 		<script>/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
@@ -76959,11 +76959,11 @@ __webpack_require__(5569);
 		<tw-story class="centered">
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
-		<tw-storydata name="Scene Embedding" startnode="3" creator="extwee" creator-version="2.0.6" ifid="8E93DC4A-2C4F-405D-8496-B90468F1721E" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
+		<tw-storydata name="Scriptlet Support" startnode="3" creator="extwee" creator-version="2.0.6" ifid="6DE7BB0B-EA99-4380-83E3-A06DE2013A18" zoom="0" format="Twine Space" format-version="1.0.0" options hidden>
 	<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style>
 	<script role="script" id="twine-user-script" type="text/twine-javascript">window.s = {};
 window.s.key = true;</script>
-	<tw-passagedata pid="3" name="Start">&lt;%
+	<tw-passagedata pid="3" name="Start">&lt;%-
     if(window.s.key == true) {
         echo(&quot;Has key!&quot;);
     }
@@ -98302,7 +98302,7 @@ class Story {
 
     // Use Snowman approach to pre-processing.
     try {
-      passage.source = ejs.render(passage.source, { $ }, {outputFunctionName: "echo"});
+      passage.source = ejs.render(passage.source, { $ }, { outputFunctionName: 'echo' });
     } catch (error) {
       throw new Error(`User script error: ${error}`);
     }
