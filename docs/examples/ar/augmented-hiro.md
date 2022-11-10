@@ -9,7 +9,7 @@ AR.js comes with an understanding of hiro markers as a present. When using the `
 ```twee
 Show me a hiro marker!
 
-(marker: type="barcode" value="2")[
+(marker: preset="hiro")[
     (box: position='0 0 0' color="red")
 ]
 ```
@@ -19,3 +19,11 @@ In the above code, detection of a hiro marker will prompt AR.js to add a red box
 ## Live Version
 
 [Link to HTML](augmented-hiro.html)
+
+## Load via QR Code
+
+![QR code loader](qr-code-hiro.png)
+
+Hiro marker:
+
+![Hiro marker](hiro.png)

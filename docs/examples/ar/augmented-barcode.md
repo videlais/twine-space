@@ -19,3 +19,11 @@ In the above code, detection of a 3x3 barcode with the value `2` will prompt AR.
 ## Live Version
 
 [Link to HTML](augmented-barcode.html)
+
+## Load via QR Code
+
+![QR code loader](qr-code-barcode.png)
+
+Barcode of value 2 marker:
+
+![Barcode marker](barcode.png)
