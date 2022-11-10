@@ -15,3 +15,7 @@ When using the `(marker:)` macro in Twine Space, setting the `type` to `"barcode
 ```
 
 In the above code, detection of a 3x3 barcode with the value `2` will prompt AR.js to add text in the color `yellow` with the `value` of `"Augmented text!"`.
+
+## Live Version
+
+[Link to HTML](augmented-barcode.html)
