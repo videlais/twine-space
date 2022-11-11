@@ -1,4 +1,4 @@
-# Augmented Text (Barcode)
+# Augmented (Barcode)
 
 Barcode markers allow for creating projection-based projects by presenting "barcodes" to AR.js for scanning and visual augmentation.
 

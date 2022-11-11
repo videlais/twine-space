@@ -1,4 +1,4 @@
-# Augmented Text (Hiro)
+# Augmented (Hiro)
 
 Hiro markers allow for creating projection-based projects by presenting the word "hiro" surrounded by a border to AR.js for scanning and visual augmentation.
 
