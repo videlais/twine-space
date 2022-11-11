@@ -18,7 +18,7 @@ In the above code, detection of a 3x3 barcode with the value `2` will prompt AR.
 
 ## Live Version
 
-[Link to HTML](augmented-barcode.html)
+[Link to HTML](https://videlais.github.io/twine-space/examples/ar/augmented-barcode.html)
 
 ## Load via QR Code
 

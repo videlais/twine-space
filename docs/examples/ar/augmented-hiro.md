@@ -18,7 +18,7 @@ In the above code, detection of a hiro marker will prompt AR.js to add a red box
 
 ## Live Version
 
-[Link to HTML](augmented-hiro.html)
+[Link to HTML](https://videlais.github.io/twine-space/examples/ar/augmented-hiro.html)
 
 ## Load via QR Code
 
