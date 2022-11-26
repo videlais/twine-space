@@ -11,7 +11,7 @@ It comes in two variants:
 
 **TwineSpace** has [online documentation](https://videlais.github.io/twine-space/#/).
 
-## Loading Twine Space
+## Loading TwineSpace
 
 1. Open Twine 2.
 2. Go to "Twine"

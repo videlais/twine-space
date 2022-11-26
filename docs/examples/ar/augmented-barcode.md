@@ -4,7 +4,7 @@ Barcode markers allow for creating projection-based projects by presenting "barc
 
 Each barcode has a specific value associated with its visual appearance. The value is encoded in the use of colors (black on white or white on black) within a square shape.
 
-When using the `(marker:)` macro in Twine Space, setting the `type` to `"barcode"` and supplying its `value` allows AR.js to detect and react.
+When using the `(marker:)` macro in TwineSpace, setting the `type` to `"barcode"` and supplying its `value` allows AR.js to detect and react.
 
 ## Example
 

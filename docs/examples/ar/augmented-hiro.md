@@ -2,7 +2,7 @@
 
 Hiro markers allow for creating projection-based projects by presenting the word "hiro" surrounded by a border to AR.js for scanning and visual augmentation.
 
-AR.js comes with an understanding of hiro markers as a present. When using the `(marker:)` macro in Twine Space, setting the present to `"hiro"` tells it to expect a hiro marker.
+AR.js comes with an understanding of hiro markers as a present. When using the `(marker:)` macro in TwineSpace, setting the present to `"hiro"` tells it to expect a hiro marker.
 
 ## Example
 

@@ -10,7 +10,7 @@ AFrame supports many basic 3D shapes:
 * Sphere
 * Triangle
 
-Mapped to Twine Space macros, each shape can be used with opening and closing parentheses format. For example, to create a box, the code would be `(box:)`.
+Mapped to TwineSpace macros, each shape can be used with opening and closing parentheses format. For example, to create a box, the code would be `(box:)`.
 
 Every shape supports the same starting set of attributes:
 

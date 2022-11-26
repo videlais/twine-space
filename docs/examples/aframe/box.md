@@ -1,6 +1,6 @@
 # Example: Creating a Box
 
-One of the easiest shapes to create is a box. This is a shape built into AFrame and mapped to Twine Space using the same name.
+One of the easiest shapes to create is a box. This is a shape built into AFrame and mapped to TwineSpace using the same name.
 
 Like all shapes, AFrame needs to know where to place the shape in the scene, a `position` attribute.
 

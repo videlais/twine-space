@@ -2,7 +2,7 @@
 
 ## Load story
 
-When the webpage is loaded by a browser, Twine Space creates an internal JavaScript object named **Story**.
+When the webpage is loaded by a browser, TwineSpace creates an internal JavaScript object named **Story**.
 
 This object looks for the `tw-passagedata` element in the HTML document and reads data from its attributes, recording this data internally as its own properties:
 
@@ -27,7 +27,7 @@ Each created passage object has the following properties:
 
 (Story formats ignore the `position` and `size` attributes, as this only has meaning within Twine editor itself.)
 
-During the parsing of any `tw-passagedata` elements, the content of the element is also unescaped into code Twine Space understands.
+During the parsing of any `tw-passagedata` elements, the content of the element is also unescaped into code TwineSpace understands.
 
 The **Story** object next finds the element to hold the story (`tw-story`) it is about to run and prepares an event listener for any `click` events happening within it in the future.
 

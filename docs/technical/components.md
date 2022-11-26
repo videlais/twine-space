@@ -36,9 +36,9 @@ After a component is defined, it can be reference by an entity:
 
 [The AFrame documentation](https://aframe.io/docs/1.3.0/core/component.html#register-a-component) has more details on this process and potential interactions on the lifecycle of an entity.
 
-## Using the `script` tag in **Twine Space**
+## Using the `script` tag in **TwineSpace**
 
-**Twine Space** follows this same model as AFrame with a small change. Instead of elements, **Twine Space** uses macros to create a new scene per passage.
+**TwineSpace** follows this same model as AFrame with a small change. Instead of elements, **TwineSpace** uses macros to create a new scene per passage.
 
 Additional components can also be added through JavaScript. This can be entered in either the Story JavaScript panel in Twine 2 or using any passage containing the `script` tag:
 
@@ -57,4 +57,4 @@ AFRAME.registerComponent('counter', {
 });
 ```
 
-When **Twine Space** starts, it processes the Story JavaScript area first and then any passages with the tag `script`. It does this before the parsing of the starting passage and any potential creation of an AFrame scene.
+When **TwineSpace** starts, it processes the Story JavaScript area first and then any passages with the tag `script`. It does this before the parsing of the starting passage and any potential creation of an AFrame scene.

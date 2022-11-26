@@ -1,6 +1,6 @@
 # Styling
 
-Twine Space supports a wide range of Markdown using markdown-it internally.
+TwineSpace supports a wide range of Markdown using markdown-it internally.
 
 ## Headings
 

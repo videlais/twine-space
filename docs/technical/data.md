@@ -31,7 +31,7 @@ The `tw-storydata` element contains multiple attributes with data based on the m
     creator-version="2.3.16"
     ifid="D2E68815-A8DE-4DF2-A052-912C40BD6140"
     zoom="1"
-    format="Twine Space"
+    format="TwineSpace"
     format-version="1.0.0">
 </tw-storydata>
 ```

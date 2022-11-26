@@ -1,17 +1,14 @@
-# Twine Space
+![Icon](banner.svg)
 
-**Twine Space** is a Twine 2 story format supporting 3D models and mixed reality projects.
+# TwineSpace
 
-It comes in two variants:
+**TwineSpace** is a Twine 2 story format supporting 3D models and mixed reality projects.
 
-* [Based on AFrame](https://aframe.io/)
-* [Based on AR.js (which also includes AFrame internally)](https://github.com/AR-js-org/AR.js)
+## Citation
 
-## Documentation
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6915351.svg)](https://doi.org/10.5281/zenodo.6915351)
 
-**Twine Space** has [online documentation](https://videlais.github.io/twine-space/#/).
-
-## Loading Twine Space
+## Loading TwineSpace
 
 1. Open Twine 2.
 2. Go to "Twine"

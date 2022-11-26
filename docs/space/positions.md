@@ -1,6 +1,6 @@
 # Position
 
-Trying to position things in Twine Space (based on AFrame) can seem slightly confusing. This is because its positioning system places a camera at 0, 1.6, 0 in its world space by default:
+Trying to position things in TwineSpace (based on AFrame) can seem slightly confusing. This is because its positioning system places a camera at 0, 1.6, 0 in its world space by default:
 
 * 0 for x-axis (left and right)
 * 1.6 for y-axis (up and down)
@@ -12,7 +12,7 @@ In order to perceive some shape based on the default camera position in a scene,
 
 ## Setting position
 
-In Twine Space, `position` is an attribute value of a macro.
+In TwineSpace, `position` is an attribute value of a macro.
 
 Example:
 
