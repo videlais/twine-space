@@ -1,11 +1,10 @@
+![Icon](docs/banner.svg)
+
+[![Documentation](docs.svg)](https://videlais.github.io/twine-space/#/)
+
 # TwineSpace
 
-**TwineSpace** is a Twine 2 story format supporting 3D models and mixed reality projects.
-
-It comes in two variants:
-
-* [Based on AFrame](https://aframe.io/)
-* [Based on AR.js (which also includes AFrame internally)](https://github.com/AR-js-org/AR.js)
+**TwineSpace** is a Twine 2 story format supporting mixed reality projects. It comes in two forms: AFrame (3D models and shapes) and AFrame + AR.js (3D shapes and models with support for location- and marker-based detection).
 
 ## Documentation
 
@@ -18,9 +17,10 @@ It comes in two variants:
 3. Click on "Story Formats"
 4. Click on "+Add"
 5. In the prompt, enter the the variant wanted
-   1. Aframe: `https://videlais.github.io/twine-space/dist/aframe-format.js`
-   2. AR.js: `https://videlais.github.io/twine-space/dist/arjs-format.js`
+   1. AFrame (3D shapes and models): `https://videlais.github.io/twine-space/dist/aframe-format.js`
+   2. AR.js (3D shapes and models with support for AR projects): `https://videlais.github.io/twine-space/dist/arjs-format.js`
 6. Click on "+Add" to confirm.
+7. Before testing or building a story, check Story -> Details and make sure "TwineSpace" is selected for the story format.
 
 ## Citation
 
