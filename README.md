@@ -1,6 +1,6 @@
 ![Icon](docs/banner.svg)
 
-[![Documentation](docs.svg)](https://videlais.github.io/twine-space/#/)
+[![Documentation](docs.svg)](https://videlais.github.io/twine-space/#/) ![Build Status](https://github.com/videlais/twine-space/actions/workflows/node.js.yml/badge.svg)
 
 # TwineSpace
 
