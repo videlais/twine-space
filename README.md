@@ -1,6 +1,12 @@
 ![Icon](docs/banner.svg)
 
-[![Documentation](docs.svg)](https://videlais.github.io/twine-space/#/) ![Build Status](https://github.com/videlais/twine-space/actions/workflows/node.js.yml/badge.svg)
+![Build Status](https://github.com/videlais/twine-space/actions/workflows/node.js.yml/badge.svg)
+
+[![codecov](https://codecov.io/gh/videlais/twine-space/branch/main/graph/badge.svg?token=4CMUD2T89Q)](https://codecov.io/gh/videlais/twine-space)
+
+![Size](https://img.shields.io/github/repo-size/videlais/twine-space)
+
+![License](https://img.shields.io/github/license/videlais/twine-space)
 
 # TwineSpace
 
