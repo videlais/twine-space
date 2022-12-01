@@ -7,7 +7,7 @@ In AFrame, a photosphere can be used as the "skybox" of some scene. This will pl
 **Note:** Images work best in HTML (and Twine) as hosted in a public place such as GitHub Pages or via web hosting.
 
 ```twee
-(sky: src="https://videlais.github.io/twine-space/docs/examples/aframe/Office.PHOTOSPHERE.jpg")
+(sky: src="https://videlais.github.io/twine-space/examples/aframe/Office.PHOTOSPHERE.jpg")
 ```
 
 In the above example, the photosphere created of an academic office will appear with the reader "inside" the outer skybox of the image once loaded.
