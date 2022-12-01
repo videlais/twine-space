@@ -12,6 +12,7 @@
 * Examples
   * AFrame
     * [Creating a box](examples/aframe/box.md)
+    * [Creating a photosphere](examples/aframe/photosphere.md)
   * AR.js
     * [Augmented - Hiro](examples/ar/augmented-hiro.md)
     * [Augmented - Barcode](examples/ar/augmented-barcode.md)
