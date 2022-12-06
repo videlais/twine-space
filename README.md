@@ -16,6 +16,14 @@
 
 **TwineSpace** has [online documentation](https://videlais.github.io/twine-space/#/).
 
+## Demo
+
+View the [TwineSpace demo](https://twinestory.space/icids22) showcased at the ICIDS 2022 confernece. 
+
+## Confernece Paper
+
+Read a [conference paper](https://twinestory.space/paper) published on TwineSpace in the Interactive Storytelling conference proceedings.
+
 ## Loading TwineSpace
 
 1. Open Twine 2.
