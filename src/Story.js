@@ -10,7 +10,6 @@ const Markdown = require('./Markdown.js');
 /**
  * An object representing the entire story. After the document has completed
  * loading, an instance of this class will be available at `window.story`.
- *
  * @class Story
  */
 class Story {
@@ -45,7 +44,6 @@ class Story {
 
     /**
      * An array of all passages, indexed by ID.
-     *
      * @property {Array} passages - Passages array
      * @type {Array}
      */
@@ -76,7 +74,6 @@ class Story {
 
     /**
      * An array of user-specific scripts to run when the story is begun.
-     *
      * @property {Array} userScripts - Array of user-added JavaScript.
      * @type {Array}
      */
@@ -90,7 +87,6 @@ class Story {
     /**
      * An array of user-specific style declarations to add when the story is
      * begun.
-     *
      * @property {Array} userStyles - Array of user-added styles.
      * @type {Array}
      */
@@ -103,7 +99,6 @@ class Story {
 
     /**
      * Story element.
-     *
      * @property {Element} storyElement - Story element.
      * @type {Element}
      * @readonly
@@ -120,7 +115,6 @@ class Story {
 
     /**
      * Passage element.
-     *
      * @property {Element} passageElement - Passage element.
      * @type {Element}
      */
@@ -129,7 +123,6 @@ class Story {
 
   /**
    * Returns the source of a passage by name.
-   *
    * @function include
    * @param {string} name Name of the passage.
    * @returns {string} Passage source.
@@ -146,7 +139,6 @@ class Story {
 
   /**
    * Begins playing this story based on data from tw-storydata.
-   *
    * @function start
    */
   start () {
@@ -197,7 +189,6 @@ class Story {
   /**
    * Replaces current passage shown to reader with rendered source of named passage.
    * If the named passage does not exist, an error is thrown.
-   *
    * @function show
    * @param {string} name - name of the passage.
    */
@@ -228,7 +219,6 @@ class Story {
 
   /**
    * Returns an array of none, one, or many passages matching a specific tag.
-   *
    * @function getPassagesByTag
    * @param {string} tag - Tag to search for.
    * @returns {Array} Array containing none, one, or many passage objects.
@@ -243,8 +233,7 @@ class Story {
   /**
    * Returns a Passage object by name from internal collection. If none exists, returns null.
    * The Twine editor prevents multiple passages from having the same name, so
-   *  this always returns the first search result.
-   *
+   * this always returns the first search result.
    * @function getPassageByName
    * @param {string} name - name of the passage.
    * @returns {Passage|null} Passage object or null.

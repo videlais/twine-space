@@ -9,15 +9,13 @@ const markdown = require('markdown-it')({
 
 /**
  * Rules for un-escaping and parsing author content from passages
- *  into visual effects and content for readers.
- *
+ * into visual effects and content for readers.
  * @class Markdown
  */
 class Markdown {
   /**
    * Parse text. Convert authored markdown symbols into
-   *  visual effects and content for readers.
-   *
+   * visual effects and content for readers.
    * @function parse
    * @param {string} text - Text to parse.
    * @returns {string} Parsed text.
@@ -86,7 +84,6 @@ class Markdown {
 
   /**
    * Unescape content.
-   *
    * @function unescape
    * @param {string} text - Text to unescape
    * @returns {string} - Unescaped text

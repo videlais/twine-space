@@ -3,14 +3,12 @@ const $ = require('jquery');
 
 /**
  * A proxy between AFrame (which uses elements and attributes)
- *  and our macros.
- *
+ * and our macros.
  * @class AFrameProxy
  */
 class AFrameProxy {
   /**
    * Create an a-scene element if one does not exist.
-   *
    * @function createScene
    * @returns {Element} Current `<a-scene>` element
    * @static
@@ -32,7 +30,6 @@ class AFrameProxy {
 
   /**
    * Adds an a-element child to an element.
-   *
    * @function add
    * @param {Element} parent Where child should be appended.
    * @param {string} entity AFrame element to append.
@@ -59,7 +56,6 @@ class AFrameProxy {
 
   /**
    * Removes the current a-scene element.
-   *
    * @function removeScene
    * @static
    */
