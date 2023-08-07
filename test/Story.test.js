@@ -1,18 +1,20 @@
-const $ = require('jquery');
-const Story = require('../src/Story.js');
+import Story from '../src/Story';
+import * as JQuery from "jquery";
+const $ = JQuery.default;
 
 describe('Story', () => {
   beforeEach(() => {
-    $(document.body).html(`<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
+    document.body.innerHTML = `<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
         <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
         <tw-passagedata pid="2" name="Test Passage 2" tags="tag2">Hello world 2</tw-passagedata>
         <tw-passagedata pid="3" name="Test Passage 3" tags="tag3"><div><p><span>Test</span><p></div></tw-passagedata>
         <tw-passagedata pid="4" name="Test Passage 4" tags=""></tw-passagedata>
         <tw-passagedata pid="5" name="Test Passage 5" tags="">[[Test Passage]]</tw-passagedata>
+        <tw-passagedata pid="6" name="Test Passage 6" tags=""><%= people.join(", "); %></tw-passagedata>
         <script type="text/twine-javascript">window.example = true;</script>
         <style type="text/twine-css">body {color: grey;}</style>
         </tw-storydata>
-        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
     // Create a new Story.
     window.story = new Story();
   });
@@ -76,6 +78,10 @@ describe('Story', () => {
       const newContents = window.story.passageElement.html();
       expect(newContents).toBe('Hello world 2');
     });
+
+    it('Should throw error on ejs problem', () => {
+      expect(() => window.story.show("Test Passage 6")).toThrow();
+    });
   });
 
   describe('start()', () => {
@@ -90,7 +96,7 @@ describe('Story', () => {
     });
 
     it('Should throw error if script fails', () => {
-      $(document.body).html(`<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
+      document.body.innerHTML = `<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
         <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
         <tw-passagedata pid="2" name="Test Passage 2" tags="tag2">Hello world 2</tw-passagedata>
         <tw-passagedata pid="3" name="Test Passage 3" tags="tag3"><div><p><span>Test</span><p></div></tw-passagedata>
@@ -99,7 +105,7 @@ describe('Story', () => {
         <script type="text/twine-javascript">window.example =</script>
         <style type="text/twine-css">body {color: grey;}</style>
         </tw-storydata>
-        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
       // Create a new Story.
       window.story = new Story();
       // Start story
@@ -107,12 +113,12 @@ describe('Story', () => {
     });
 
     it('Should throw error if startnode does not match existing passages', () => {
-      $(document.body).html(`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      document.body.innerHTML = `<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
         <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
         <script type="text/twine-javascript"></script>
         <style type="text/twine-css"></style>
         </tw-storydata>
-        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
       // Create a new Story.
       window.story = new Story();
       // Start story
@@ -120,13 +126,13 @@ describe('Story', () => {
     });
 
     it('Should run content in passages with "script" tag', () => {
-      $(document.body).html(`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      document.body.innerHTML =`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
       <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
       <tw-passagedata pid="2" name="Test Passage 2" tags="script">window.example = true;</tw-passagedata>
       <script type="text/twine-javascript"></script>
       <style type="text/twine-css"></style>
       </tw-storydata>
-      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
       // Create a new Story.
       window.story = new Story();
       // Start story
@@ -135,13 +141,13 @@ describe('Story', () => {
     });
 
     it('Should throw error if issue with passages with "script" tag', () => {
-      $(document.body).html(`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      document.body.innerHTML = `<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
       <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
       <tw-passagedata pid="2" name="Test Passage 2" tags="script">window.example =</tw-passagedata>
       <script type="text/twine-javascript"></script>
       <style type="text/twine-css"></style>
       </tw-storydata>
-      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+      <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
       // Create a new Story.
       window.story = new Story();
       // Start story
@@ -166,13 +172,13 @@ describe('Story', () => {
 
 describe('Story Events', () => {
   beforeEach(() => {
-    $(document.body).html(`<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
+    document.body.innerHTML = `<tw-storydata name="Test" startnode="1" creator="test" creator-version="1.2.3">
         <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">[[Test Passage 2]]</tw-passagedata>
         <tw-passagedata pid="2" name="Test Passage 2" tags="tag2">Hello world 2</tw-passagedata>
         <script type="text/twine-javascript"></script>
         <style type="text/twine-css"></style>
         </tw-storydata>
-        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`);
+        <tw-story class="centered"><tw-passage class="passage" aria-live="polite"></tw-passage></tw-story>`;
     // Create a new Story.
     window.story = new Story();
   });

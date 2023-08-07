@@ -1,6 +1,6 @@
 {
   "name": "twinespace",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "Twine 2 story format supporting 3D models and mixed reality projects",
   "main": "index.js",
   "scripts": {
@@ -29,12 +29,14 @@
   },
   "homepage": "https://github.com/videlais/twine-space#readme",
   "dependencies": {
-    "@ar-js-org/ar.js": "^3.4.2",
-    "aframe": "^1.3.0",
+    "@babylonjs/core": "^6.15.0",
     "jquery": "^3.6.1",
     "markdown-it": "^13.0.1"
   },
   "devDependencies": {
+    "babel-jest": "^29.6.2",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "@types/expect-puppeteer": "^5.0.2",
     "@types/jest-environment-puppeteer": "^5.0.3",
     "@types/puppeteer": "^7.0.4",

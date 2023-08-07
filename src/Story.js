@@ -2,17 +2,18 @@
  * @external Element
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
  */
-const $ = require('jquery');
-const ejs = require('ejs');
-const Passage = require('./Passage.js');
-const Markdown = require('./Markdown.js');
+import * as JQuery from "jquery";
+const $ = JQuery.default;
+import ejs from 'ejs';
+import Passage from './Passage.js';
+import Markdown from './Markdown.js';
 
 /**
  * An object representing the entire story. After the document has completed
  * loading, an instance of this class will be available at `window.story`.
  * @class Story
  */
-class Story {
+export default class Story {
   constructor () {
     /**
      * @property {Element} storyDataElement - Reference to tw-storydata element
@@ -255,5 +256,3 @@ class Story {
     return passage;
   }
 }
-
-module.exports = Story;
