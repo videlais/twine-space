@@ -8,13 +8,11 @@ tw-link, a {
     text-decoration: underline;
 }
 
-a-scene {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: opacity ease 2s;
-    z-index: 999;
-    height: 80%;
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    font-size: 0;
 }
 
 tw-story {
@@ -52,23 +50,3 @@ tw-passage {
     transform: translate(0%, 0%);
     z-index: 1000;
 }
-  
-.arjs-loader {
-    height: 50%;
-    width: 50%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-  
-.arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-}
-  

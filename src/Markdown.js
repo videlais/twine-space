@@ -1,4 +1,5 @@
 import MarkdownIt from 'markdown-it';
+import BabylonProxy from './BabylonProxy.js';
 
 const markdownOption = {
   html: true,
@@ -23,8 +24,7 @@ export default class Markdown {
    * @static
    */
   static parse (text) {
-    // Remove any a-scene elements, if they exist.
-
+    // Rules for translation.
     const rules = [
       // [[rename|destination]]
       [/\[\[(.*?)\|(.*?)\]\]/g, '<tw-link role="link" data-passage="$2">$1</tw-link>'],
@@ -35,7 +35,13 @@ export default class Markdown {
       // [[destination]]
       [/\[\[(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$1</tw-link>'],
       // Break Rule
-      [/[\r\n\n]/g, '<br>']
+      [/[\r\n\n]/g, '<br>'],
+      // Test macro
+      [/\(test:\)/gm, () => {
+        BabylonProxy.createScene();
+        BabylonProxy.addToScene();
+        return '';
+      }]
     ];
 
     rules.forEach(([rule, template]) => {

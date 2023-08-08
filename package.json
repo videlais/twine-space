@@ -9,8 +9,8 @@
     "lint": "eslint src/*.js test/*.js --fix",
     "all": "npm run lint && npm run build && npm run test",
     "docs": "serve ./docs",
-    "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli quicktest/index.html",
-    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/aframe-format.js && open-cli http://localhost:3000 && serve quicktest"
+    "quicktest": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli quicktest/index.html",
+    "quicktest-serve": "extwee -c -i quicktest/index.twee -o quicktest/index.html -s docs/dist/format.js && open-cli http://localhost:3000 && serve quicktest"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
   "bugs": {
     "url": "https://github.com/videlais/twine-space/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/videlais/twine-space#readme",
   "dependencies": {
     "@babylonjs/core": "^6.15.0",

@@ -1,13 +1,6 @@
 :: StoryTitle
-Scriptlet Support
-
-:: UserScirpt[script]
-window.s = {};
-window.s.key = true;
+Babylon Testing
 
 :: Start
-<%
-    if(window.s.key == true) {
-        echo("Has key!");
-    }
-%>
+TwineSpace Lite! Now using BabylonJS, minus AR.js (and A-Frame), but at a slightly slimmer 3 MB size!
+(test:)

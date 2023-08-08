@@ -2,11 +2,11 @@
  * @external Element
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
  */
-import * as JQuery from "jquery";
-const $ = JQuery.default;
+import * as JQuery from 'jquery';
 import ejs from 'ejs';
 import Passage from './Passage.js';
 import Markdown from './Markdown.js';
+const $ = JQuery.default;
 
 /**
  * An object representing the entire story. After the document has completed

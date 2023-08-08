@@ -1,5 +1,5 @@
 import Story from '../src/Story';
-import * as JQuery from "jquery";
+import * as JQuery from 'jquery';
 const $ = JQuery.default;
 
 describe('Story', () => {
@@ -80,7 +80,7 @@ describe('Story', () => {
     });
 
     it('Should throw error on ejs problem', () => {
-      expect(() => window.story.show("Test Passage 6")).toThrow();
+      expect(() => window.story.show('Test Passage 6')).toThrow();
     });
   });
 
@@ -126,7 +126,7 @@ describe('Story', () => {
     });
 
     it('Should run content in passages with "script" tag', () => {
-      document.body.innerHTML =`<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
+      document.body.innerHTML = `<tw-storydata name="Test" startnode="2" creator="test" creator-version="1.2.3">
       <tw-passagedata pid="1" name="Test Passage" tags="tag1 tag2">Hello world</tw-passagedata>
       <tw-passagedata pid="2" name="Test Passage 2" tags="script">window.example = true;</tw-passagedata>
       <script type="text/twine-javascript"></script>
