@@ -1,7 +1,7 @@
 // Require the 'fs' package.
-import fs from 'fs';
+const fs = require('fs');
 // Require ejs.
-import ejs from 'ejs';
+const ejs = require('ejs');
 
 // Read the "story.json" file using 'utf8' encoding.
 const storyFile = fs.readFileSync("story.json", {'encoding': 'utf8'});

@@ -1,4 +1,4 @@
-import Passage from '../src/Passage';
+const Passage = require('../src/Passage.js');
 
 describe('constructor()', () => {
   it('Should contain default values when initialized with no arguments', () => {

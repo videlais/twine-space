@@ -1,6 +1,5 @@
-import Story from '../src/Story';
-import * as JQuery from 'jquery';
-const $ = JQuery.default;
+const Story = require('../src/Story.js');
+const $ = require('jquery');
 
 describe('Story', () => {
   beforeEach(() => {

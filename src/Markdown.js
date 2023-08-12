@@ -1,5 +1,5 @@
-import MarkdownIt from 'markdown-it';
-import BabylonProxy from './BabylonProxy.js';
+const MarkdownIt = require('markdown-it');
+const BabylonProxy = require('./BabylonProxy.js');
 
 const markdownOption = {
   html: true,
@@ -14,7 +14,7 @@ const markdown = new MarkdownIt(markdownOption);
  * into visual effects and content for readers.
  * @class Markdown
  */
-export default class Markdown {
+class Markdown {
   /**
    * Parse text. Convert authored markdown symbols into
    * visual effects and content for readers.
@@ -76,3 +76,5 @@ export default class Markdown {
     return text;
   }
 }
+
+module.exports = Markdown;

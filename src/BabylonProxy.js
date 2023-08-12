@@ -1,11 +1,7 @@
-import { Engine } from '@babylonjs/core/Engines/engine.js';
-import { RawTexture } from '@babylonjs/core/Materials/Textures/rawTexture.js';
-import { Scene } from '@babylonjs/core/scene.js';
-import { DeviceOrientationCamera } from '@babylonjs/core/Cameras/deviceOrientationCamera.js';
-import { PhotoDome } from '@babylonjs/core/Helpers/photoDome.js';
-import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+// eslint-disable-next-line
+const { Engine, Scene, DeviceOrientationCamera, RawTexture, PhotoDome, Vector3 } = require('babylonjs');
 
-export default class BabylonProxy {
+class BabylonProxy {
   static scene;
   static engine;
   static canvas;
@@ -48,3 +44,5 @@ export default class BabylonProxy {
     );
   }
 }
+
+module.exports = BabylonProxy;
