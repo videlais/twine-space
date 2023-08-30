@@ -1,5 +1,7 @@
-body {
-    font-size: 2em;
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
 }
 
 tw-link, a {
@@ -8,7 +10,7 @@ tw-link, a {
     text-decoration: underline;
 }
 
-#renderCanvas {
+canvas {
     width: 100%;
     height: 100%;
     display: block;

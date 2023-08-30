@@ -36,10 +36,17 @@ class Markdown {
       [/\[\[(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$1</tw-link>'],
       // Break Rule
       [/[\r\n\n]/g, '<br>'],
-      // Test macro
-      [/\(test:\)/gm, () => {
+      // Photosphere macro
+      [/\(photosphere:(.*?)\)/gm, (match, capture) => {
         BabylonProxy.createScene();
-        BabylonProxy.addToScene();
+        const obj = JSON.parse(capture);
+        BabylonProxy.addPhotoDome(obj.name, obj.url);
+        return '';
+      }],
+      [/\(cube:(.*?)\)/gm, (match, capture) => {
+        BabylonProxy.createScene();
+        const obj = JSON.parse(capture);
+        BabylonProxy.addCube(obj.name, obj.position);
         return '';
       }]
     ];

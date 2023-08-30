@@ -6,6 +6,7 @@ const $ = require('jquery');
 const ejs = require('ejs');
 const Passage = require('./Passage.js');
 const Markdown = require('./Markdown.js');
+const BabylonProxy = require('./BabylonProxy.js');
 
 /**
  * An object representing the entire story. After the document has completed
@@ -107,6 +108,8 @@ class Story {
 
     // Catch user clicking on links.
     this.storyElement.on('click', 'tw-link[data-passage]', (e) => {
+      // Unload the current scene.
+      BabylonProxy.removeScene();
       // Pull destination passage name from the attribute.
       const passageName = Markdown.unescape($(e.target).closest('[data-passage]').data('passage'));
       // Show the passage by name.
