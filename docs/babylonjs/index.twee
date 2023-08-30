@@ -2,5 +2,10 @@
 Babylon Testing
 
 :: Start
-Welp. Back to 5 MB.
-(test:)
+(photosphere: {"name": "test", "url": "./hotel.jpg"})
+(cube: {"name": "test", "position": {"x": -2, "y": 0, "z": 1}})
+[[Another]]
+
+:: Another
+(photosphere: {"name": "test", "url": "./Office.PHOTOSPHERE.jpg"})
+(cube: {"name": "test", "position": {"x": -3, "y": 0, "z": 1}})
