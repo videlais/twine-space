@@ -36,18 +36,39 @@ class Markdown {
       [/\[\[(.*?)\]\]/g, '<tw-link role="link" data-passage="$1">$1</tw-link>'],
       // Break Rule
       [/[\r\n\n]/g, '<br>'],
-      // Photosphere macro
+      // Photosphere macro.
       [/\(photosphere:(.*?)\)/gm, (match, capture) => {
         BabylonProxy.createScene();
         const obj = JSON.parse(capture);
         BabylonProxy.addPhotoDome(obj.name, obj.url);
-        return '';
+        return '&nbsp;';
       }],
+      // Cube macro.
       [/\(cube:(.*?)\)/gm, (match, capture) => {
         BabylonProxy.createScene();
         const obj = JSON.parse(capture);
-        BabylonProxy.addCube(obj.name, obj.position);
+        BabylonProxy.addCube(obj.name, obj.position, obj.options);
+        return '&nbsp;';
+      }],
+      // Line macro.
+      [/\(line:(.*?)\)/gm, (match, capture) => {
+        BabylonProxy.createScene();
+        const obj = JSON.parse(capture);
+        BabylonProxy.addLine(obj.name, obj.position, obj.options);
+        return '&nbsp;';
+      }],
+      // Sphere macro.
+      [/\(sphere:(.*?)\)/gm, (match, capture) => {
+        BabylonProxy.createScene();
+        const obj = JSON.parse(capture);
+        BabylonProxy.addSphere(obj.name, obj.position, obj.options);
         return '';
+      }],
+      [/\(annotation:(.*?)\)/gm, (match, capture) => {
+        BabylonProxy.createScene();
+        const obj = JSON.parse(capture);
+        BabylonProxy.addAnnotation(obj.position, obj.text);
+        return '&nbsp;';
       }]
     ];
 
