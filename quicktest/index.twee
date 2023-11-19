@@ -2,11 +2,36 @@
 Babylon Testing
 
 :: Start
-(photosphere: {"name": "test", "url": "./Yard.PHOTOSPHERE.jpg"})
-(annotation: {"text": "This is a shed", "position": {"x": -100, "y": 10, "z": 0}})
-(annotation: {"text": "This is a house", "position": {"x": 100, "y": 10, "z": 50}})
+- photosphere:
+    name: test
+    url: ./Yard.PHOTOSPHERE.jpg
+
+- annotation:
+    text: This is a shed
+    position:
+        x: -100
+        y: 10
+        z: 0
+
+- annotation:
+    text: This is a house
+    position:
+        x: 100
+        y: 10
+        z: 50
+---
 [[Another]]
 
 :: Another
-(photosphere: {"name": "test", "url": "./Office.PHOTOSPHERE.jpg"})
-(annotation: {"text": "This is a wall", "position": {"x": 100, "y": 10, "z": 50}})
+- photosphere:
+    name: test
+    url: ./Office.PHOTOSPHERE.jpg
+
+- annotation:
+    text: This is a wall
+    position:
+        x: 100
+        y: 10
+        z: 50
+---
+End of example

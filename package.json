@@ -32,7 +32,8 @@
     "@material/web": "^1.0.1",
     "babylonjs": "^6.29.2",
     "jquery": "^3.7.1",
-    "markdown-it": "^13.0.2"
+    "markdown-it": "^13.0.2",
+    "yaml": "^2.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
