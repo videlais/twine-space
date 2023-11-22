@@ -1,37 +1,71 @@
 :: StoryTitle
-Babylon Testing
+TwineSpace Testing
 
 :: Start
+[[Yard]]
+<h2>Introduction</h2>
+<p>Welcome to an example of Twine Space - Lite!</p>
+<p>This story format is designed for use with photospheres (360-degree images) with annotations.</p>
+<p>Unlike other story formats, text in passages will be hidden if a photosphere is loaded. This is to prevent issues with larger images overlapping with text on smaller or mobile devices.</p>
+<hr>
+<h2>Instructions</h2>
+<p>In the upper, left-hand corner is the <strong>Navigation Menu</strong>. You can navigate to any area connected to this one. (In technical terms, this means links between passages will appear there.)</p>
+<p>If a photosphere is loaded, it will have <em>red spots</em>. Clicking on these will show an annotation.</p>
+
+:: Yard
 - photosphere:
     name: test
     url: ./Yard.PHOTOSPHERE.jpg
 
 - annotation:
-    text: This is a shed
+    title: Shed
+    text: <p>This shed originally was placed several houses over. It was moved many years ago into this backyard.</p><p>(This annotation is placed -180 x degrees from start.)</p>
     position:
-        x: -100
-        y: 10
+        x: -180
+        y: 0
         z: 0
 
 - annotation:
-    text: This is a house
+    title: Sky
+    text: <p>This is the sky.</p><p>(This annotation is placed +180 degrees y from start.)</p>
     position:
-        x: 100
-        y: 10
-        z: 50
----
-[[Another]]
-
-:: Another
-- photosphere:
-    name: test
-    url: ./Office.PHOTOSPHERE.jpg
+        x: 0
+        y: 180
+        z: 0
 
 - annotation:
-    text: This is a wall
+    title: Front
+    text: <p>This is the default front of camera.</p><p>(This annotation is placed at 0,0,100.)</p>
     position:
-        x: 100
-        y: 10
-        z: 50
+        x: 0
+        y: 0
+        z: 100
+
+- annotation:
+    title: Back
+    text: <p>This is the default back of camera.</p><p>(This annotation is placed at 0,0,-100.)</p>
+    position:
+        x: 0
+        y: 0
+        z: -100
+
+- annotation:
+    title: Ground
+    text: <p>This is the ground.</p><p>(This annotation is placed -180 degrees y from start.)</p>
+    position:
+        x: 0
+        y: -180
+        z: 0
+
+- annotation:
+    title: <h1>House</h1>
+    text: This is a house. HTML elements can be freely used for the title (this uses a HTML header element for the title to make the text larger) and internal text like the <strong>See?</strong>.<p>(This annotation is placed +180 x degrees from start.)</p>
+    position:
+        x: 180
+        y: 0
+        z: 0
 ---
-End of example
+This text will be hidden!
+
+:: Another
+This is not used.

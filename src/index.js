@@ -2,7 +2,14 @@
 import './story.css';
 // Importing Materialize CSS
 import '@material/web/dialog/dialog.js';
+// Material Text Button
 import '@material/web/button/text-button.js';
+// Material Filled Button
+import '@material/web/button/filled-button.js';
+// Material Menu
+import '@material/web/menu/menu.js';
+// Material Menu Item
+import '@material/web/menu/menu-item.js';
 // Require jQuery
 const $ = require('jquery');
 // Require Story

@@ -8,10 +8,29 @@
 		<%- story_css %>
 	</head>
 	<body>
-		<tw-story class="centered">
+		<tw-story>
 			<tw-passage class="passage" aria-live="polite"></tw-passage>
 		</tw-story>
 		{{STORY_DATA}}
 		<%- format %>
+		<div id="navigation-menu">
+			<md-filled-button id="usage-fixed-anchor">Navigation Menu</md-filled-button>
+		</div>
+		<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">
+			<md-menu-item>
+			  <div slot="headline">Apple</div>
+			</md-menu-item>
+			<md-menu-item>
+			  <div slot="headline">Banana</div>
+			</md-menu-item>
+			<md-menu-item>
+			  <div slot="headline">Cucumber</div>
+			</md-menu-item>
+		</md-menu>
+		<script type="module">
+			const anchorEl = document.body.querySelector('#usage-fixed-anchor');
+			const menuEl = document.body.querySelector('#usage-fixed');
+			anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
+		</script>
 	</body>
 </html>

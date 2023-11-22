@@ -22,8 +22,12 @@ class BabylonProxy {
   static engine;
   static canvas;
   static mesh;
+  static explanation = null;
 
   static createScene () {
+    // Hide the tw-passage
+    $('tw-passage').hide();
+
     // If there is not a scene, create one.
     // Otherwise, do nothing.
     if(BabylonProxy.scene === null) {
@@ -73,6 +77,8 @@ class BabylonProxy {
         $('md-text-button').on('click', () => {
           // Close dialog.
           el.close();
+          // Remove element.
+          el.parentElement.removeChild(el);
           // Reattach camera.
           camera.attachControl(BabylonProxy.canvas, true);
         });
@@ -101,8 +107,6 @@ class BabylonProxy {
    * @param {string} url
    */
   static addPhotoDome(name = '', url) {
-
-    console.log('From inside addPhotoDome', name, url);
 
     if(BabylonProxy.scene != null) {
 
@@ -190,8 +194,6 @@ class BabylonProxy {
    * @param {string} text
    */
   static addAnnotation(title, position, text) {
-    
-
     // Create outer sphere material.
     let redMat_outer = new StandardMaterial("outer", BabylonProxy.scene);
     redMat_outer.diffuseColor = new Color3(0.4, 0.4, 0.4);
@@ -211,8 +213,14 @@ class BabylonProxy {
    * @static
    */
   static removeScene () {
+    // Remove the canvas.
     $('canvas').remove();
+    
+    // Clear the scene.
     BabylonProxy.scene = null;
+
+    // Show the tw-passage (again).
+    $('tw-passage').show();
   }
 
   /**
@@ -224,12 +232,8 @@ class BabylonProxy {
     // Look for each type of object in the collection.
     for(const shape of jsObject) {
 
-      console.log('Inside generateSceneFromObject', shape);
-
       // Does the object contain an annotation?
       if(shape.hasOwnProperty('annotation') ) {
-
-        console.log('Annotation', shape.annotation);
 
         // Create default annotation.
         const annotation = {
@@ -277,8 +281,6 @@ class BabylonProxy {
           url: ''
         };
 
-        console.log('From inside shape', shape.photosphere);
-
         // Check for name.
         if(shape.photosphere.hasOwnProperty('name')) {
           photosphere.name = shape.photosphere.name;
@@ -288,8 +290,6 @@ class BabylonProxy {
         if(shape.photosphere.hasOwnProperty('url')) {
           photosphere.url = shape.photosphere.url;
         }
-
-        console.log('From inside shape', shape.photosphere);
 
         // Create photosphere. (Photodome.)
         // We either use the default values or the overridden ones.

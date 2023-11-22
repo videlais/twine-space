@@ -10,6 +10,7 @@ html,body {
     width:100%;
     height:100%;
     font-family: 'Open Sans', sans-serif;
+    background-color: beige;
 }
 
 tw-link, a {
@@ -26,48 +27,39 @@ canvas {
 }
 
 tw-story {
-   background: transparent; 
-   pointer-events: none;
-   padding: 0;
-   color: white;
-   z-index: 1;
-   height: 20%;
+   color: black;
+   top: 10vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   top: 10vh;
 }
 
 tw-passage {
-    background-color: #ECE6F0;
-    border: 2px solid #deb887;
     font-size: 1.5em;
     line-height: 1em;
-    margin: auto 2vw 2em 2vw;
-    pointer-events: auto;
+    margin: 0.5vw 2vw 2em 2vw;
     overflow: auto;
     padding: 1vw;
-    color: #ccc;
+    color: black;
     z-index: 1;
-    position: fixed;
-    bottom: 0;
-    left: -20px;
-    max-height: 40vh;
-    width: calc(10vw - 10px);
-    height: calc(94vw - 12px);
-}
-  
-.centered {
-    position: fixed;
-    bottom: 0%;
-    left: 0%;
-    width: 100vw; 
-    transform: translate(0%, 0%);
-    z-index: 1000;
+    width: 80%;
 }
 
 md-dialog {
     background-color: beige;
     border: 2px solid burlywood;
     border-radius: 5px;
-    height: 70%;
-    width: 70%;
+    height: 80%;
+    width: 80%;
+}
+
+#navigation-menu {
+    margin: 16px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
 }
 
 /* The close Button */
