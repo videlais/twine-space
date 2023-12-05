@@ -106,8 +106,15 @@ class Story {
      */
     this.storyElement = $('tw-story');
 
-    // Catch user clicking on links.
-    this.storyElement.on('click', 'tw-link[data-passage]', (e) => {
+    /**
+     * Passage element.
+     * @property {Element} passageElement - Passage element.
+     * @type {Element}
+     */
+    this.passageElement = $('tw-passage');
+
+    // If there is a click on a tw-link, load the passage!
+    $('tw-link[data-passage]').on('click', (e) => {
       // Unload the current scene.
       BabylonProxy.removeScene();
       // Pull destination passage name from the attribute.
@@ -115,13 +122,7 @@ class Story {
       // Show the passage by name.
       this.show(passageName);
     });
-
-    /**
-     * Passage element.
-     * @property {Element} passageElement - Passage element.
-     * @type {Element}
-     */
-    this.passageElement = $('tw-passage');
+    
   }
 
   /**
@@ -196,6 +197,9 @@ class Story {
    * @param {string} name - name of the passage.
    */
   show (name) {
+    // Remove previous menu.
+    $('md-menu').remove();
+
     // Attempt to find passage.
     const passage = this.getPassageByName(name);
 
@@ -218,6 +222,36 @@ class Story {
 
     // Overwrite the parsed with the rendered.
     this.passageElement.html(Markdown.parse(passage.source));
+
+    // Update the navigation menu (different per passage!).
+    const linkList = document.querySelectorAll('tw-link');
+    
+    // Create navigation menu.
+    const navMenu = $('<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">');
+
+    // Go through each twLink.
+    linkList.forEach((twLink) => {
+      // Create menu item.
+      const menuItem = $(`<md-menu-item><div slot="headline">${twLink.outerHTML}</div></md-menu-item>`);
+      // Append menu-item to navMenu.
+      navMenu.append(menuItem);
+      // Remove original.
+      $(twLink).remove();
+    });
+
+    // Append the navMenu back to the body.
+    $(document.body).append(navMenu);
+
+    // If there is a click on a tw-link, load the passage!
+    $('tw-link[data-passage]').on('click', (e) => {
+      // Unload the current scene.
+      BabylonProxy.removeScene();
+      // Pull destination passage name from the attribute.
+      const passageName = Markdown.unescape($(e.target).closest('[data-passage]').data('passage'));
+      // Show the passage by name.
+      this.show(passageName);
+    });
+
   }
 
   /**
