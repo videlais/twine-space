@@ -11,9 +11,10 @@ import '@material/web/menu/menu.js';
 // Material Menu Item
 import '@material/web/menu/menu-item.js';
 // Require jQuery
-const $ = require('jquery');
+import $ from 'jquery';
 // Require Story
-const Story = require('./Story.js');
+import Story from './Story.js';
+
 // Create global jQuery
 window.$ = $;
 // Create global Story object

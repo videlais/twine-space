@@ -2,7 +2,7 @@
  * @class Passage
  */
 
-class Passage {
+export default class Passage {
   constructor (name = 'Default', tags = [], source = '') {
     /**
      * @property {string} name - The name of passage
@@ -26,5 +26,3 @@ class Passage {
     this.source = source;
   }
 }
-
-module.exports = Passage;

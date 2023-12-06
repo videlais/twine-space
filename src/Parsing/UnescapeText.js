@@ -1,10 +1,10 @@
 /**
-   * Unescape content.
-   * @function unescape
-   * @param {string} text - Text to unescape
-   * @returns {string} - Unescaped text
-   */
-function unescape (text) {
+  * Unescape text.
+  * @function unescape
+  * @param {string} text - Text to unescape.
+  * @returns {string} - Unescaped text.
+*/
+export default function UnescapeText (text) {
     const unescapeSequences = [
       ['&amp;', '&'],
       ['&lt;', '<'],
@@ -19,4 +19,4 @@ function unescape (text) {
     });
 
     return text;
-  }
+}

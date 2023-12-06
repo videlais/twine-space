@@ -2,18 +2,19 @@
  * @external Element
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
  */
-const $ = require('jquery');
-const ejs = require('ejs');
-const Passage = require('./Passage.js');
-const Markdown = require('./Markdown.js');
-const BabylonProxy = require('./BabylonProxy.js');
+import $ from "jquery";
+import ejs from 'ejs';
+import UnescapeText from './Parsing/UnescapeText.js';
+import ParsePassage from './Parsing/ParsePassage.js';
+import Passage from './Passage.js';
+import BabylonProxy from './BabylonProxy.js';
 
 /**
  * An object representing the entire story. After the document has completed
  * loading, an instance of this class will be available at `window.story`.
  * @class Story
  */
-class Story {
+export default class Story {
   constructor () {
     /**
      * @property {Element} storyDataElement - Reference to tw-storydata element
@@ -69,7 +70,7 @@ class Story {
       this.passages.push(new Passage(
         elementReference.attr('name'),
         tags,
-        Markdown.unescape(elementReference.html())
+        UnescapeText(elementReference.html())
       ));
     });
 
@@ -115,14 +116,16 @@ class Story {
 
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
-      // Unload the current scene.
-      BabylonProxy.removeScene();
+      // Unload the current meshes.
+      BabylonProxy.clearScene();
       // Pull destination passage name from the attribute.
-      const passageName = Markdown.unescape($(e.target).closest('[data-passage]').data('passage'));
+      const passageName = UnescapeText($(e.target).closest('[data-passage]').data('passage'));
       // Show the passage by name.
       this.show(passageName);
     });
-    
+
+    // Hide the canvas to start.
+    $('renderCanvas').hide();
   }
 
   /**
@@ -221,11 +224,11 @@ class Story {
     }
 
     // Overwrite the parsed with the rendered.
-    this.passageElement.html(Markdown.parse(passage.source));
+    this.passageElement.html(ParsePassage(passage.source));
 
     // Update the navigation menu (different per passage!).
     const linkList = document.querySelectorAll('tw-link');
-    
+
     // Create navigation menu.
     const navMenu = $('<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">');
 
@@ -244,14 +247,13 @@ class Story {
 
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
-      // Unload the current scene.
-      BabylonProxy.removeScene();
+      // Unload the current meshes.
+      BabylonProxy.clearScene();
       // Pull destination passage name from the attribute.
-      const passageName = Markdown.unescape($(e.target).closest('[data-passage]').data('passage'));
+      const passageName = UnescapeText($(e.target).closest('[data-passage]').data('passage'));
       // Show the passage by name.
       this.show(passageName);
     });
-
   }
 
   /**
@@ -292,5 +294,3 @@ class Story {
     return passage;
   }
 }
-
-module.exports = Story;

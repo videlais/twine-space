@@ -1,22 +1,23 @@
 // Require the 'fs' package.
-const fs = require('fs');
+import { readFileSync, writeFileSync } from 'node:fs';
+
 // Require ejs.
-const ejs = require('ejs');
+import ejs from 'ejs';
 
 // Read the "story.json" file using 'utf8' encoding.
-const storyFile = fs.readFileSync("story.json", {'encoding': 'utf8'});
+const storyFile = readFileSync("story.json", {'encoding': 'utf8'});
 
 // Parse the string into an object.
 const story = JSON.parse(storyFile);
 
 // Load template index.html.
-const srcIndex = fs.readFileSync("src/index.ejs", {'encoding': 'utf8'});
+const srcIndex = readFileSync("src/index.ejs", {'encoding': 'utf8'});
 
 // Load bundled story format.
-const formatSource = fs.readFileSync("build/core.bundle.js", {'encoding': 'utf8'});
+const formatSource = readFileSync("build/core.bundle.js", {'encoding': 'utf8'});
 
 // Load CSS.
-const storyCSS = fs.readFileSync("build/core.css", {'encoding': 'utf8'});
+const storyCSS = readFileSync("build/core.css", {'encoding': 'utf8'});
 
 // Replace the story format and CSS in the template index.html.
 const source = ejs.render(srcIndex, {
@@ -30,4 +31,4 @@ story.source = source;
 // Convert the 'story' back into a string.
 let storyFormat = "window.storyFormat(" + JSON.stringify(story) + ");";
 // Write "format.js" file to docs/dist for remote loading.
-fs.writeFileSync("docs/dist/format.js", storyFormat);
+writeFileSync("docs/dist/format.js", storyFormat);

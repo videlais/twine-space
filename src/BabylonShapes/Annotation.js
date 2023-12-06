@@ -1,40 +1,26 @@
-import { Color3 } from '@babylonjs/core/Maths/math/color';
-import { Vector3 } from '@babylonjs/core/Maths/math/vector3';
-import { CreateSphere } from '@babylonjs/core/Meshes/Builders/CreateSphere';
+import { Color3 } from '@babylonjs/core/Maths/math.color.js';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { Mesh } from "@babylonjs/core/Meshes/mesh.js";
+import { CreateSphere } from "@babylonjs/core/Meshes/Builders/sphereBuilder.js";
+import "@babylonjs/core/Materials/material.js";
+import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js";
 
 /**
    * Annotation
-   * @param {string} title
-   * @param {object} position 
-   * @param {string} text
+   * @param {Scene} scene
+   * @param {Mesh} mesh 
+   * @param {Object} shape
    */
-function Annotation(scene, mesh, title, position, text) {
-    
-    // Create outer sphere material.
-    let redMat_outer = new StandardMaterial("outer", scene);
-    redMat_outer.diffuseColor = new Color3(0.4, 0.4, 0.4);
-    redMat_outer.specularColor = new Color3(0.4, 0.4, 0.4);
-    redMat_outer.emissiveColor = new Color3(0.92, 0.26, 0.211);
-    
-    // Create outer sphere.
-    mesh = CreateSphere("annotation", {diameter:8});
-    mesh.position = new Vector3(position.x, position.y, position.z);
-    mesh.metadata = { content: text, title: title };
-    mesh.material = redMat_outer;
-}
+export default function Annotation(scene, mesh, shape) {
 
+  // Create default annotation.
+  const annotation = {
+    title: 'Annotation',
+    position: { x: 0, y: 0, z: 0 },
+    text: ''
+  };
 
-// Does the object contain an annotation?
-if(shape.hasOwnProperty('annotation') ) {
-
-    console.log('Annotation', shape.annotation);
-
-    // Create default annotation.
-    const annotation = {
-      title: 'Annotation',
-      position: { x: 0, y: 0, z: 0 },
-      text: ''
-    };
+  // Does the object contain an annotation?
 
     // Check for title.
     if(shape.annotation.hasOwnProperty('title')) {
@@ -63,7 +49,20 @@ if(shape.hasOwnProperty('annotation') ) {
     if(shape.annotation.hasOwnProperty('text')) {
       annotation.text = shape.annotation.text;
     }
+   
+  
+  // If there is not a scene, we do not create an annotation.
+  if(scene !== null) {
+    // Create outer sphere material.
+    let redMat_outer = new StandardMaterial("outer", scene);
+    redMat_outer.diffuseColor = new Color3(0.4, 0.4, 0.4);
+    redMat_outer.specularColor = new Color3(0.4, 0.4, 0.4);
+    redMat_outer.emissiveColor = new Color3(0.92, 0.26, 0.211);
 
-    // Add annotation.
-    BabylonProxy.addAnnotation(annotation.title, annotation.position, annotation.text);
+    // Create outer sphere.
+    mesh = CreateSphere("annotation", { diameter: 8 }, scene);
+    mesh.position = new Vector3(annotation.position.x, annotation.position.y, annotation.position.z);
+    mesh.metadata = { content: annotation.text, title: annotation.title };
+    mesh.material = redMat_outer;
   }
+}
