@@ -7,7 +7,7 @@ import ejs from 'ejs';
 import UnescapeText from './Parsing/UnescapeText.js';
 import ParsePassage from './Parsing/ParsePassage.js';
 import Passage from './Passage.js';
-import BabylonProxy from './BabylonProxy.js';
+import BabylonProxy from './BabylonProxy/BabylonProxy.js';
 
 /**
  * An object representing the entire story. After the document has completed

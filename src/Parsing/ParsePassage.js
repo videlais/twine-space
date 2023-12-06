@@ -1,4 +1,4 @@
-import BabylonProxy from '../BabylonProxy.js';
+import BabylonProxy from '../BabylonProxy/BabylonProxy.js';
 import ParseYAML from './ParseYAML.js'
 import ParseLinks from './ParseLinks.js';
 import ParseMarkdown from './ParseMarkdown.js';
