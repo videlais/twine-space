@@ -32,7 +32,7 @@
     "@ar-js-org/ar.js": "^3.4.2",
     "aframe": "^1.5.0",
     "jquery": "^3.7.1",
-    "markdown-it": "^13.0.2"
+    "markdown-it": "^14.0.0"
   },
   "devDependencies": {
     "@types/expect-puppeteer": "^5.0.6",
