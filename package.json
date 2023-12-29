@@ -51,7 +51,7 @@
     "jest-puppeteer": "^9.0.2",
     "mini-css-extract-plugin": "^2.7.1",
     "open": "^10.0.1",
-    "open-cli": "^7.1.0",
+    "open-cli": "^8.0.0",
     "puppeteer": "^21.6.1",
     "serve": "^14.2.1",
     "shelljs": "^0.8.5",
