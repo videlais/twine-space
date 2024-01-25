@@ -2,12 +2,11 @@
  * @external Element
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
  */
-import $ from "jquery";
+import $ from 'jquery';
 import ejs from 'ejs';
-import UnescapeText from './Parsing/UnescapeText.js';
-import ParsePassage from './Parsing/ParsePassage.js';
+import ParsePassage from './Parse/ParsePassage.js';
 import Passage from './Passage.js';
-import BabylonProxy from './BabylonProxy/BabylonProxy.js';
+import BabylonProxy from './Director.js';
 
 /**
  * An object representing the entire story. After the document has completed
@@ -29,20 +28,6 @@ export default class Story {
      * @readonly
      */
     this.name = this.storyDataElement.attr('name');
-
-    /**
-     * @property {string} creator - The program that created this story.
-     * @type {string}
-     * @readonly
-     */
-    this.creator = this.storyDataElement.attr('creator');
-
-    /**
-     * @property {string} creatorVersion - The version of the program used to create this story.
-     * @type {string}
-     * @readonly
-     */
-    this.creatorVersion = this.storyDataElement.attr('creator-version');
 
     /**
      * An array of all passages, indexed by ID.
@@ -70,7 +55,7 @@ export default class Story {
       this.passages.push(new Passage(
         elementReference.attr('name'),
         tags,
-        UnescapeText(elementReference.html())
+        elementReference.html()
       ));
     });
 
@@ -119,7 +104,7 @@ export default class Story {
       // Unload the current meshes.
       BabylonProxy.clearScene();
       // Pull destination passage name from the attribute.
-      const passageName = UnescapeText($(e.target).closest('[data-passage]').data('passage'));
+      const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.
       this.show(passageName);
     });
@@ -250,7 +235,7 @@ export default class Story {
       // Unload the current meshes.
       BabylonProxy.clearScene();
       // Pull destination passage name from the attribute.
-      const passageName = UnescapeText($(e.target).closest('[data-passage]').data('passage'));
+      const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.
       this.show(passageName);
     });

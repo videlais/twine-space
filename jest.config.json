@@ -1,0 +1,5 @@
+{
+   "testEnvironment": "jsdom",
+    "verbose": true,
+    "transform": {}
+}

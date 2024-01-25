@@ -13,7 +13,7 @@ if(gpuType) {
   chromeFlags.push(`--use-gl=${gpuType}`);
 }
 
-module.exports = {
+export default {
   launch: {
       dumpio: false, // should we see logs?
       timeout: 30000, // 30 seconds
