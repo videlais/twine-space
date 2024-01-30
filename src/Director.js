@@ -140,15 +140,18 @@ export default class Director {
    * @param {object} jsObject - Object containing scene data.
    */
   static generateScene (jsObject) {
-    // Look for each type of object in the collection.
-    for (const shape of jsObject) {
+    // Test if object
+    if (typeof jsObject === 'object') {
+      // Look for each type of object in the collection.
+      for (const shape of jsObject) {
 
-      if(shape.hasOwnProperty('annotation') ) {
-        Annotation(Director.scene, Director.mesh, shape);
-      }
-      
-      if(shape.hasOwnProperty('photosphere') ) {
-        Photosphere(Director.scene, Director.mesh, shape);
+        if(shape.hasOwnProperty('annotation') ) {
+          Annotation(Director.scene, Director.mesh, shape);
+        }
+        
+        if(shape.hasOwnProperty('photosphere') ) {
+          Photosphere(Director.scene, Director.mesh, shape);
+        }
       }
     }
   }
