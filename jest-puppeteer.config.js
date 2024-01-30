@@ -17,7 +17,7 @@ export default {
   launch: {
       dumpio: false, // should we see logs?
       timeout: 30000, // 30 seconds
-      headless: headless, // false to open a browser
+      headless: "new", // false to open a browser
       product: browser,
       ignoreHTTPSErrors: true,
       // devtools: true,
