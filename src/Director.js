@@ -32,7 +32,7 @@ export default class Director {
 
     // If there is not a scene, create one.
     // Otherwise, do nothing.
-    if (Director.scene === null) {
+    if (Director.scene instanceof Scene === false) {
 
       // Append a Canvas element.
       $(document.body).append($('<canvas id="renderCanvas" touch-action="none" />'));
@@ -109,7 +109,7 @@ export default class Director {
     }
 
     // Show the canvas.
-    $('renderCanvas').show();
+    $('#renderCanvas').show();
   }
 
   /**
@@ -118,7 +118,7 @@ export default class Director {
    */
   static clearScene () {
     // If there is a scene, clear it.
-    if (Director.scene !== null) {
+    if (Director.scene instanceof Scene === false) {
       // Remove all meshes.
       // Meshes can be live when iterating over the collection.
       // Director freezes the collection and allows us to remove each mesh.
@@ -129,7 +129,7 @@ export default class Director {
     }
 
     // Hide the canvas.
-    $('renderCanvas').hide();
+    $('#renderCanvas').hide();
 
     // Show passage (again).
     $('tw-passage').show();
