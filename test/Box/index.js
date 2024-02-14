@@ -9,6 +9,6 @@ window.$ = $;
 window.Director = Director;
 
 // Add Box to Director.Shapes.
-window.Director.Shapes = {
+window.Director.Actors = {
     Box: Box
 };

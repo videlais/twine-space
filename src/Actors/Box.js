@@ -123,5 +123,8 @@ export default function Box(name, position, options) {
       
       // Assign position to mesh.position.
       mesh.position = new Vector3(x, y, z);
+
+      // Return mesh.
+      return mesh;
     }
 }
