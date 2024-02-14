@@ -4,7 +4,7 @@
  */
 import $ from 'jquery';
 import ejs from 'ejs';
-import ParsePassage from './Parse/ParsePassage.js';
+import { parse as parseScene } from './Parse/Scene/index.js';
 import Passage from './Passage.js';
 import BabylonProxy from './Director.js';
 
@@ -209,7 +209,7 @@ export default class Story {
     }
 
     // Overwrite the parsed with the rendered.
-    this.passageElement.html(ParsePassage(passage.source));
+    this.passageElement.html(parseScene(passage.source));
 
     // Update the navigation menu (different per passage!).
     const linkList = document.querySelectorAll('tw-link');

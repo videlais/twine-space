@@ -1,1 +1,84 @@
-@import url(https://fonts.googleapis.com/css2?family=Open Sans:wght@400;500;700&display=swap);:root{--md-ref-typeface-brand:"Open Sans";--md-ref-typeface-plain:system-ui}body,html{background-color:beige;font-family:Open Sans,sans-serif;height:100%;margin:0;width:100%}a,tw-link{color:blue;cursor:pointer;text-decoration:underline}canvas{display:block;font-size:0;height:100%;width:100%}tw-story{align-items:center;color:#000;display:flex;justify-content:center;position:relative;top:10vw;top:10vh}tw-passage{color:#000;font-size:1.5em;line-height:1em;margin:.5vw 2vw 2em;overflow:auto;padding:1vw;width:80%;z-index:1}md-dialog{background-color:beige;border:2px solid #deb887;border-radius:5px;height:80%;width:80%}#navigation-menu{left:0;margin:16px;position:fixed;top:0}.close{color:#aaa;float:right;font-size:3em;font-weight:700}.close:focus,.close:hover{color:#000;cursor:pointer;text-decoration:none}
+/*!*****************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/story.css ***!
+  \*****************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Open Sans:wght@400;500;700&display=swap);
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/story.css (1) ***!
+  \*********************************************************************/
+:root {
+  --md-ref-typeface-brand: 'Open Sans';
+  --md-ref-typeface-plain: system-ui;
+}
+
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
+    font-family: 'Open Sans', sans-serif;
+    background-color: beige;
+}
+
+tw-link, a {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    font-size: 0;
+}
+
+tw-story {
+   color: black;
+   top: 10vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   top: 10vh;
+}
+
+tw-passage {
+    font-size: 1.5em;
+    line-height: 1em;
+    margin: 0.5vw 2vw 2em 2vw;
+    overflow: auto;
+    padding: 1vw;
+    color: black;
+    z-index: 1;
+    width: 80%;
+}
+
+md-dialog {
+    background-color: beige;
+    border: 2px solid burlywood;
+    border-radius: 5px;
+    height: 80%;
+    width: 80%;
+}
+
+#navigation-menu {
+    margin: 16px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+/* The close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 3em;
+    font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+

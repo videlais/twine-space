@@ -1,11 +1,6 @@
-// Description: Test for Director.js
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import shell from 'shelljs';
-import Director from '../../src/Director';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import Director from '../../src/Director.js';
+import "expect-puppeteer";
 
 describe('Director', () => {
   beforeAll(async () => {
@@ -13,10 +8,10 @@ describe('Director', () => {
     shell.exec('npx webpack --config ./test/Director/webpack.config.cjs');
     
     // Start a new browser.
-    await page.goto(`file://${join(__dirname, 'index.html')}`);
+    await page.goto(`http://localhost:3000/Director/index.html`);
   });
 
-  describe('constructor', () => {
+  describe('Initial static state', () => {
     it('Initial values should be null', async () => {
       const scene = await page.evaluate(() => {
         return Director.scene;

@@ -4,11 +4,11 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 import { DeviceOrientationCamera } from '@babylonjs/core/Cameras/deviceOrientationCamera.js';
 // Side-effects only imports.
 import '@babylonjs/core/Culling/ray.js';
-import "@babylonjs/core/Materials/material.js";
-import "@babylonjs/core/Materials/standardMaterial.js";
+import '@babylonjs/core/Materials/material.js';
+import '@babylonjs/core/Materials/standardMaterial.js';
 
 // Import jQuery
-import $ from "jquery";
+import $ from 'jquery';
 
 export default class Director {
   // Scene.
@@ -25,6 +25,18 @@ export default class Director {
 
   /**
    * Creates a scene.
+   *
+   * This performs the following steps:
+   * (1) Hides the tw-passage element.
+   * (2) Creates a canvas element.
+   * (3) Creates an engine.
+   * (4) Creates a scene.
+   * (5) Creates a camera.
+   * (6) Attaches the camera to the canvas.
+   * (7) Sets the camera target to the scene origin.
+   * (8) Prepares the onPointerDown event.
+   * (9) Renders the scene.
+   * (10) Shows the canvas.
    */
   static createScene () {
     // Hide the Passage.
@@ -33,7 +45,6 @@ export default class Director {
     // If there is not a scene, create one.
     // Otherwise, do nothing.
     if (Director.scene instanceof Scene === false) {
-
       // Append a Canvas element.
       $(document.body).append($('<canvas id="renderCanvas" touch-action="none" />'));
 
@@ -56,7 +67,7 @@ export default class Director {
       camera.attachControl(Director.canvas, true);
 
       // Setup pointer down (click) events.
-      Director.scene.onPointerDown = (event, pickInfo ) => {
+      Director.scene.onPointerDown = (event, pickInfo) => {
         // Did we hit something with the ray cast?
         if (pickInfo.hit) {
           if (pickInfo.pickedMesh.name === 'annotation') {
@@ -118,7 +129,7 @@ export default class Director {
    */
   static clearScene () {
     // If there is a scene, clear it.
-    if (Director.scene instanceof Scene === false) {
+    if (Director.scene instanceof Scene === true) {
       // Remove all meshes.
       // Meshes can be live when iterating over the collection.
       // Director freezes the collection and allows us to remove each mesh.
@@ -133,26 +144,5 @@ export default class Director {
 
     // Show passage (again).
     $('tw-passage').show();
-  }
-
-  /**
-   * generateScene
-   * @param {object} jsObject - Object containing scene data.
-   */
-  static generateScene (jsObject) {
-    // Test if object
-    if (typeof jsObject === 'object') {
-      // Look for each type of object in the collection.
-      for (const shape of jsObject) {
-
-        if(shape.hasOwnProperty('annotation') ) {
-          Annotation(Director.scene, Director.mesh, shape);
-        }
-        
-        if(shape.hasOwnProperty('photosphere') ) {
-          Photosphere(Director.scene, Director.mesh, shape);
-        }
-      }
-    }
   }
 }
