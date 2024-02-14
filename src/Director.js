@@ -7,6 +7,9 @@ import '@babylonjs/core/Culling/ray.js';
 import '@babylonjs/core/Materials/material.js';
 import '@babylonjs/core/Materials/standardMaterial.js';
 
+// Import each Actor.
+import Box from './Actors/Box.js';
+
 // Import jQuery
 import $ from 'jquery';
 
@@ -44,7 +47,7 @@ export default class Director {
 
     // If there is not a scene, create one.
     // Otherwise, do nothing.
-    if (Director.scene instanceof Scene === false) {
+    if (Director.scene === null) {
       // Append a Canvas element.
       $(document.body).append($('<canvas id="renderCanvas" touch-action="none" />'));
 
@@ -144,5 +147,29 @@ export default class Director {
 
     // Show passage (again).
     $('tw-passage').show();
+  }
+
+  /**
+   * Check if the scene is ready.
+   * @function isReady
+   * @returns {boolean} - True if the scene is ready.
+   */
+  static isReady () {
+    return Director.scene !== null && Director.scene.isReady();
+  }
+
+  /**
+   * Populate a scene based on the name, position, and options.
+   * @function populateScene
+   * @param {string} name - Name of the Actor.
+   * @param {object} position - Position for the Actor.
+   * @param {object} options - Options for the Actor.
+   */
+  static populateScene (name, position, options) {
+    // If there is a scene, populate it.
+    if (Director.isReady()) {
+      // Create a new Actor.
+      Box(name, position, options);
+    }
   }
 }

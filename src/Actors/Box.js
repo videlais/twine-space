@@ -24,7 +24,7 @@ export default function Box(name, position, options) {
    * (3) If Director.scene is not ready. (Director is not ready.)
    */
 
-    if(Director.scene !== undefined && Director.scene !== null && Director.scene.isReady()) {
+    if(Director.scene !== undefined && Director.isReady()) {
       // Check if name is a string.
       if(typeof name !== 'string') {
         name = '';
