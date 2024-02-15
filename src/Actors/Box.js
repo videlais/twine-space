@@ -17,14 +17,8 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.depth - The depth of the box.
    */
 export default function Box(name, position, options) {
-  /**
-   * While it is very unlikely Box will be used without Director, we need to perform three checks:
-   * (1) If Director.scene is undefined. (Director does not exist.)
-   * (2) If Director.scene is null. (Director has not been initialized.)
-   * (3) If Director.scene is not ready. (Director is not ready.)
-   */
 
-    if(Director.scene !== undefined && Director.isReady()) {
+    if(Director.isReady()) {
       // Check if name is a string.
       if(typeof name !== 'string') {
         name = '';

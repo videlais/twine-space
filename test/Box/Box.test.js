@@ -12,7 +12,7 @@ describe('Box', () => {
     await page.goto(`http://localhost:3000/Box/index.html`);
   });
 
-  describe('Creation', () => {
+  describe('Self-creation', () => {
 
     afterEach(async () => {
       await page.evaluate(() => {
@@ -114,6 +114,36 @@ describe('Box', () => {
       });
   
       expect(depth).toBe(10);
+    });
+  });
+
+  describe('Creation via Director', () => {
+
+    afterEach(async () => {
+      await page.evaluate(() => {
+        // After each test, clear the scene.
+        Director.clearScene();
+      });
+    });
+
+    it('Should create a single box with default values', async () => {
+      const meshCount = await page.evaluate(() => {
+        Director.createScene();
+        Director.populateScene('box');
+        return Director.scene.meshes.length;
+      });
+  
+      expect(meshCount).toBe(1);
+    });
+
+    it('Should create a single box with custom values', async () => {
+      const meshCount = await page.evaluate(() => {
+        Director.createScene();
+        Director.populateScene('box', {x: 1, y: 2, z: 3}, {width: 4, height: 5, depth: 6});
+        return Director.scene.meshes.length;
+      });
+  
+      expect(meshCount).toBe(1);
     });
   });
 });

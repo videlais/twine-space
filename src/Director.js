@@ -23,9 +23,6 @@ export default class Director {
   // Canvas.
   static canvas = null;
 
-  // Mesh.
-  static mesh = null;
-
   /**
    * Creates a scene.
    *
@@ -168,8 +165,11 @@ export default class Director {
   static populateScene (name, position, options) {
     // If there is a scene, populate it.
     if (Director.isReady()) {
-      // Create a new Actor.
-      Box(name, position, options);
+      // Test for box
+      if (name === 'box') {
+        // Create a new Actor.
+        Box(name, position, options);
+      }
     }
   }
 }

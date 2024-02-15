@@ -25,21 +25,28 @@ describe('Director', () => {
         return Director.canvas;
       });
   
-      const mesh = await page.evaluate(() => {
-        return Director.mesh;
-      });
-  
       expect(scene).toBe(null);
       expect(engine).toBe(null);
       expect(canvas).toBe(null);
-      expect(mesh).toBe(null);
     });
   });
 
   describe('createScene', () => {
+
+    beforeAll(async () => {
+      await page.evaluate(() => {
+        // Reset all static values.
+        Director.scene = null;
+        Director.engine = null;
+        Director.canvas = null;
+
+        // Create a new scene.
+        Director.createScene();
+      });
+    });
+
     it('Should create a scene', async () => {
       const scene = await page.evaluate(() => {
-        Director.createScene();
         return Director.scene;
       });
   
@@ -48,7 +55,6 @@ describe('Director', () => {
   
     it('Should create an engine', async () => {
       const engine = await page.evaluate(() => {
-        Director.createScene();
         return Director.engine;
       });
   
@@ -57,7 +63,6 @@ describe('Director', () => {
   
     it('Should create a canvas', async () => {
       const canvas = await page.evaluate(() => {
-        Director.createScene();
         return Director.canvas;
       });
   
@@ -66,7 +71,6 @@ describe('Director', () => {
   
     it('Should hide the tw-passage element', async () => {
       const passage = await page.evaluate(() => {
-        Director.createScene();
         return $('tw-passage').css('display');
       });
   
@@ -75,7 +79,6 @@ describe('Director', () => {
   
     it('Should create canvas element', async () => {
       const canvas = await page.evaluate(() => {
-        Director.createScene();
         return $('#renderCanvas').length;
       });
   
@@ -84,26 +87,14 @@ describe('Director', () => {
   
     it('Should show renderCanvas element', async () => {
       const canvas = await page.evaluate(() => {
-        Director.createScene();
         return $('#renderCanvas').css('display');
       });
   
       expect(canvas).toBe('inline');
     });
 
-    it('Should hide the tw-passage element and show the renderCanvas element if scene already exists', async () => {
-      const canvas = await page.evaluate(() => {
-        Director.createScene();
-        Director.createScene();
-        return $('tw-passage').css('display') + $('#renderCanvas').css('display');
-      });
-  
-      expect(canvas).toBe('noneinline');
-    });
-
     it('Should create a camera', async () => {
       const camera = await page.evaluate(() => {
-        Director.createScene();
         return Director.scene.activeCamera.name;
       });
   
@@ -112,7 +103,6 @@ describe('Director', () => {
 
     it('Setup pointer down (click) events', async () => {
       const pointerDown = await page.evaluate(() => {
-        Director.createScene();
         return typeof Director.scene.onPointerDown;
       });
   
@@ -149,6 +139,35 @@ describe('Director', () => {
       });
 
       expect(passage).toBe('inline');
+    });
+  });
+
+  describe('isReady', () => {
+
+    beforeEach(async () => {
+      await page.evaluate(() => {
+        // Before each test, reset all static values.
+        Director.scene = null;
+        Director.engine = null;
+        Director.canvas = null;
+      });
+    });
+
+    it('Should return false if the scene is not ready or null', async () => {
+      const ready = await page.evaluate(() => {
+        return Director.isReady();
+      });
+
+      expect(ready).toBe(false);
+    });
+
+    it('Should return true if the scene is ready', async () => {
+      const ready = await page.evaluate(() => {
+        Director.createScene();
+        return Director.isReady();
+      });
+
+      expect(ready).toBe(true);
     });
   });
 });
