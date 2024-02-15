@@ -1,14 +1,14 @@
 import shell from 'shelljs';
 import Director from '../../src/Director.js';
-import "expect-puppeteer";
+import 'expect-puppeteer';
 
 describe('Director', () => {
   beforeAll(async () => {
     // Use webpack to bundle Director.js.
     shell.exec('npx webpack --config ./test/Director/webpack.config.cjs');
-    
+
     // Start a new browser.
-    await page.goto(`http://localhost:3000/Director/index.html`);
+    await page.goto('http://localhost:3000/Director/index.html');
   });
 
   describe('Initial static state', () => {
@@ -16,15 +16,15 @@ describe('Director', () => {
       const scene = await page.evaluate(() => {
         return Director.scene;
       });
-  
+
       const engine = await page.evaluate(() => {
         return Director.engine;
       });
-  
+
       const canvas = await page.evaluate(() => {
         return Director.canvas;
       });
-  
+
       expect(scene).toBe(null);
       expect(engine).toBe(null);
       expect(canvas).toBe(null);
@@ -32,7 +32,6 @@ describe('Director', () => {
   });
 
   describe('createScene', () => {
-
     beforeAll(async () => {
       await page.evaluate(() => {
         // Reset all static values.
@@ -49,47 +48,47 @@ describe('Director', () => {
       const scene = await page.evaluate(() => {
         return Director.scene;
       });
-  
+
       expect(scene).not.toBe(null);
     });
-  
+
     it('Should create an engine', async () => {
       const engine = await page.evaluate(() => {
         return Director.engine;
       });
-  
+
       expect(engine).not.toBe(null);
     });
-  
+
     it('Should create a canvas', async () => {
       const canvas = await page.evaluate(() => {
         return Director.canvas;
       });
-  
+
       expect(canvas).not.toBe(null);
     });
-  
+
     it('Should hide the tw-passage element', async () => {
       const passage = await page.evaluate(() => {
         return $('tw-passage').css('display');
       });
-  
+
       expect(passage).toBe('none');
     });
-  
+
     it('Should create canvas element', async () => {
       const canvas = await page.evaluate(() => {
         return $('#renderCanvas').length;
       });
-  
+
       expect(canvas).toBe(1);
     });
-  
+
     it('Should show renderCanvas element', async () => {
       const canvas = await page.evaluate(() => {
         return $('#renderCanvas').css('display');
       });
-  
+
       expect(canvas).toBe('inline');
     });
 
@@ -97,7 +96,7 @@ describe('Director', () => {
       const camera = await page.evaluate(() => {
         return Director.scene.activeCamera.name;
       });
-  
+
       expect(camera).toBe('DevOr_camera');
     });
 
@@ -105,7 +104,7 @@ describe('Director', () => {
       const pointerDown = await page.evaluate(() => {
         return typeof Director.scene.onPointerDown;
       });
-  
+
       expect(pointerDown).toBe('function');
     });
   });
@@ -143,7 +142,6 @@ describe('Director', () => {
   });
 
   describe('isReady', () => {
-
     beforeEach(async () => {
       await page.evaluate(() => {
         // Before each test, reset all static values.

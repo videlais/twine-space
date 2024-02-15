@@ -1,5 +1,5 @@
-import Director from "../../src/Director.js";
-import $ from "jquery";
+import Director from '../../src/Director.js';
+import $ from 'jquery';
 
 // Setup jQuery.
 window.$ = $;

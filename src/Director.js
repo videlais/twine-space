@@ -117,6 +117,11 @@ export default class Director {
       Director.engine.runRenderLoop(() => {
         Director.scene.render();
       });
+
+      // Handle window resize.
+      window.addEventListener('resize', () => {
+        Director.engine.resize();
+      });
     }
 
     // Show the canvas.
@@ -152,7 +157,17 @@ export default class Director {
    * @returns {boolean} - True if the scene is ready.
    */
   static isReady () {
-    return Director.scene !== null && Director.scene.isReady();
+    // Create default value.
+    let ready = false;
+
+    // Check if there is a scene.
+    // If the scene is not null, check if it is ready.
+    if (Director.scene !== null) {
+      ready = Director.scene.isReady();
+    }
+
+    // Return the value.
+    return ready;
   }
 
   /**

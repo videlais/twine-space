@@ -4,7 +4,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 /**
    * Creates a sphere.
    * 
-   * If only name is provided, we use default positions (0, 0, 0) and options (width: 1, height: 1, depth: 1).
+   * If only name is provided, we use default positions (0, 0, 0) and options (diameter: 1, segments: 16).
    * 
    * @function sphere
    * @param {string} name - The name of the sphere.

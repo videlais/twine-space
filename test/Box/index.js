@@ -1,6 +1,6 @@
-import Director from "../../src/Director.js";
-import $ from "jquery";
-import Box from "../../src/Actors/Box.js";
+import Director from '../../src/Director.js';
+import $ from 'jquery';
+import Box from '../../src/Actors/Box.js';
 
 // Setup jQuery.
 window.$ = $;
@@ -10,5 +10,5 @@ window.Director = Director;
 
 // Add Box to Director.Shapes.
 window.Director.Actors = {
-    Box: Box
+  Box
 };
