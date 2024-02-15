@@ -15,8 +15,13 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {object} options - {diameter: number, segments: number}
    * @param {number} options.diameter - The diameter of the sphere.
    * @param {number} options.segments - The segments of the sphere.
+   * @returns {object} mesh - Sphere or null.
    */
 export default function Sphere(name, position, options) {
+
+  // Prepare default mesh.
+  let mesh = null;
+
   if(Director.isReady()) {
     // Check if name is a string.
     if(typeof name !== 'string') {
@@ -78,8 +83,8 @@ export default function Sphere(name, position, options) {
     
     // Set the position of the sphere.
     mesh.position = new Vector3(position.x, position.y, position.z);
-    
-    // Return the mesh.
-    return mesh;
   }
+
+  // Return the Sphere or null.
+  return mesh;
 }

@@ -1,35 +1,59 @@
-import { Scene } from '@babylonjs/core/scene.js';
 import { PhotoDome } from '@babylonjs/core/Helpers/photoDome.js';
-import { Mesh } from "@babylonjs/core/Meshes/mesh.js";
 
 /**
-  * Photosphere
-  * @param {Scene} scene
-  * @param {Mesh} mesh
-  * @param {Object} shape
+  * Creates a photosphere.
+  * 
+  * A photosphere is a 360-degree image that can be used to create a virtual environment.
+  * It requires a name and a url to the image.
+  * 
+  * @param {string} name - The name of the photosphere.
+  * @param {string} url - The url of the photosphere.
+  * @param {object} options - {resolution: number, size: number}
+  * @param {number} options.resolution - The resolution of the photosphere.
+  * @param {number} options.size - The size of the photosphere.
   */
-export default function Photosphere(scene, mesh, shape) {
+export default function Photosphere(name, url, options) {
 
-  // Add photosphere.
-  const photosphere = {
-    name: 'photosphere',
-    url: ''
-  };
+  // Prepare default mesh.
+  let mesh = null;
 
-  // Check for url.
-  if(shape.photosphere.hasOwnProperty('url')) {
-    photosphere.url = shape.photosphere.url;
-  }
+  if(Director.isReady()) {
+    // Check if name is a string.
+    if(typeof name !== 'string') {
+      name = '';
+    }
 
-  // If there is not a scene, we do not create a Photosphere.
-  if(scene !== null) {
+    // Check if url is a string.
+    if(typeof url !== 'string') {
+      url = '';
+    }
+
+    // Prepare default resolution and size values.
+    let resolution = 32;
+    let size = 1000;
+
+    // Check if options is an object.
+    if(typeof options === 'object') {
+      // Check if options.resolution is a number.
+      if(typeof options.resolution === 'number') {
+        resolution = options.resolution;
+      }
+
+      // Check if options.size is a number.
+      if(typeof options.size === 'number') {
+        size = options.size;
+      }
+    }
+
     // Create photosphere. (Photodome.)
-    mesh = new PhotoDome(photosphere.name, photosphere.url,
+    mesh = new PhotoDome(name, url,
       {
-        resolution: 32,
-        size: 1000
+        resolution: resolution,
+        size: size
       },
-      scene
     );
   }
+
+  // Return photosphere or null.
+  return mesh;
 }

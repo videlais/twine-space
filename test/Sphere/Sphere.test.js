@@ -20,13 +20,12 @@ describe('Sphere', () => {
       });
     });
 
-    it('Should do nothing if there is no scene', async () => {
-      const scene = await page.evaluate(() => {
-        Director.Actors.Sphere('sphere');
-        return Director.scene;
+    it('Should return null if there is no scene', async () => {
+      const plane = await page.evaluate(() => {
+        return Director.Actors.Sphere('sphere');
       });
 
-      expect(scene).toBe(null);
+      expect(plane).toBe(null);
     });
 
     it('Should create a single sphere with default values', async () => {

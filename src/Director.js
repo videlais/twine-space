@@ -7,9 +7,6 @@ import '@babylonjs/core/Culling/ray.js';
 import '@babylonjs/core/Materials/material.js';
 import '@babylonjs/core/Materials/standardMaterial.js';
 
-// Import each Actor.
-import Box from './Actors/Box.js';
-
 // Import jQuery
 import $ from 'jquery';
 
@@ -22,6 +19,9 @@ export default class Director {
 
   // Canvas.
   static canvas = null;
+
+  // isPaused.
+  static isPaused = false;
 
   /**
    * Creates a scene.
@@ -113,11 +113,6 @@ export default class Director {
         el.show();
       }
 
-      // Render based on loop.
-      Director.engine.runRenderLoop(() => {
-        Director.scene.render();
-      });
-
       // Handle window resize.
       window.addEventListener('resize', () => {
         Director.engine.resize();
@@ -129,12 +124,63 @@ export default class Director {
   }
 
   /**
+   * Renders the scene.
+   *
+   * This performs the following steps:
+   * (1) Checks if the scene is ready.
+   * (2) Runs the render loop.
+   * (3) Checks if the scene is paused.
+   * (4) Renders the scene.
+   * @function render
+   * @static
+   * @returns {void}
+   */
+  static render () {
+    // If the scene is not ready, do nothing.
+    if (Director.isReady()) {
+      // Run render loop.
+      Director.engine.runRenderLoop(() => {
+        // If the scene is not paused, render it.
+        if (Director.isPaused === false) {
+          // Render the scene.
+          Director.scene.render();
+        }
+      });
+    }
+  }
+
+  /**
+   * Unpause the scene rendering.
+   * @function run
+   * @static
+   * @returns {void}
+   */
+  static run () {
+    // Set isPaused to false.
+    Director.isPaused = false;
+  }
+
+  /**
+   * Pauses the scene.
+   * @function pause
+   * @static
+   * @returns {void}
+   */
+  static pause () {
+    // Set isPaused to true.
+    Director.isPaused = true;
+  }
+
+  /**
    * Clears all current meshes from the scene.
    * @function clearScene
    */
   static clearScene () {
+    // Pause the scene.
+    Director.pause();
+
     // If there is a scene, clear it.
-    if (Director.scene instanceof Scene === true) {
+    if (Director.scene !== null) {
       // Remove all meshes.
       // Meshes can be live when iterating over the collection.
       // Director freezes the collection and allows us to remove each mesh.
@@ -149,6 +195,9 @@ export default class Director {
 
     // Show passage (again).
     $('tw-passage').show();
+
+    // Unpause the scene.
+    Director.run();
   }
 
   /**
@@ -168,23 +217,5 @@ export default class Director {
 
     // Return the value.
     return ready;
-  }
-
-  /**
-   * Populate a scene based on the name, position, and options.
-   * @function populateScene
-   * @param {string} name - Name of the Actor.
-   * @param {object} position - Position for the Actor.
-   * @param {object} options - Options for the Actor.
-   */
-  static populateScene (name, position, options) {
-    // If there is a scene, populate it.
-    if (Director.isReady()) {
-      // Test for box
-      if (name === 'box') {
-        // Create a new Actor.
-        Box(name, position, options);
-      }
-    }
   }
 }

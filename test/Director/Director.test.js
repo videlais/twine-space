@@ -25,9 +25,14 @@ describe('Director', () => {
         return Director.canvas;
       });
 
+      const paused = await page.evaluate(() => {
+        return Director.isPaused;
+      });
+
       expect(scene).toBe(null);
       expect(engine).toBe(null);
       expect(canvas).toBe(null);
+      expect(paused).toBe(false);
     });
   });
 

@@ -16,8 +16,13 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.width - The width of the plane.
    * @param {number} options.height - The height of the plane.
    * @param {number} options.sideOrientation - The side orientation of the plane.
+   * @returns {object} mesh - Plane or null.
    */
 export default function Plane(name = '', position, options) {
+
+  // Prepare default mesh.
+  let mesh = null;
+
   // Check if Director is ready.
   if(Director.isReady()) {
       // Check if name is a string.
@@ -92,8 +97,8 @@ export default function Plane(name = '', position, options) {
       
       // Set the position of the plane.
       mesh.position = new Vector3(position.x, position.y, position.z);
-      
-      // Return the plane.
-      return mesh;
-    }
+  }
+
+  // Return the Plane or null.
+  return mesh;
 }

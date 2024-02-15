@@ -15,9 +15,14 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.width - The width of the box.
    * @param {number} options.height - The height of the box.
    * @param {number} options.depth - The depth of the box.
+   * @returns {object} mesh - Box or null.
    */
 export default function Box(name, position, options) {
 
+    // Prepare default mesh.
+    let mesh = null;
+
+    // Check if Director is ready.
     if(Director.isReady()) {
       // Check if name is a string.
       if(typeof name !== 'string') {
@@ -113,12 +118,12 @@ export default function Box(name, position, options) {
       // Use default positions if position is empty.
       // Use default width, height, and depth if options are empty.
       // Use Director.scene.
-      const mesh = CreateBox(name, {width: width, height: height, depth: depth}, Director.scene);
+      mesh = CreateBox(name, {width: width, height: height, depth: depth}, Director.scene);
       
       // Assign position to mesh.position.
       mesh.position = new Vector3(x, y, z);
-
-      // Return mesh.
-      return mesh;
     }
+
+     // Return Box or null.
+     return mesh;
 }
