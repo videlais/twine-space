@@ -59,7 +59,7 @@ export default async function Photosphere(name, url, options) {
       );
     }
 
-    // Promise-based image loader
+    // Promise-based image loader.
     const loadImage = path => {
       return new Promise((resolve) => {
         // Create a new image.
