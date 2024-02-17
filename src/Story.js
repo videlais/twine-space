@@ -1,12 +1,8 @@
-/**
- * @external Element
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element|Element}
- */
 import $ from 'jquery';
 import ejs from 'ejs';
 import { parse as parseScene } from './Parse/Scene/index.js';
 import Passage from './Passage.js';
-import BabylonProxy from './Director.js';
+import Director from './Director.js';
 
 /**
  * An object representing the entire story. After the document has completed
@@ -16,18 +12,34 @@ import BabylonProxy from './Director.js';
 export default class Story {
   constructor () {
     /**
-     * @property {Element} storyDataElement - Reference to tw-storydata element
+     * @property {Element} storyDataElement - Reference to tw-storydata element.
      * @type {Element}
      * @readonly
      */
-    this.storyDataElement = $('tw-storydata');
+    this.storyDataElement = null;
+
+    // Test if the tw-storydata element exists.
+    if ($('tw-storydata').length === 0) {
+      // It does not exist, throw an error.
+      console.warn('Warning: tw-storydata element does not exist!');
+    } else {
+      // It does exist, so set the reference.
+      this.storyDataElement = $('tw-storydata');
+    }
 
     /**
      * @property {string} name - The name of the story.
      * @type {string}
      * @readonly
      */
-    this.name = this.storyDataElement.attr('name');
+
+    // Check if storyDataElement exists.
+    if (this.storyDataElement !== null) {
+      this.name = this.storyDataElement.attr('name');
+    } else {
+      // It does not exist, so set the name to null.
+      this.name = null;
+    }
 
     /**
      * An array of all passages, indexed by ID.
@@ -36,28 +48,37 @@ export default class Story {
      */
     this.passages = [];
 
-    // For each child element of the tw-storydata element,
-    //  create a new Passage object based on its attributes.
-    this.storyDataElement.children('tw-passagedata').each((index, element) => {
-      const elementReference = $(element);
-      let tags = elementReference.attr('tags');
+    // Check if any tw-passagedata elements exist.
+    if ($('tw-passagedata').length >= 1) {
+      // For each child element of the tw-storydata element,
+      //  create a new Passage object based on its attributes.
+      this.storyDataElement.children('tw-passagedata').each((index, element) => {
+        // Create a reference to the current element.
+        const elementReference = $(element);
 
-      // Does the 'tags' attribute exist?
-      if (tags !== '' && tags !== undefined) {
-        // Attempt to split by space
-        tags = tags.split(' ');
-      } else {
-        // It did not exist, so we create it as an empty array.
-        tags = [];
-      }
+        let tags = [];
+        let name = '';
 
-      // Push the new passage.
-      this.passages.push(new Passage(
-        elementReference.attr('name'),
-        tags,
-        elementReference.html()
-      ));
-    });
+        // Check if the 'tags' attribute exists.
+        if (elementReference.hasAttribute('tags')) {
+          // If it does, split the string by space.
+          tags = elementReference.attr('tags').split(' ');
+        }
+
+        // Check if the 'name' attribute exists.
+        if (elementReference.hasAttribute('name')) {
+          // If it does, set the name to the value.
+          name = elementReference.attr('name');
+        }
+
+        // Push the new passage.
+        this.passages.push(new Passage(
+          name,
+          tags,
+          elementReference.html()
+        ));
+      });
+    }
 
     /**
      * An array of user-specific scripts to run when the story is begun.
@@ -90,19 +111,38 @@ export default class Story {
      * @type {Element}
      * @readonly
      */
-    this.storyElement = $('tw-story');
+
+    this.storyElement = null;
+
+    // Check if the tw-story element exists.
+    if ($('tw-story').length === 0) {
+      // It does not exist, throw an error.
+      console.warn('Warning: tw-story element does not exist!');
+    } else {
+      // It does exist, so set the reference.
+      this.storyElement = $('tw-story');
+    }
 
     /**
      * Passage element.
      * @property {Element} passageElement - Passage element.
      * @type {Element}
      */
-    this.passageElement = $('tw-passage');
+    this.passageElement = null;
+
+    // Check if the tw-passage element exists.
+    if ($('tw-passage').length === 0) {
+      // It does not exist, throw an error.
+      console.warn('Warning: tw-passage element does not exist!');
+    } else {
+      // It does exist, so set the reference.
+      this.passageElement = $('tw-passage');
+    }
 
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
       // Unload the current meshes.
-      BabylonProxy.clearScene();
+      Director.clearScene();
       // Pull destination passage name from the attribute.
       const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.
@@ -233,7 +273,7 @@ export default class Story {
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
       // Unload the current meshes.
-      BabylonProxy.clearScene();
+      Director.clearScene();
       // Pull destination passage name from the attribute.
       const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.

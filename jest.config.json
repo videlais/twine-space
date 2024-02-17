@@ -1,5 +1,17 @@
 {
-    "verbose": true,
-    "transform": {},
-    "preset": "jest-puppeteer"
+    "projects": [
+        {
+            "displayName": "jest-puppeteer",
+            "testMatch": ["<rootDir>/test/e2e/**/*.test.js"],
+            "preset": "jest-puppeteer",
+            "transform": {}
+        },
+        {
+            "displayName": "jest-jsdom",
+            "testMatch": ["<rootDir>/test/jsdom/**/*.test.js"],
+            "testEnvironment": "jsdom",
+            "transform": {}
+        }
+    ],
+    "verbose": true
 }
