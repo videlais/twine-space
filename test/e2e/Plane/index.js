@@ -1,6 +1,6 @@
 import Director from '../../../src/Director.js';
 import $ from 'jquery';
-import Plane from '../../../src/Actors/Plane.js';
+import { create as Plane } from '../../../src/Actors/Plane.js';
 
 // Setup jQuery.
 window.$ = $;

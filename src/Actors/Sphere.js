@@ -17,7 +17,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.segments - The segments of the sphere.
    * @returns {object} mesh - Sphere or null.
    */
-export default function Sphere(name, position, options) {
+function create(name, position, options) {
 
   // Prepare default mesh.
   let mesh = null;
@@ -88,3 +88,5 @@ export default function Sphere(name, position, options) {
   // Return the Sphere or null.
   return mesh;
 }
+
+export { create };

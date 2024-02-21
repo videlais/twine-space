@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import ejs from 'ejs';
 import { parse as parseScene } from './Parse/Scene/index.js';
 import Passage from './Passage.js';
 import Director from './Director.js';
@@ -35,7 +34,13 @@ export default class Story {
 
     // Check if storyDataElement exists.
     if (this.storyDataElement !== null) {
-      this.name = this.storyDataElement.attr('name');
+      // Check if the 'name' attribute exists.
+      // (jQuery does not have a hasAttribute method.)
+      // (Use the first element in the array and DOM hasAttribute method.)
+      if(this.storyDataElement[0].hasAttribute('name')) {
+        // If it does, set the name to the value.
+        this.name = this.storyDataElement.attr('name');
+      }
     } else {
       // It does not exist, so set the name to null.
       this.name = null;
@@ -52,7 +57,7 @@ export default class Story {
     if ($('tw-passagedata').length >= 1) {
       // For each child element of the tw-storydata element,
       //  create a new Passage object based on its attributes.
-      this.storyDataElement.children('tw-passagedata').each((index, element) => {
+      $('tw-passagedata').each((index, element) => {
         // Create a reference to the current element.
         const elementReference = $(element);
 
@@ -60,13 +65,13 @@ export default class Story {
         let name = '';
 
         // Check if the 'tags' attribute exists.
-        if (elementReference.hasAttribute('tags')) {
+        if (elementReference[0].hasAttribute('tags')) {
           // If it does, split the string by space.
           tags = elementReference.attr('tags').split(' ');
         }
 
         // Check if the 'name' attribute exists.
-        if (elementReference.hasAttribute('name')) {
+        if (elementReference[0].hasAttribute('name')) {
           // If it does, set the name to the value.
           name = elementReference.attr('name');
         }
@@ -78,6 +83,9 @@ export default class Story {
           elementReference.html()
         ));
       });
+    } else {
+      // It does not exist, throw an error.
+      console.warn('Warning: tw-passagedata elements do not exist!');
     }
 
     /**
@@ -87,7 +95,8 @@ export default class Story {
      */
     this.userScripts = [];
 
-    // Add the internal (HTML) contents of all SCRIPT tags
+    // Add the internal (HTML) contents of all SCRIPT tags.
+    // Per spec, there will only be one SCRIPT tag with the type "text/twine-javascript".
     $('*[type="text/twine-javascript"]').each((index, value) => {
       this.userScripts.push($(value).html());
     });
@@ -120,7 +129,7 @@ export default class Story {
       console.warn('Warning: tw-story element does not exist!');
     } else {
       // It does exist, so set the reference.
-      this.storyElement = $('tw-story');
+      this.storyElement = $('tw-story')[0];
     }
 
     /**
@@ -148,9 +157,6 @@ export default class Story {
       // Show the passage by name.
       this.show(passageName);
     });
-
-    // Hide the canvas to start.
-    $('renderCanvas').hide();
   }
 
   /**
@@ -158,12 +164,13 @@ export default class Story {
    * @function include
    * @param {string} name Name of the passage.
    * @returns {string} Passage source.
+   * @throws {Error} If the passage does not exist.
    */
   include (name) {
     const passage = this.getPassageByName(name);
 
     if (passage === null) {
-      throw new Error('Passage does not exist!');
+      throw new Error('Error: Passage does not exist!');
     }
 
     return passage.source;
@@ -179,37 +186,30 @@ export default class Story {
       $(document.body).append(`<style>${style}</style>`);
     });
 
-    // For each script, run them.
+    // For each script, append a new element to the page.
     this.userScripts.forEach((script) => {
-      try {
-        ejs.render(`<%${script}%>`, { $ });
-      } catch (error) {
-        throw new Error(`User script error: ${error}`);
-      }
+      $(document.body).append(`<script>${script}</script>`);
     });
 
-    // Look for passages with 'script' tag.
-    const scriptPassages = this.getPassagesByTag('script');
+    // Check if the startnode attribute exists.
+    if (!this.storyDataElement[0].hasAttribute('startnode')) {
+      // It does not exist, throw an error.
+      throw new Error('Error: The startnode attribute cannot be found!');
+    }
 
-    // For each script, run them.
-    scriptPassages.forEach((script) => {
-      try {
-        ejs.render(`<%${script.source}%>`, { $ });
-      } catch (error) {
-        throw new Error(`User script error: ${error}`);
-      }
-    });
+    // Get the startnode attribute.
+    const startnode = this.storyDataElement.attr('startnode');
 
     // Get the startnode value (which is a number).
-    const startingPassageID = parseInt(this.storyDataElement.attr('startnode'));
+    const startingPassageID = parseInt(startnode, 10);
 
-    // Try to find the starting passage
-    const startingPassageElement = $(`[pid="${startingPassageID}"]`);
+    // Try to find the starting passage.
+    const startingPassageElement = $(`tw-passagedata[pid="${startingPassageID}"]`);
 
     // Was it found?
     if (startingPassageElement.length === 0) {
       // Was not found, throw error.
-      throw new Error('Starting passage not found!');
+      throw new Error('Error: Starting passage does not exist!');
     }
 
     // If the 'name' attribute does not exist,
@@ -235,21 +235,25 @@ export default class Story {
     if (passage === null) {
       // Passage was not found.
       // Throw error.
-      throw new Error(`There is no passage with the name ${name}`);
+      throw new Error(`Error: There is no passage with the name "${name}"!`);
     }
 
     // Overwrite current tags.
     this.passageElement.attr('tags', passage.tags);
 
-    // Use Snowman approach to pre-processing.
-    try {
-      passage.source = ejs.render(passage.source, { $ }, { outputFunctionName: 'echo' });
-    } catch (error) {
-      throw new Error(`User script error: ${error}`);
-    }
+    // Detect if a "stage" (---) is present.
+    // parseScene() will return an array of objects and 'text' property.
+    const content = parseScene(passage.source);
+
+    // Create default, pre-processed text.
+    let text = content.text;
+
+    // Parse links
+    
+
 
     // Overwrite the parsed with the rendered.
-    this.passageElement.html(parseScene(passage.source));
+    this.passageElement.html(text);
 
     // Update the navigation menu (different per passage!).
     const linkList = document.querySelectorAll('tw-link');

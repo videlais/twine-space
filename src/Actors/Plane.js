@@ -18,7 +18,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.sideOrientation - The side orientation of the plane.
    * @returns {object} mesh - Plane or null.
    */
-export default function Plane(name = '', position, options) {
+function create(name = '', position, options) {
 
   // Prepare default mesh.
   let mesh = null;
@@ -102,3 +102,5 @@ export default function Plane(name = '', position, options) {
   // Return the Plane or null.
   return mesh;
 }
+
+export { create };

@@ -1,6 +1,6 @@
 import Director from '../../../src/Director.js';
 import $ from 'jquery';
-import Photosphere from '../../../src/Actors/Photosphere.js';
+import { create as Photosphere } from '../../../src/Actors/Photosphere.js';
 
 // Setup jQuery.
 window.$ = $;

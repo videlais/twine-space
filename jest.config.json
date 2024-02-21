@@ -10,7 +10,8 @@
             "displayName": "jest-jsdom",
             "testMatch": ["<rootDir>/test/jsdom/**/*.test.js"],
             "testEnvironment": "jsdom",
-            "transform": {}
+            "transform": {},
+            "setupFiles": ["<rootDir>/test/setup.js"]
         }
     ],
     "verbose": true

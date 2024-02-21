@@ -20,7 +20,7 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js"
    * @param {string} details.text - The text of the annotation.
    * @returns {Object} Annotation or null.
    */
-export default function Annotation(details) {
+function create(details) {
 
   // Create default mesh.
   let mesh = null;
@@ -84,3 +84,5 @@ export default function Annotation(details) {
   // Return the mesh.
   return mesh;
 }
+
+export { create };

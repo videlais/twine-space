@@ -12,7 +12,7 @@ import { PhotoDome } from '@babylonjs/core/Helpers/photoDome.js';
   * @param {number} options.resolution - The resolution of the photosphere.
   * @param {number} options.size - The size of the photosphere.
   */
-export default async function Photosphere(name, url, options) {
+async function create(name, url, options) {
 
   // Prepare default mesh.
   let mesh = null;
@@ -99,3 +99,5 @@ export default async function Photosphere(name, url, options) {
   // Return photosphere or null.
   return mesh;
 }
+
+export { create };

@@ -1,6 +1,6 @@
 import Director from '../../../src/Director.js';
 import $ from 'jquery';
-import Annotation from '../../../src/Actors/Annotation.js';
+import {create as Annotation} from '../../../src/Actors/Annotation.js';
 
 // Setup jQuery.
 window.$ = $;

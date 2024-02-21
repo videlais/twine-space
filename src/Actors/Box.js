@@ -17,7 +17,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * @param {number} options.depth - The depth of the box.
    * @returns {object} mesh - Box or null.
    */
-export default function Box(name, position, options) {
+function create(name, position, options) {
 
     // Prepare default mesh.
     let mesh = null;
@@ -127,3 +127,5 @@ export default function Box(name, position, options) {
      // Return Box or null.
      return mesh;
 }
+
+export { create };
