@@ -8,17 +8,17 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
    * 
    * @function Plane
    * @param {string} name - The name of the plane. 
-   * @param {object} position - {x: number, y: number, z: number}
-   * @param {number} position.x - The x position of the plane.
-   * @param {number} position.y - The y position of the plane.
-   * @param {number} position.z - The z position of the plane.
-   * @param {object} options - {width: number, height: number, sideOrientation: number}
+   * @param {object} options - {position: {x: number, y: number, z: number}, width: number, height: number, sideOrientation: number}
+   * @param {object} options.position - {x: number, y: number, z: number}
+   * @param {number} options.position.x - The x position of the plane.
+   * @param {number} options.position.y - The y position of the plane.
+   * @param {number} options.position.z - The z position of the plane.
    * @param {number} options.width - The width of the plane.
    * @param {number} options.height - The height of the plane.
    * @param {number} options.sideOrientation - The side orientation of the plane.
    * @returns {object} mesh - Plane or null.
    */
-function create(name = '', position, options) {
+function create(name, options) {
 
   // Prepare default mesh.
   let mesh = null;
@@ -35,32 +35,6 @@ function create(name = '', position, options) {
       let y = 0;
       let z = 0;
 
-      // Check if position is an object.
-      if(typeof position !== 'object') {
-        position = {x: x, y: y, z: z};
-      } else {
-        // Check if position.x is a number.
-        if(typeof position.x !== 'number') {
-          position.x = x;
-        } else {
-          x = position.x;
-        }
-
-        // Check if position.y is a number.
-        if(typeof position.y !== 'number') {
-          position.y = y;
-        } else {
-          y = position.y;
-        }
-
-        // Check if position.z is a number.
-        if(typeof position.z !== 'number') {
-          position.z = z;
-        } else {
-          z = position.z;
-        }
-      }
-
       // Prepare default width, height, and sideOrientation values.
       let width = 1;
       let height = 1;
@@ -68,35 +42,82 @@ function create(name = '', position, options) {
 
       // Check if options is an object.
       if(typeof options !== 'object') {
-        options = {width: width, height: height, sideOrientation: sideOrientation};
-      } else {
-        // Check if options.width is a number.
-        if(typeof options.width !== 'number') {
-          options.width = width;
-        } else {
-          width = options.width;
-        }
-
-        // Check if options.height is a number.
-        if(typeof options.height !== 'number') {
-          options.height = height;
-        } else {
-          height = options.height;
-        }
-
-        // Check if options.sideOrientation is a number.
-        if(typeof options.sideOrientation !== 'number') {
-          options.sideOrientation = sideOrientation;
-        } else {
-          sideOrientation = options.sideOrientation;
-        }
+        options = {};
       }
+
+      // Check if options.position is an object.
+      if(typeof options.position !== 'object') {
+        options.position = {x: 0, y: 0, z: 0};
+      }
+
+      // Check if options.position.x exists.
+      if(!Object.prototype.hasOwnProperty.call(options.position, 'x')) {
+        options.position.x = 0;
+      }
+
+      // Check if options.position.y exists.
+      if(!Object.prototype.hasOwnProperty.call(options.position, 'y')) {
+        options.position.y = 0;
+      }
+
+      // Check if options.position.z exists.
+      if(!Object.prototype.hasOwnProperty.call(options.position, 'z')) {
+        options.position.z = 0;
+      }
+
+      // Check if position.x is a number.
+      if(typeof options.position.x !== 'number') {
+        options.position.x = 0;
+      }
+
+      // Check if position.y is a number.
+      if(typeof options.position.y !== 'number') {
+        options.position.y = 0;
+      }
+
+      // Check if position.z is a number.
+      if(typeof options.position.z !== 'number') {
+        options.position.z = 0;
+      }
+
+      // Set the position.x.
+      x = options.position.x;
+
+      // Set the position.y.
+      y = options.position.y;
+
+      // Set the position.z.
+      z = options.position.z;
+
+      // Check if options.width exists.
+      if(!Object.prototype.hasOwnProperty.call(options, 'width')) {
+        options.width = 1;
+      }
+
+      // Check if options.height exists.
+      if(!Object.prototype.hasOwnProperty.call(options, 'height')) {
+        options.height = 1;
+      }
+
+      // Check if options.sideOrientation exists.
+      if(!Object.prototype.hasOwnProperty.call(options, 'sideOrientation')) {
+        options.sideOrientation = 0;
+      } 
+
+      // Set the width.
+      width = options.width;
+
+      // Set the height.
+      height = options.height;
+
+      // Set the sideOrientation.
+      sideOrientation = options.sideOrientation;
     
       // Create a plane.
-      const mesh = CreatePlane(name, options);
+      const mesh = CreatePlane(name, {width, height, sideOrientation}, Director.scene);
       
       // Set the position of the plane.
-      mesh.position = new Vector3(position.x, position.y, position.z);
+      mesh.position = new Vector3(x, y, z);
   }
 
   // Return the Plane or null.

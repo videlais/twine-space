@@ -41,7 +41,7 @@ describe('Sphere', () => {
     it('Should create a single sphere with custom values', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Sphere('sphere', { x: 1, y: 2, z: 3 }, { diameter: 4 });
+        Director.Actors.Sphere('sphere', { diameter: 4, segments: 32, position: { x: 1, y: 2, z: 3 } });
         return Director.scene.meshes.length;
       });
 

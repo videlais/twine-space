@@ -7,12 +7,12 @@ import { PhotoDome } from '@babylonjs/core/Helpers/photoDome.js';
   * It requires a name and a url to the image.
   * 
   * @param {string} name - The name of the photosphere.
-  * @param {string} url - The url of the photosphere.
-  * @param {object} options - {resolution: number, size: number}
+  * @param {object} options - {resolution: number, size: number, url: string}
   * @param {number} options.resolution - The resolution of the photosphere.
   * @param {number} options.size - The size of the photosphere.
+  * @param {string} options.url - The url to the image.
   */
-async function create(name, url, options) {
+async function create(name, options) {
 
   // Prepare default mesh.
   let mesh = null;
@@ -23,13 +23,14 @@ async function create(name, url, options) {
       name = '';
     }
 
+    // Prepare default resolution, size, and url values.
+    let resolution = 32;
+    let size = 1000;
+    let url = '';
+
     // Function to continue loading.
     // This function will be called after the image has loaded.
     const continueLoading = () => {
-      // Prepare default resolution and size values.
-      let resolution = 32;
-      let size = 1000;
-
       // Check if options is an object.
       if(typeof options === 'object') {
 
@@ -83,6 +84,14 @@ async function create(name, url, options) {
           resolve(false);
         };
       })
+    }
+
+    // Check if options.url property exists.
+    if(Object.prototype.hasOwnProperty.call(options, 'url')) {
+      // Check if options.url is a number.
+      if(typeof options.url === 'string') {
+        url = options.url;
+      }
     }
 
     // Check if the url is an image.

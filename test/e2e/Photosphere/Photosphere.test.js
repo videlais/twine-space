@@ -22,7 +22,7 @@ describe('Photosphere', () => {
     
         it('Should return null if there is no scene', async () => {
             const mesh = await page.evaluate(() => {
-                return Director.Actors.Photosphere('photosphere', './Photosphere/Office.PHOTOSPHERE.jpg');
+                return Director.Actors.Photosphere('photosphere', {url: './Photosphere/Office.PHOTOSPHERE.jpg'});
             });
         
             expect(mesh).toBe(null);
@@ -31,7 +31,7 @@ describe('Photosphere', () => {
         it('Should create a single photosphere with default values', async () => {
             const meshCount = await page.evaluate(async () => {
                 Director.createScene();
-                await Director.Actors.Photosphere('photosphere', './Photosphere/Office.PHOTOSPHERE.jpg');
+                await Director.Actors.Photosphere('photosphere', {url: './Photosphere/Office.PHOTOSPHERE.jpg'});
                 return Director.scene.meshes.length;
             });
         
@@ -41,7 +41,7 @@ describe('Photosphere', () => {
         it('Should create a single photosphere with custom values', async () => {
             const meshCount = await page.evaluate(async () => {
                 Director.createScene();
-                await Director.Actors.Photosphere('photosphere', './Photosphere/Office.PHOTOSPHERE.jpg', { size: 1000 });
+                await Director.Actors.Photosphere('photosphere', {url: './Photosphere/Office.PHOTOSPHERE.jpg', size: 1000 });
                 return Director.scene.meshes.length;
             });
         
@@ -51,7 +51,7 @@ describe('Photosphere', () => {
         it('Should return null if url value does not exist', async () => {
             const mesh = await page.evaluate(async () => {
                 Director.createScene();
-                return await Director.Actors.Photosphere('photosphere', 0);
+                return await Director.Actors.Photosphere('photosphere', {url: 0});
             });
         
             expect(mesh).toBe(null);

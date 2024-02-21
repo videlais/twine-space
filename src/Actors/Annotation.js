@@ -9,18 +9,19 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js"
    * 
    * An annotation is a 3D object that can be placed in a scene to provide information about a specific location.
    * The sphere is placed at a specific position in the scene.
+   * 
    * When a user clicks on the sphere, a modal popup will appear with the annotation's title and text.
    * 
-   * @param {Object} details - The details of the annotation.
-   * @param {string} details.title - The title of the annotation.
-   * @param {Object} details.position - The position of the annotation.
-   * @param {number} details.position.x - The x position of the annotation.
-   * @param {number} details.position.y - The y position of the annotation.
-   * @param {number} details.position.z - The z position of the annotation.
-   * @param {string} details.text - The text of the annotation.
+   * @param {Object} options - The options of the annotation.
+   * @param {string} options.title - The title of the annotation.
+   * @param {Object} options.position - The position of the annotation.
+   * @param {number} options.position.x - The x position of the annotation.
+   * @param {number} options.position.y - The y position of the annotation.
+   * @param {number} options.position.z - The z position of the annotation.
+   * @param {string} options.text - The text of the annotation.
    * @returns {Object} Annotation or null.
    */
-function create(details) {
+function create(options) {
 
   // Create default mesh.
   let mesh = null;
@@ -34,38 +35,38 @@ function create(details) {
       text: ''
     };
 
-    // Is details an object?
-    if(typeof details !== 'object') {
+    // Is options an object?
+    if(typeof options !== 'object') {
       // If not, we do not create an annotation.
-      details = {};
+      options = {};
     }
 
     // Check for title.
-    if( Object.prototype.hasOwnProperty.call(details, 'title') ) {
-      annotation.title = details.title;
+    if( Object.prototype.hasOwnProperty.call(options, 'title') ) {
+      annotation.title = options.title;
     }
 
     // Check for position.
-    if(Object.prototype.hasOwnProperty.call(details, 'position') ) {
+    if(Object.prototype.hasOwnProperty.call(options, 'position') ) {
       // Check for x.
-      if(Object.prototype.hasOwnProperty.call(details.position, 'x') ) {
-        annotation.position.x = details.position.x;
+      if(Object.prototype.hasOwnProperty.call(options.position, 'x') ) {
+        annotation.position.x = options.position.x;
       }
 
       // Check for y.
-      if(Object.prototype.hasOwnProperty.call(details.position, 'y') ) {
-        annotation.position.y = details.position.y;
+      if(Object.prototype.hasOwnProperty.call(options.position, 'y') ) {
+        annotation.position.y = options.position.y;
       }
 
       // Check for z.
-      if(Object.prototype.hasOwnProperty.call(details.position, 'z') ) {
-        annotation.position.z = details.position.z;
+      if(Object.prototype.hasOwnProperty.call(options.position, 'z') ) {
+        annotation.position.z = options.position.z;
       }
     }
 
     // Check for text.
-    if(Object.prototype.hasOwnProperty.call(details, 'text') ) {
-      annotation.text = details.text;
+    if(Object.prototype.hasOwnProperty.call(options, 'text') ) {
+      annotation.text = options.text;
     }
    
     // Create outer sphere material.

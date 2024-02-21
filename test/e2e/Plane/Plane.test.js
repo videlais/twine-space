@@ -42,7 +42,7 @@ describe('Plane', () => {
     it('Should create a single plane with custom values', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Plane('plane', { x: 1, y: 2, z: 3 }, { width: 4, height: 5 });
+        Director.Actors.Plane('plane', { width: 4, height: 5, position: { x: 1, y: 2, z: 3 } });
         return Director.scene.meshes.length;
       });
 
