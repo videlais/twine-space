@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import { parse as parseScene } from './Parse/Scene/index.js';
+import { parse as parseLinks } from './Parse/Links.js';
+import { parse as parseMarkdown } from './Parse/Markdown.js';
 import Passage from './Passage.js';
 import Director from './Director.js';
 
@@ -248,9 +250,16 @@ export default class Story {
     // Create default, pre-processed text.
     let text = content.text;
 
-    // Parse links
-    
+    // Parse scene.
+    text = parseScene(text).text;
 
+    // Call the ActorFactory to create the objects.
+
+    // Parse links.
+    text = parseLinks(text);
+
+    // Parse the Markdown.
+    text = parseMarkdown(text);
 
     // Overwrite the parsed with the rendered.
     this.passageElement.html(text);

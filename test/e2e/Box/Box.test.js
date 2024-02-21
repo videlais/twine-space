@@ -41,7 +41,7 @@ describe('Box', () => {
     it('Should create a single box with custom values', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Box('box', { x: 1, y: 2, z: 3 }, { width: 4, height: 5, depth: 6 });
+        Director.Actors.Box('box', { width: 4, height: 5, depth: 6, position: { x: 1, y: 2, z: 3 } });
         return Director.scene.meshes.length;
       });
 
@@ -72,7 +72,7 @@ describe('Box', () => {
     it('Should create a single box with a position', async () => {
       const mesh = await page.evaluate(() => {
         Director.createScene();
-        const m = Director.Actors.Box('box', { x: 1, y: 2, z: 3 });
+        const m = Director.Actors.Box('box', { position: { x: 1, y: 2, z: 3 } });
         return { x: m.position.x, y: m.position.y, z: m.position.z };
       });
 
@@ -84,7 +84,7 @@ describe('Box', () => {
     it('Should create a single box with a width', async () => {
       const width = await page.evaluate(() => {
         Director.createScene();
-        const m = Director.Actors.Box('box', { x: 1, y: 2, z: 3 }, { width: 4 });
+        const m = Director.Actors.Box('box', { width: 4, position: { x: 1, y: 2, z: 3 } });
         // Access the bounding box's extendSize (centered at the origin, so multiply by 2 to get the width).
         return m.getBoundingInfo().boundingBox.extendSize.x * 2;
       });
@@ -95,7 +95,7 @@ describe('Box', () => {
     it('Should create a single box with a height', async () => {
       const height = await page.evaluate(() => {
         Director.createScene();
-        const m = Director.Actors.Box('box', { x: 1, y: 2, z: 3 }, { height: 6 });
+        const m = Director.Actors.Box('box', { height: 6, position: { x: 1, y: 2, z: 3 } });
         // Access the bounding box's extendSize (centered at the origin, so multiply by 2 to get the height).
         return m.getBoundingInfo().boundingBox.extendSize.y * 2;
       });
@@ -106,7 +106,7 @@ describe('Box', () => {
     it('Should create a single box with a depth', async () => {
       const depth = await page.evaluate(() => {
         Director.createScene();
-        const m = Director.Actors.Box('box', { x: 1, y: 2, z: 3 }, { depth: 10 });
+        const m = Director.Actors.Box('box', { depth: 10, position: { x: 1, y: 2, z: 3 } });
         // Access the bounding box's extendSize (centered at the origin, so multiply by 2 to get the height).
         return m.getBoundingInfo().boundingBox.extendSize.z * 2;
       });
