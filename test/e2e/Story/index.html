@@ -7,38 +7,36 @@
 		<title>Story - Tests</title>
 	</head>
 	<body>
-		<tw-storydata name="Story" startnode="1" creator="Twine" creator-version="2.3.9" ifid="D3E3A3A3-4A3A-4A3A-4A3A-4A3A4A3A4A3A" zoom="1" format="Harlowe" format-version="3.2.2" options="" hidden>
-			<style id="twine-user-stylesheet" type="text/twine-css">body {color: white}</style>
-			<script id="twine-user-script" type="text/twine-javascript">window.example = "Test";</script>
-			<tw-passagedata pid="1" name="Start" tags="" position="0,0" size="100,100" passage="Start">
-				<p>[[Next]]</p>
-			</tw-passagedata>
-			<tw-passagedata pid="2" name="Next" tags="" position="0,0" size="100,100" passage="Next">
-				<p>[[Start]]</p>
-			</tw-passagedata>
-		</tw-storydata>
-		<tw-story>
-			<tw-passage class="passage" aria-live="polite"></tw-passage>
-		</tw-story>
 		<div id="navigation-menu">
 			<md-filled-button id="usage-fixed-anchor">Navigation Menu</md-filled-button>
 		</div>
-		<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">
-			<md-menu-item>
-			  <div slot="headline">Apple</div>
-			</md-menu-item>
-			<md-menu-item>
-			  <div slot="headline">Banana</div>
-			</md-menu-item>
-			<md-menu-item>
-			  <div slot="headline">Cucumber</div>
-			</md-menu-item>
-		</md-menu>
+		<div id="menu">
+			<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">
+				<md-menu-item>
+				<div slot="headline">Apple</div>
+				</md-menu-item>
+				<md-menu-item>
+				<div slot="headline">Banana</div>
+				</md-menu-item>
+				<md-menu-item>
+				<div slot="headline">Cucumber</div>
+				</md-menu-item>
+			</md-menu>
+		</div>
 		<script type="module">
 			const anchorEl = document.body.querySelector('#usage-fixed-anchor');
 			const menuEl = document.body.querySelector('#usage-fixed');
 			anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
 		</script>
+		<tw-storydata name="Story" startnode="1" creator="Twine" creator-version="2.3.9" ifid="D3E3A3A3-4A3A-4A3A-4A3A-4A3A4A3A4A3A" zoom="1" format="Harlowe" format-version="3.2.2" options="" hidden>
+			<style id="twine-user-stylesheet" type="text/twine-css">body {color: white}</style>
+			<script id="twine-user-script" type="text/twine-javascript">window.example = "Test";</script>
+			<tw-passagedata pid="1" name="Start" tags="tag1" position="0,0" size="100,100"><p>[[Next]]</p></tw-passagedata>
+			<tw-passagedata pid="2" name="Next" tags="tag2" position="0,0" size="100,100"><p>[[Start]]</p></tw-passagedata>
+		</tw-storydata>
+		<tw-story>
+			<tw-passage class="passage" aria-live="polite"></tw-passage>
+		</tw-story>
         <script src="/e2e/Story/core.bundle.js"></script>
 	</body>
 </html>

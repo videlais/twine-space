@@ -147,16 +147,6 @@ export default class Story {
       // It does exist, so set the reference.
       this.passageElement = $('tw-passage');
     }
-
-    // If there is a click on a tw-link, load the passage!
-    $('tw-link[data-passage]').on('click', (e) => {
-      // Unload the current meshes.
-      window.Director.clearScene();
-      // Pull destination passage name from the attribute.
-      const passageName = $(e.target).closest('[data-passage]').data('passage');
-      // Show the passage by name.
-      this.show(passageName);
-    });
   }
 
   /**
@@ -225,9 +215,6 @@ export default class Story {
    * @param {string} name - name of the passage.
    */
   show (name) {
-    // Remove previous menu.
-    $('md-menu').remove();
-
     // Attempt to find passage.
     const passage = this.getPassageByName(name);
 
@@ -266,14 +253,18 @@ export default class Story {
     // Overwrite the parsed with the rendered.
     this.passageElement.html(text);
 
+    /*
     // Update the navigation menu (different per passage!).
-    const linkList = document.querySelectorAll('tw-link');
+    const linkList = $('tw-link');
 
-    // Create navigation menu.
+    // Remove previous menu.
+    $('md-menu').remove();
+
+    // Create new navigation menu.
     const navMenu = $('<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">');
 
     // Go through each twLink.
-    linkList.forEach((twLink) => {
+    linkList.each((twLink) => {
       // Create menu item.
       const menuItem = $(`<md-menu-item><div slot="headline">${twLink.outerHTML}</div></md-menu-item>`);
       // Append menu-item to navMenu.
@@ -284,6 +275,7 @@ export default class Story {
 
     // Append the navMenu back to the body.
     $(document.body).append(navMenu);
+    */
 
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {

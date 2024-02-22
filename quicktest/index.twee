@@ -1,11 +1,11 @@
 :: StoryTitle
-TwineSpace Testing
+TwineSpace - Lite Testing
 
 :: Start
 [[Yard]]
 <h2>Introduction</h2>
 <p>Welcome to an example of Twine Space - Lite!</p>
-<p>This story format is designed for use with photospheres (360-degree images) with annotations.</p>
+<p>This story format is designed for use with photospheres (360-degree images) and annotations.</p>
 <p>Unlike other story formats, text in passages will be hidden if a photosphere is loaded. This is to prevent issues with larger images overlapping with text on smaller or mobile devices.</p>
 <hr>
 <h2>Instructions</h2>
