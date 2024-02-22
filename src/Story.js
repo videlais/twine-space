@@ -251,11 +251,14 @@ export default class Story {
     // Create default, pre-processed text.
     let text = content.text;
 
-    // Parse scene.
-    text = parseScene(text).text;
-
-    // Call the ActorFactory to create the objects.
-
+    // Check if content contains any actor objects.
+    if (content.length > 0) {
+      // Go through each object.
+      content.forEach((object) => {
+        // Create the object.
+        ActorFactory.create(object.name, object.options);
+      });
+    }
 
     // Parse links.
     text = parseLinks(text);
