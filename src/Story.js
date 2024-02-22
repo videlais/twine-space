@@ -3,7 +3,6 @@ import { parse as parseScene } from './Parse/Scene/index.js';
 import { parse as parseLinks } from './Parse/Links.js';
 import { parse as parseMarkdown } from './Parse/Markdown.js';
 import Passage from './Passage.js';
-import Director from './Director.js';
 import ActorFactory from './ActorFactory.js';
 
 /**
@@ -34,19 +33,17 @@ export default class Story {
      * @type {string}
      * @readonly
      */
+    this.name = null;
 
     // Check if storyDataElement exists.
     if (this.storyDataElement !== null) {
       // Check if the 'name' attribute exists.
       // (jQuery does not have a hasAttribute method.)
       // (Use the first element in the array and DOM hasAttribute method.)
-      if(this.storyDataElement[0].hasAttribute('name')) {
+      if (this.storyDataElement[0].hasAttribute('name')) {
         // If it does, set the name to the value.
         this.name = this.storyDataElement.attr('name');
       }
-    } else {
-      // It does not exist, so set the name to null.
-      this.name = null;
     }
 
     /**

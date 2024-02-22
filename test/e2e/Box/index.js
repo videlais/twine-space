@@ -1,6 +1,6 @@
 import Director from '../../../src/Director.js';
 import $ from 'jquery';
-import {create as Box} from '../../../src/Actors/Box.js';
+import { create as Box } from '../../../src/Actors/Box.js';
 
 // Setup jQuery.
 window.$ = $;

@@ -14,12 +14,12 @@ const actors = {
 
 export default class ActorFactory {
   // Create an actor of the given type with the given options.
-  static create(type, options) {
+  static create (type, options) {
     // Default the options to an empty object.
     let result = null;
-    
+
     // If the type exists in actors, call its create() function.
-    if(Object.hasOwnProperty.call(actors, type)) {
+    if (Object.hasOwnProperty.call(actors, type)) {
       // Call the create() function of the actor type and pass the options.
       result = actors[type](type, options);
     }

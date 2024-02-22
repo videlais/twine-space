@@ -60,4 +60,9 @@ describe('Sphere', () => {
       expect(meshCount).toBe(3);
     });
   });
+
+  afterAll(() => {
+    // Remove the bundle.
+    shell.exec('rm ./test/e2e/Sphere/core.bundle.js');
+  });
 });

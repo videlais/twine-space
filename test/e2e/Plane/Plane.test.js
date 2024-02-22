@@ -61,4 +61,9 @@ describe('Plane', () => {
       expect(meshCount).toBe(3);
     });
   });
+
+  afterAll(() => {
+    // Remove the bundle.
+    shell.exec('rm ./test/e2e/Plane/core.bundle.js');
+  });
 });

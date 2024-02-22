@@ -114,4 +114,9 @@ describe('Box', () => {
       expect(depth).toBe(10);
     });
   });
+
+  afterAll(() => {
+    // Remove the bundle.
+    shell.exec('rm ./test/e2e/Box/core.bundle.js');
+  });
 });

@@ -10,5 +10,5 @@ window.Director = Director;
 
 // Add Box to Director.Shapes.
 window.Director.Actors = {
-  Photosphere: Photosphere
+  Photosphere
 };

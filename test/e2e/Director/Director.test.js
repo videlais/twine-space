@@ -1,5 +1,6 @@
 import shell from 'shelljs';
 import Director from '../../../src/Director.js';
+import $ from 'jquery';
 import 'expect-puppeteer';
 
 describe('Director', () => {
@@ -172,5 +173,35 @@ describe('Director', () => {
 
       expect(ready).toBe(true);
     });
+  });
+
+  describe('pause', () => {
+    it('Should pause the scene', async () => {
+      const paused = await page.evaluate(() => {
+        Director.createScene();
+        Director.pause();
+        return Director.isPaused;
+      });
+
+      expect(paused).toBe(true);
+    });
+  });
+
+  describe('resume', () => {
+    it('Should resume the scene', async () => {
+      const paused = await page.evaluate(() => {
+        Director.createScene();
+        Director.pause();
+        Director.run();
+        return Director.isPaused;
+      });
+
+      expect(paused).toBe(false);
+    });
+  });
+
+  afterAll(() => {
+    // Remove the bundle.
+    shell.exec('rm ./test/e2e/Director/core.bundle.js');
   });
 });
