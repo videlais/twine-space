@@ -11,47 +11,110 @@ import ActorFactory from './ActorFactory.js';
  * @class Story
  */
 export default class Story {
-  constructor () {
-    /**
-     * @property {Element} storyDataElement - Reference to tw-storydata element.
-     * @type {Element}
-     * @readonly
-     */
-    this.storyDataElement = null;
+  /**
+   * @property {Element} storyDataElement - Reference to tw-storydata element.
+   * @type {Element}
+   * @readonly
+   */
+  #storyDataElement = null;
 
+  get storyDataElement () {
+    return this.#storyDataElement;
+  }
+
+  /**
+   * @property {string} name - The name of the story.
+   * @type {string}
+   * @readonly
+   */
+  #name = null;
+
+  get name () {
+    return this.#name;
+  }
+
+  /**
+   * An array of all passages.
+   * @property {Array} passages - Passages array
+   * @type {Array}
+   * @readonly
+   */
+  #passages = [];
+
+  get passages () {
+    return this.#passages;
+  }
+
+  /**
+   * An array of user-specific scripts to run when the story is begun.
+   * @property {Array} userScripts - Array of user-added JavaScript.
+   * @type {Array}
+   * @readonly
+   */
+  #userScripts = [];
+
+  get userScripts () {
+    return this.#userScripts;
+  }
+
+  /**
+   * An array of user-specific style declarations to add when the story is
+   * begun.
+   * @property {Array} userStyles - Array of user-added styles.
+   * @type {Array}
+   * @readonly
+   */
+  #userStyles = [];
+
+  get userStyles () {
+    return this.#userStyles;
+  }
+
+  /**
+   * Story element.
+   * @property {Element} storyElement - Story element.
+   * @type {Element}
+   * @readonly
+   */
+
+  #storyElement = null;
+
+  get storyElement () {
+    return this.#storyElement;
+  }
+
+  /**
+   * Passage element.
+   * @property {Element} passageElement - Passage element.
+   * @type {Element}
+   * @readonly
+   */
+  #passageElement = null;
+
+  get passageElement () {
+    return this.#passageElement;
+  }
+
+  constructor () {
     // Test if the tw-storydata element exists.
     if ($('tw-storydata').length === 0) {
-      // It does not exist, throw an error.
+      // It does not exist, produce warning.
       console.warn('Warning: tw-storydata element does not exist!');
     } else {
       // It does exist, so set the reference.
-      this.storyDataElement = $('tw-storydata');
+      this.#storyDataElement = $('tw-storydata');
     }
 
-    /**
-     * @property {string} name - The name of the story.
-     * @type {string}
-     * @readonly
-     */
-    this.name = null;
-
     // Check if storyDataElement exists.
-    if (this.storyDataElement !== null) {
+    if (this.#storyDataElement !== null) {
       // Check if the 'name' attribute exists.
       // (jQuery does not have a hasAttribute method.)
       // (Use the first element in the array and DOM hasAttribute method.)
-      if (this.storyDataElement[0].hasAttribute('name')) {
+      if (this.#storyDataElement[0].hasAttribute('name')) {
         // If it does, set the name to the value.
-        this.name = this.storyDataElement.attr('name');
+        this.#name = this.#storyDataElement.attr('name');
       }
     }
-
-    /**
-     * An array of all passages, indexed by ID.
-     * @property {Array} passages - Passages array
-     * @type {Array}
-     */
-    this.passages = [];
 
     // Check if any tw-passagedata elements exist.
     if ($('tw-passagedata').length >= 1) {
@@ -77,7 +140,7 @@ export default class Story {
         }
 
         // Push the new passage.
-        this.passages.push(new Passage(
+        this.#passages.push(new Passage(
           name,
           tags,
           elementReference.html()
@@ -88,40 +151,16 @@ export default class Story {
       console.warn('Warning: tw-passagedata elements do not exist!');
     }
 
-    /**
-     * An array of user-specific scripts to run when the story is begun.
-     * @property {Array} userScripts - Array of user-added JavaScript.
-     * @type {Array}
-     */
-    this.userScripts = [];
-
     // Add the internal (HTML) contents of all SCRIPT tags.
     // Per spec, there will only be one SCRIPT tag with the type "text/twine-javascript".
     $('*[type="text/twine-javascript"]').each((index, value) => {
-      this.userScripts.push($(value).html());
+      this.#userScripts.push($(value).html());
     });
-
-    /**
-     * An array of user-specific style declarations to add when the story is
-     * begun.
-     * @property {Array} userStyles - Array of user-added styles.
-     * @type {Array}
-     */
-    this.userStyles = [];
 
     // Add the internal (HTML) contents of all STYLE tags
     $('*[type="text/twine-css"]').each((index, value) => {
-      this.userStyles.push($(value).html());
+      this.#userStyles.push($(value).html());
     });
-
-    /**
-     * Story element.
-     * @property {Element} storyElement - Story element.
-     * @type {Element}
-     * @readonly
-     */
-
-    this.storyElement = null;
 
     // Check if the tw-story element exists.
     if ($('tw-story').length === 0) {
@@ -129,15 +168,8 @@ export default class Story {
       console.warn('Warning: tw-story element does not exist!');
     } else {
       // It does exist, so set the reference.
-      this.storyElement = $('tw-story')[0];
+      this.#storyElement = $('tw-story')[0];
     }
-
-    /**
-     * Passage element.
-     * @property {Element} passageElement - Passage element.
-     * @type {Element}
-     */
-    this.passageElement = null;
 
     // Check if the tw-passage element exists.
     if ($('tw-passage').length === 0) {
@@ -145,7 +177,7 @@ export default class Story {
       console.warn('Warning: tw-passage element does not exist!');
     } else {
       // It does exist, so set the reference.
-      this.passageElement = $('tw-passage');
+      this.#passageElement = $('tw-passage');
     }
   }
 
@@ -172,23 +204,23 @@ export default class Story {
    */
   start () {
     // For each style, add them to the body as extra style elements.
-    this.userStyles.forEach((style) => {
+    this.#userStyles.forEach((style) => {
       $(document.body).append(`<style>${style}</style>`);
     });
 
     // For each script, append a new element to the page.
-    this.userScripts.forEach((script) => {
+    this.#userScripts.forEach((script) => {
       $(document.body).append(`<script>${script}</script>`);
     });
 
     // Check if the startnode attribute exists.
-    if (!this.storyDataElement[0].hasAttribute('startnode')) {
+    if (!this.#storyDataElement[0].hasAttribute('startnode')) {
       // It does not exist, throw an error.
       throw new Error('Error: The startnode attribute cannot be found!');
     }
 
     // Get the startnode attribute.
-    const startnode = this.storyDataElement.attr('startnode');
+    const startnode = this.#storyDataElement.attr('startnode');
 
     // Get the startnode value (which is a number).
     const startingPassageID = parseInt(startnode, 10);
@@ -226,7 +258,7 @@ export default class Story {
     }
 
     // Overwrite current tags.
-    this.passageElement.attr('tags', passage.tags);
+    this.#passageElement.attr('tags', passage.tags);
 
     // Detect if a "stage" (---) is present.
     // parseScene() will return an array of objects and 'text' property.
@@ -251,7 +283,7 @@ export default class Story {
     text = parseMarkdown(text);
 
     // Overwrite the parsed with the rendered.
-    this.passageElement.html(text);
+    this.#passageElement.html(text);
 
     /*
     // Update the navigation menu (different per passage!).
@@ -296,15 +328,15 @@ export default class Story {
    */
   getPassagesByTag (tag) {
     // Search internal passages
-    return this.passages.filter((p) => {
+    return this.#passages.filter((p) => {
       return p.tags.includes(tag);
     });
   }
 
   /**
    * Returns a Passage object by name from internal collection. If none exists, returns null.
-   * The Twine editor prevents multiple passages from having the same name, so
-   * this always returns the first search result.
+   * (The Twine editor prevents multiple passages from having the same name, so
+   * this always returns the first search result.)
    * @function getPassageByName
    * @param {string} name - name of the passage.
    * @returns {Passage|null} Passage object or null.
@@ -314,7 +346,7 @@ export default class Story {
     let passage = null;
 
     // Search for any passages with the name
-    const result = this.passages.filter((p) => p.name === name);
+    const result = this.#passages.filter((p) => p.name === name);
 
     // Were any found?
     if (result.length !== 0) {

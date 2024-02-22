@@ -118,6 +118,22 @@ describe('Story', () => {
     });
   });
 
+  describe('show()', () => {
+    it('should show a passage', async () => {
+      // Show the passage.
+      await page.evaluate(() => {
+        window.story.show('Next');
+      });
+
+      // Return the passage.
+      const passage = await page.evaluate(() => {
+        return $('tw-passage').html();
+      });
+
+      expect(passage).toBe('<p><tw-link role="link" data-passage="Start">Start</tw-link></p>');
+    });
+  });
+
   describe('getPassageByName()', () => {
     it('should return a passage by name', async () => {
       const passage = await page.evaluate(() => {
@@ -146,6 +162,16 @@ describe('Story', () => {
     });
   });
 
+  describe('include()', () => {
+    it('should return content of passage by name', async () => {
+      const content = await page.evaluate(() => {
+        return window.story.include('Next');
+      });
+
+      expect(content).toBe('<p>[[Start]]</p>');
+    });
+  });
+
   describe('Navigation by link between passages', () => {
     beforeEach(async () => {
       // Wait for the page to load.
@@ -168,8 +194,6 @@ describe('Story', () => {
     });
   });
 
-  it.todo('should navigate between passages by link');
-  it.todo('should navigate to a passage by name');
   it.todo('should load Actors based on YAML in passages');
   it.todo('should clear meshes and load new Actors when navigating between passages');
 
