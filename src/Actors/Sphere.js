@@ -37,6 +37,11 @@ function create(name, options) {
       options = {};
     }
 
+    // Check if options.position exists.
+    if(Object.hasOwnProperty.call(options, 'position') === false) {
+      options.position = {x: x, y: y, z: z};
+    }
+
     // Check if position is an object.
     if(typeof options.position !== 'object') {
       options.position = {x: x, y: y, z: z};
@@ -125,7 +130,7 @@ function create(name, options) {
     segments = options.segments;
     
     // Create a sphere.
-    const mesh = CreateSphere(name, {diameter: diameter, segments: segments}, Director.scene);
+    mesh = CreateSphere(name, {diameter: diameter, segments: segments}, Director.scene);
     
     // Set the position of the sphere.
     mesh.position = new Vector3(x, y, z);

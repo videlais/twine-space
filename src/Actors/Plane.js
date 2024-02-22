@@ -45,6 +45,11 @@ function create(name, options) {
         options = {};
       }
 
+      // Check if options.position exists.
+      if(!Object.prototype.hasOwnProperty.call(options, 'position')) {
+        options.position = {x: 0, y: 0, z: 0};
+      }
+
       // Check if options.position is an object.
       if(typeof options.position !== 'object') {
         options.position = {x: 0, y: 0, z: 0};
@@ -114,7 +119,7 @@ function create(name, options) {
       sideOrientation = options.sideOrientation;
     
       // Create a plane.
-      const mesh = CreatePlane(name, {width, height, sideOrientation}, Director.scene);
+      mesh = CreatePlane(name, {width, height, sideOrientation}, Director.scene);
       
       // Set the position of the plane.
       mesh.position = new Vector3(x, y, z);

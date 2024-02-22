@@ -4,6 +4,7 @@ import { parse as parseLinks } from './Parse/Links.js';
 import { parse as parseMarkdown } from './Parse/Markdown.js';
 import Passage from './Passage.js';
 import Director from './Director.js';
+import ActorFactory from './ActorFactory.js';
 
 /**
  * An object representing the entire story. After the document has completed
@@ -153,7 +154,7 @@ export default class Story {
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
       // Unload the current meshes.
-      Director.clearScene();
+      window.Director.clearScene();
       // Pull destination passage name from the attribute.
       const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.
@@ -255,6 +256,7 @@ export default class Story {
 
     // Call the ActorFactory to create the objects.
 
+
     // Parse links.
     text = parseLinks(text);
 
@@ -286,7 +288,7 @@ export default class Story {
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
       // Unload the current meshes.
-      Director.clearScene();
+      window.Director.clearScene();
       // Pull destination passage name from the attribute.
       const passageName = $(e.target).closest('[data-passage]').data('passage');
       // Show the passage by name.
