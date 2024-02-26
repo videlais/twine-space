@@ -50,7 +50,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-puppeteer": "^10.0.1",
     "mini-css-extract-plugin": "^2.8.0",
-    "open": "^10.0.3",
+    "open": "^10.0.4",
     "open-cli": "^8.0.0",
     "puppeteer": "^22.1.0",
     "serve": "^14.2.1",
