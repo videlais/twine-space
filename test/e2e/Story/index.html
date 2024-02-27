@@ -7,6 +7,7 @@
 		<title>Story - Tests</title>
 	</head>
 	<body>
+		<canvas id="renderCanvas" touch-action="none" display="none"></canvas>
 		<div id="navigation-menu">
 			<md-filled-button id="usage-fixed-anchor">Navigation Menu</md-filled-button>
 		</div>
@@ -33,6 +34,16 @@
 			<script id="twine-user-script" type="text/twine-javascript">window.example = "Test";</script>
 			<tw-passagedata pid="1" name="Start" tags="tag1" position="0,0" size="100,100"><p>[[Next]]</p></tw-passagedata>
 			<tw-passagedata pid="2" name="Next" tags="tag2" position="0,0" size="100,100"><p>[[Start]]</p></tw-passagedata>
+			<tw-passagedata pid="3" name="Actors" tags="" position="0,0" size="100,100">
+- box:
+    name: Box
+    position:
+      x: 0
+      y: 0
+      z: 0
+---
+Something else!
+</tw-passagedata>
 		</tw-storydata>
 		<tw-story>
 			<tw-passage class="passage" aria-live="polite"></tw-passage>

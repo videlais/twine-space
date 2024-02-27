@@ -61,7 +61,7 @@ describe('Story', () => {
         return window.story.passages;
       });
 
-      expect(passages.length).toBe(2);
+      expect(passages.length > 1).toBe(true);
     });
 
     it('should populate userScripts array', async () => {
@@ -194,8 +194,51 @@ describe('Story', () => {
     });
   });
 
-  it.todo('should load Actors based on YAML in passages');
-  it.todo('should clear meshes and load new Actors when navigating between passages');
+  describe('Loading Actors', () => {
+    beforeEach(async () => {
+      // Reload page.
+      await page.reload();
+
+      // Wait for the page to load.
+      await page.evaluate(() => {
+        // (Re)start the story.
+        window.story.start();
+      });
+    });
+
+    it('should load Actors based on YAML in passages', async () => {
+      // Load the passage.
+      await page.evaluate(() => {
+        window.story.show('Actors');
+      });
+
+      // Return the number of meshes.
+      const meshes = await page.evaluate(() => {
+        return window.Director.scene.meshes.length;
+      });
+
+      expect(meshes).toBe(1);
+    });
+
+    it('should load and then clear Actors', async () => {
+      // Load the passage.
+      await page.evaluate(() => {
+        window.story.show('Actors');
+      });
+
+      // Clear the scene.
+      await page.evaluate(() => {
+        window.Director.clearScene();
+      });
+
+      // Return the number of meshes.
+      const meshes = await page.evaluate(() => {
+        return window.Director.scene.meshes.length;
+      });
+
+      expect(meshes).toBe(0);
+    });
+  });
 
   afterAll(() => {
     // Remove the bundle.

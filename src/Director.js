@@ -10,6 +10,17 @@ import '@babylonjs/core/Materials/standardMaterial.js';
 // Import jQuery
 import $ from 'jquery';
 
+/**
+ * @class Director
+ * @classdesc Director is a static class that manages the scene and engine.
+ * It is responsible for creating the scene, pausing the scene, and stopping the scene.
+ * It also provides a method to clear the scene of all meshes.
+ * @static
+ * @property {Scene} scene - The scene.
+ * @property {Engine} engine - The engine.
+ * @property {HTMLElement} canvas - The canvas.
+ * @property {boolean} isPaused - Is the scene paused?
+ */
 export default class Director {
   // Scene.
   static scene = null;
@@ -21,7 +32,7 @@ export default class Director {
   static canvas = null;
 
   // isPaused.
-  static isPaused = false;
+  static isPaused = true;
 
   /**
    * Creates a scene.
@@ -37,19 +48,24 @@ export default class Director {
    * (8) Prepares the onPointerDown event.
    * (9) Renders the scene.
    * (10) Shows the canvas.
+   * @function createScene
+   * @static
+   * @returns {void}
    */
   static createScene () {
-    // Hide the Passage.
-    $('tw-passage').hide();
-
     // If there is not a scene, create one.
     // Otherwise, do nothing.
     if (Director.scene === null) {
-      // Append a Canvas element.
-      $(document.body).append($('<canvas id="renderCanvas" touch-action="none" />'));
-
       // Find canvas.
-      Director.canvas = document.getElementById('renderCanvas');
+      Director.canvas = $('#renderCanvas')[0];
+
+      // Does the canvas exist?
+      if (Director.canvas.length === 0) {
+        // Create canvas.
+        Director.canvas = $('<canvas id="renderCanvas" touch-action="none" display="none"></canvas>')[0];
+        // Add to body.
+        $('body').append(Director.canvas);
+      }
 
       // Create engine.
       Director.engine = new Engine(Director.canvas);
@@ -78,7 +94,7 @@ export default class Director {
       };
 
       /**
-       * makeAnnotation
+       * @function makeAnnotation
        * @param {object} metadata - Mesh metadata.
        * @param {string} metadata.title - Title of annotation.
        * @param {string} metadata.content - Content of annotation.
@@ -115,37 +131,24 @@ export default class Director {
 
       // Handle window resize.
       window.addEventListener('resize', () => {
-        Director.engine.resize();
-      });
-    }
-
-    // Show the canvas.
-    $('#renderCanvas').show();
-  }
-
-  /**
-   * Renders the scene.
-   *
-   * This performs the following steps:
-   * (1) Checks if the scene is ready.
-   * (2) Runs the render loop.
-   * (3) Checks if the scene is paused.
-   * (4) Renders the scene.
-   * @function render
-   * @static
-   * @returns {void}
-   */
-  static render () {
-    // If the scene is not ready, do nothing.
-    if (Director.isReady()) {
-      // Run render loop.
-      Director.engine.runRenderLoop(() => {
-        // If the scene is not paused, render it.
-        if (Director.isPaused === false) {
-          // Render the scene.
-          Director.scene.render();
+        // If the scene is ready, resize the engine.
+        if (Director.isReady()) {
+          // Resize the engine.
+          Director.engine.resize();
         }
       });
+
+      // If the scene is not ready, do nothing.
+      if (Director.isReady()) {
+        // Run render loop.
+        Director.engine.runRenderLoop(() => {
+          // If the scene is not paused, render it.
+          if (Director.isPaused === false) {
+            // Render the scene.
+            Director.scene.render();
+          }
+        });
+      }
     }
   }
 
@@ -156,17 +159,29 @@ export default class Director {
    * @returns {void}
    */
   static run () {
+    // Hide the Passage.
+    $('tw-passage').css('display', 'none');
+
+    // Show the canvas.
+    $('#renderCanvas').css('display', 'inline');
+
     // Set isPaused to false.
     Director.isPaused = false;
   }
 
   /**
-   * Pauses the scene.
-   * @function pause
+   * Stop rendering the scene.
+   * @function stop
    * @static
    * @returns {void}
    */
-  static pause () {
+  static stop () {
+    // Hide the canvas.
+    $('#renderCanvas').css('display', 'none');
+
+    // Show the passage.
+    $('tw-passage').css('display', 'inline');
+
     // Set isPaused to true.
     Director.isPaused = true;
   }
@@ -174,11 +189,10 @@ export default class Director {
   /**
    * Clears all current meshes from the scene.
    * @function clearScene
+   * @static
+   * @returns {void}
    */
   static clearScene () {
-    // Pause the scene.
-    Director.pause();
-
     // If there is a scene, clear it.
     if (Director.scene !== null) {
       // Remove all meshes.
@@ -189,15 +203,6 @@ export default class Director {
         mesh.dispose();
       }
     }
-
-    // Hide the canvas.
-    $('#renderCanvas').hide();
-
-    // Show passage (again).
-    $('tw-passage').show();
-
-    // Unpause the scene.
-    Director.run();
   }
 
   /**

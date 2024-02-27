@@ -260,20 +260,30 @@ export default class Story {
     // Overwrite current tags.
     this.#passageElement.attr('tags', passage.tags);
 
+    // Stop the scene.
+    window.Director.stop();
+
+    // Clear the scene.
+    window.Director.clearScene();
+
     // Detect if a "stage" (---) is present.
     // parseScene() will return an array of objects and 'text' property.
     const content = parseScene(passage.source);
+
+    console.log('content: ', content);
 
     // Create default, pre-processed text.
     let text = content.text;
 
     // Check if content contains any actor objects.
-    if (content.length > 0) {
-      // Go through each object.
-      content.forEach((object) => {
-        // Create the object.
-        ActorFactory.create(object.name, object.options);
-      });
+    if (content.objects.length > 0) {
+      // Array of objects containing objects.
+      for (const actor of content.objects) {
+        // For each object, create an actor.
+        for (const props in actor) {
+          ActorFactory.create(props, actor[props]);
+        }
+      }
     }
 
     // Parse links.

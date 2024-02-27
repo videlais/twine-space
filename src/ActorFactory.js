@@ -15,6 +15,8 @@ const actors = {
 export default class ActorFactory {
   // Create an actor of the given type with the given options.
   static create (type, options) {
+    console.log('ActorFactory.create', 'type: ', type, 'options: ', options);
+
     // Default the options to an empty object.
     let result = null;
 

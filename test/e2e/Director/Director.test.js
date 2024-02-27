@@ -33,11 +33,11 @@ describe('Director', () => {
       expect(scene).toBe(null);
       expect(engine).toBe(null);
       expect(canvas).toBe(null);
-      expect(paused).toBe(false);
+      expect(paused).toBe(true);
     });
   });
 
-  describe('createScene', () => {
+  describe('createScene()', () => {
     beforeAll(async () => {
       await page.evaluate(() => {
         // Reset all static values.
@@ -74,30 +74,6 @@ describe('Director', () => {
       expect(canvas).not.toBe(null);
     });
 
-    it('Should hide the tw-passage element', async () => {
-      const passage = await page.evaluate(() => {
-        return $('tw-passage').css('display');
-      });
-
-      expect(passage).toBe('none');
-    });
-
-    it('Should create canvas element', async () => {
-      const canvas = await page.evaluate(() => {
-        return $('#renderCanvas').length;
-      });
-
-      expect(canvas).toBe(1);
-    });
-
-    it('Should show renderCanvas element', async () => {
-      const canvas = await page.evaluate(() => {
-        return $('#renderCanvas').css('display');
-      });
-
-      expect(canvas).toBe('inline');
-    });
-
     it('Should create a camera', async () => {
       const camera = await page.evaluate(() => {
         return Director.scene.activeCamera.name;
@@ -115,7 +91,7 @@ describe('Director', () => {
     });
   });
 
-  describe('clearScene', () => {
+  describe('clearScene()', () => {
     it('Should clear the scene of all meshes', async () => {
       const length = await page.evaluate(() => {
         Director.createScene();
@@ -125,29 +101,9 @@ describe('Director', () => {
 
       expect(length).toBe(0);
     });
-
-    it('Should hide the renderCanvas element', async () => {
-      const canvas = await page.evaluate(() => {
-        Director.createScene();
-        Director.clearScene();
-        return $('#renderCanvas').css('display');
-      });
-
-      expect(canvas).toBe('none');
-    });
-
-    it('Should show the tw-passage element', async () => {
-      const passage = await page.evaluate(() => {
-        Director.createScene();
-        Director.clearScene();
-        return $('tw-passage').css('display');
-      });
-
-      expect(passage).toBe('inline');
-    });
   });
 
-  describe('isReady', () => {
+  describe('isReady()', () => {
     beforeEach(async () => {
       await page.evaluate(() => {
         // Before each test, reset all static values.
@@ -175,24 +131,77 @@ describe('Director', () => {
     });
   });
 
-  describe('pause', () => {
+  describe('stop()', () => {
+    beforeEach(async () => {
+      // Refresh the page.
+      await page.reload();
+
+      // Wait for the page to load.
+      await page.evaluate(() => {
+        // Create a new scene.
+        Director.createScene();
+        // Stop the scene rendering.
+        Director.stop();
+      });
+    });
+
     it('Should pause the scene', async () => {
       const paused = await page.evaluate(() => {
-        Director.createScene();
-        Director.pause();
         return Director.isPaused;
       });
 
       expect(paused).toBe(true);
     });
+
+    it('Should hide the renderCanvas element', async () => {
+      const canvas = await page.evaluate(() => {
+        return $('#renderCanvas').css('display');
+      });
+
+      expect(canvas).toBe('none');
+    });
+
+    it('Should show the tw-passage element', async () => {
+      const passage = await page.evaluate(() => {
+        return $('tw-passage').css('display');
+      });
+
+      expect(passage).toBe('inline');
+    });
   });
 
-  describe('resume', () => {
+  describe('run()', () => {
+    beforeEach(async () => {
+      // Refresh the page.
+      await page.reload();
+
+      // Wait for the page to load.
+      await page.evaluate(() => {
+        // Create a new scene.
+        Director.createScene();
+        // Start the scene rendering.
+        Director.run();
+      });
+    });
+
+    it('Should hide the tw-passage element', async () => {
+      const passage = await page.evaluate(() => {
+        return $('tw-passage').css('display');
+      });
+
+      expect(passage).toBe('none');
+    });
+
+    it('Should show the renderCanvas element', async () => {
+      const canvas = await page.evaluate(() => {
+        return $('#renderCanvas').css('display');
+      });
+
+      expect(canvas).toBe('inline');
+    });
+
     it('Should resume the scene', async () => {
       const paused = await page.evaluate(() => {
-        Director.createScene();
-        Director.pause();
-        Director.run();
         return Director.isPaused;
       });
 

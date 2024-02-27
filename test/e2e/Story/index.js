@@ -30,5 +30,8 @@ window.story = new Story();
 // Setup Director.
 window.Director = Director;
 
+// Create scene
+window.Director.createScene();
+
 // Setup ActorFactory.
 window.ActorFactory = ActorFactory;
