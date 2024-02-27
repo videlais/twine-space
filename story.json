@@ -1,6 +1,6 @@
 {
 	"name": "TwineSpace",
-	"version": "1.0.5",
+	"version": "2.0.1",
     "source": "",
     "description": "Twine 2 story format supporting locative and mixed reality projects. See its <a href='https://videlais.github.io/twine-space/#/' target='_blank' rel='noopener noreferrer'>documentation</a>",
     "proofing": false,

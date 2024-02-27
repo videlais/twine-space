@@ -25,11 +25,20 @@ import Story from './Story.js';
 // Require Director
 import Director from './Director.js';
 
+// Require ActorFactory
+import ActorFactory from './ActorFactory.js';
+
 // Create global jQuery
 window.$ = $;
 
 // Create Director
 window.Director = Director;
+
+// Create scene.
+window.Director.createScene();
+
+// Setup ActorFactory.
+window.ActorFactory = ActorFactory;
 
 // Create global Story object
 window.story = new Story();

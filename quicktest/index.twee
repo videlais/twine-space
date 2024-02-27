@@ -1,3 +1,11 @@
+:: StoryData
+{
+    "ifid": "F45A8EB4-8DFE-4622-A362-0497D82F206E",
+    "format": "TwineSpace - Lite",
+    "format-version": "2.0.0",
+    "start": "Start"
+}
+
 :: StoryTitle
 TwineSpace - Lite Testing
 
