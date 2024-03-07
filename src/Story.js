@@ -210,7 +210,8 @@ export default class Story {
 
     // For each script, append a new element to the page.
     this.#userScripts.forEach((script) => {
-      $(document.body).append(`<script>${script}</script>`);
+      // Create a new script element with the contents of the script.
+      $('script').text(script).appendTo(document.body);
     });
 
     // Check if the startnode attribute exists.

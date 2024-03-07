@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     core: './src/index.js'
   },
