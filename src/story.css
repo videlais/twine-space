@@ -76,3 +76,57 @@ md-dialog {
     text-decoration: none;
     cursor: pointer;
 }
+
+ /* Style the navigation menu */
+ .topnav {
+    background-color: #333;
+    position: relative;
+  }
+  
+  /* Hide the links inside the navigation menu (except for logo/home) */
+  .topnav #menu {
+    display: none;
+    z-index: 10;
+    position: fixed;
+    top: 4em;
+  }
+  
+  /* Style navigation menu links */
+  .topnav a, tw-link {
+    color: white;
+    padding: 1em 1.2em;
+    text-decoration: none;
+    font-size: 1.3em;
+    display: block;
+  }
+  
+  /* Style the hamburger menu */
+  .topnav a.icon {
+    background: black;
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+
+  .menuLink {
+    background: black;
+    display: block;
+  }
+
+  .menuLink a:hover {
+    background: #ddd;
+    color: black;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .topnav a:hover, tw-link:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style the active link (or home/logo) */
+  .active {
+    background-color: #04AA6D;
+    color: white;
+  } 

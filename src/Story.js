@@ -2,6 +2,7 @@ import $ from 'jquery';
 import { parse as parseScene } from './Parse/Scene/index.js';
 import { parse as parseLinks } from './Parse/Links.js';
 import { parse as parseMarkdown } from './Parse/Markdown.js';
+import { parse as parseHTML } from './Parse/HTML.js';
 import Passage from './Passage.js';
 import ActorFactory from './ActorFactory.js';
 
@@ -271,8 +272,6 @@ export default class Story {
     // parseScene() will return an array of objects and 'text' property.
     const content = parseScene(passage.source);
 
-    console.log('content: ', content);
-
     // Create default, pre-processed text.
     let text = content.text;
 
@@ -293,32 +292,32 @@ export default class Story {
     // Parse the Markdown.
     text = parseMarkdown(text);
 
+    // Parse HTML unescaped entities.
+    text = parseHTML(text);
+
     // Overwrite the parsed with the rendered.
     this.#passageElement.html(text);
 
-    /*
+    // Remove previous menu entries.
+    $('.menuLink').remove();
+
     // Update the navigation menu (different per passage!).
     const linkList = $('tw-link');
 
-    // Remove previous menu.
-    $('md-menu').remove();
-
-    // Create new navigation menu.
-    const navMenu = $('<md-menu positioning="fixed" id="usage-fixed" anchor="usage-fixed-anchor">');
-
     // Go through each twLink.
-    linkList.each((twLink) => {
+    linkList.each(function() {
+      // Reference the navigation menu.
+      const navMenu = $('#menu');
+      
       // Create menu item.
-      const menuItem = $(`<md-menu-item><div slot="headline">${twLink.outerHTML}</div></md-menu-item>`);
+      const menuItem = $(`<span class="menuLink">${$(this).prop('outerHTML')}</span>`);
+      
       // Append menu-item to navMenu.
       navMenu.append(menuItem);
+      
       // Remove original.
-      $(twLink).remove();
+      $(this).remove();
     });
-
-    // Append the navMenu back to the body.
-    $(document.body).append(navMenu);
-    */
 
     // If there is a click on a tw-link, load the passage!
     $('tw-link[data-passage]').on('click', (e) => {
@@ -329,6 +328,12 @@ export default class Story {
       // Show the passage by name.
       this.show(passageName);
     });
+
+    // Check if content contains any actor objects.
+    if(content.objects.length > 0) {
+      // Render the scene.
+      window.Director.run();
+    }
   }
 
   /**
