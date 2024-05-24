@@ -52,7 +52,7 @@
     "mini-css-extract-plugin": "^2.9.0",
     "open": "^10.1.0",
     "open-cli": "^8.0.0",
-    "puppeteer": "^22.8.0",
+    "puppeteer": "^22.10.0",
     "serve": "^14.2.3",
     "shelljs": "^0.8.5",
     "webpack": "^5.91.0",
