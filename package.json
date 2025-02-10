@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/videlais/twine-space#readme",
   "dependencies": {
-    "@ar-js-org/ar.js": "^3.4.6",
+    "@ar-js-org/ar.js": "^3.4.7",
     "aframe": "^1.6.0",
     "jquery": "^3.7.1",
     "markdown-it": "^14.1.0"
