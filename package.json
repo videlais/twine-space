@@ -55,7 +55,7 @@
     "puppeteer": "^24.9.0",
     "serve": "^14.2.3",
     "shelljs": "^0.10.0",
-    "webpack": "^5.99.8",
+    "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
   }
 }
