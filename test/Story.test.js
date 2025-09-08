@@ -158,7 +158,7 @@ describe('Story', () => {
       expect(() => window.story.include('Nope')).toThrow();
     });
 
-    it('Should throw error', () => {
+    it('Should throw error when passage name is invalid', () => {
       expect(() => window.story.include('Nope')).toThrow();
     });
   });
