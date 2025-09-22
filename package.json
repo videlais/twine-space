@@ -42,7 +42,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.28.3",
     "@eslint/css": "^0.11.0",
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.36.0",
     "@types/expect-puppeteer": "^5.0.6",
     "@types/jest-environment-puppeteer": "^5.0.6",
     "babel-loader": "^10.0.0",
