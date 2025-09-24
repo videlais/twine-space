@@ -20,6 +20,22 @@ describe('Puppeteer Tests - Entity Generation', () => {
 
         // Start the HTTP server
         await testServer.start();
+        
+        // Listen for console messages and errors
+        page.on('console', msg => {
+            console.log('Browser console:', msg.type(), msg.text());
+        });
+        
+        page.on('pageerror', error => {
+            console.log('Page error:', error.message);
+        });
+        
+        // Navigate to the test file via HTTP
+        const testPath = path.relative(process.cwd(), path.join(__dirname, 'index.html'));
+        await page.goto(`http://localhost:8082/${testPath}`);
+        
+        // Wait for the page to load
+        await page.waitForFunction(() => document.readyState === 'complete');
     });
      
     afterAll(async () => {

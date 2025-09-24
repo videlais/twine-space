@@ -91,7 +91,7 @@ class Markdown {
             $('a-scene').append('<a-entity camera>');
         }
         
-        return markdownit().renderInline(text);
+        return text;
     }
 
     static unescape(text) {

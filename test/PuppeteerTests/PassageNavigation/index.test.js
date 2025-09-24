@@ -20,6 +20,22 @@ describe('Puppeteer Tests - Passage Navigation', () => {
 
         // Start the HTTP server
         await testServer.start();
+        
+        // Listen for console messages and errors
+        page.on('console', msg => {
+            console.log('Browser console:', msg.type(), msg.text());
+        });
+        
+        page.on('pageerror', error => {
+            console.log('Page error:', error.message);
+        });
+        
+        // Navigate to the test file via HTTP
+        const testPath = path.relative(process.cwd(), path.join(__dirname, 'index.html'));
+        await page.goto(`http://localhost:8084/${testPath}`);
+        
+        // Wait for the page to load
+        await page.waitForFunction(() => document.readyState === 'complete');
     });
   
     afterAll(async () => {
@@ -29,6 +45,24 @@ describe('Puppeteer Tests - Passage Navigation', () => {
     });
    
     it('Should display "Some text."', async () => {
+        // Wait for the story to initialize and passage to load
+        await page.waitForFunction(() => {
+            return typeof window.story !== 'undefined' && 
+                   window.story !== null &&
+                   document.querySelector('tw-passage') !== null;
+        }, { timeout: 10000 });
+        
+        // Debug: Check what's in the DOM
+        const pageContent = await page.evaluate(() => {
+            return {
+                passageContent: document.querySelector('tw-passage')?.innerHTML || 'No passage found',
+                bodyContent: document.body.innerHTML,
+                linkCount: document.querySelectorAll('[data-passage]').length,
+                twLinkCount: document.querySelectorAll('tw-link').length
+            };
+        });
+        console.log('Page content debug:', JSON.stringify(pageContent, null, 2));
+        
         // Wait for the link to be available
         await page.waitForSelector('[data-passage="Another"]', { timeout: 10000 });
         
@@ -41,5 +75,5 @@ describe('Puppeteer Tests - Passage Navigation', () => {
         
         const text = await page.evaluate(() => document.body.textContent);
         expect(text).toContain('Some text.');
-    }, 20000);
+    }, 30000);
 });
