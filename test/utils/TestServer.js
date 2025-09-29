@@ -76,7 +76,7 @@ class TestServer {
                         console.log('Webpack chunk not found at:', buildPath);
                         
                         // Also try in the same directory as the test file
-                        const testDirPattern = pathname.match(/^(\/test\/PuppeteerTests\/[^\/]+\/)(.+)$/);
+                        const testDirPattern = pathname.match(/^(\/test\/PuppeteerTests\/[^/]+\/)(.+)$/);
                         if (testDirPattern) {
                             const testDir = testDirPattern[1];
                             const testDirBuildPath = path.join(process.cwd(), testDir.substring(1), filename);
@@ -148,7 +148,7 @@ class TestServer {
                     const fileContent = fs.readFileSync(filePath);
                     res.writeHead(200, { 'Content-Type': contentType });
                     res.end(fileContent);
-                } catch (error) {
+                } catch {
                     res.writeHead(500, { 'Content-Type': 'text/plain' });
                     res.end('Internal Server Error');
                 }
