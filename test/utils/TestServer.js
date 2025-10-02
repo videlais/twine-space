@@ -3,6 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
+// Root directory for serving files; adjust as needed
+const ROOT = process.cwd();
+
 class TestServer {
     constructor(port = 8080) {
         this.port = port;
@@ -102,9 +105,25 @@ class TestServer {
                     }
                 }
                 
-                // Construct file path for other files
-                const filePath = path.join(process.cwd(), pathname.substring(1));
-                
+                // Construct file path for other files (normalize and enforce within ROOT)
+                let unsafeFilePath = pathname.substring(1); // Remove leading '/'
+                let filePath = path.resolve(ROOT, unsafeFilePath);
+
+                // Ensure the resolved path is contained within ROOT to prevent directory traversal
+                try {
+                    filePath = fs.realpathSync(filePath);
+                } catch (e) {
+                    // If the path doesn't exist, respond with 404
+                    res.writeHead(404, { 'Content-Type': 'text/plain' });
+                    res.end('Not Found');
+                    return;
+                }
+                if (!filePath.startsWith(ROOT)) {
+                    res.writeHead(403, { 'Content-Type': 'text/plain' });
+                    res.end('Forbidden');
+                    return;
+                }
+
                 // Check if file exists
                 if (!fs.existsSync(filePath)) {
                     res.writeHead(404, { 'Content-Type': 'text/plain' });
