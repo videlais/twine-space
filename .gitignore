@@ -107,3 +107,7 @@ typings/
 
 # Webpack test bundles (auto-generated)
 test/**/*.bundle.js
+
+# Bundle analysis reports
+bundle-report.html
+bundle-stats.json
