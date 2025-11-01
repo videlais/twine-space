@@ -10,6 +10,22 @@ on:
     branches: [ "main" ]
 
 jobs:
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 22.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.x
+        cache: 'npm'
+    - run: npm ci
+    - name: Run npm audit
+      run: npm audit --audit-level=high
+      continue-on-error: false
+
   build:
 
     runs-on: ubuntu-latest
@@ -30,3 +46,4 @@ jobs:
     - run: npm run all
     - name: Codecov
       uses: codecov/codecov-action@v4
+

@@ -1,11 +1,50 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# Dependabot configuration for automated dependency updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # Monitor npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    # Group updates to reduce PR noise
+    groups:
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "patch"
+    # Always allow security updates regardless of grouping
+    open-pull-requests-limit: 10
+    # Add labels for easier filtering
+    labels:
+      - "dependencies"
+      - "automated"
+    # Automatically rebase PRs when base branch updates
+    rebase-strategy: "auto"
+    # Commit message prefix
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: "scope"
+
+  # Monitor GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    labels:
+      - "github-actions"
+      - "automated"
+    commit-message:
+      prefix: "ci"
+
