@@ -20,8 +20,11 @@ function create(name, options) {
     // Prepare default mesh.
     let mesh = null;
 
-    // Check if Director is ready.
-    if(Director.isReady()) {
+    // Get Director from window if available
+    const Director = (typeof window !== 'undefined') ? window.Director : null;
+
+    // Check if Director exists and has a scene.
+    if(Director && Director.scene !== null) {
       // Check if name is a string.
       if(typeof name !== 'string') {
         name = '';

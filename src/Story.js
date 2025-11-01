@@ -315,8 +315,8 @@ export default class Story {
       // Append menu-item to navMenu.
       navMenu.append(menuItem);
       
-      // Remove original.
-      $(this).remove();
+      // Note: We don't remove the original link from the passage.
+      // Links should appear both in the passage and in the navigation menu.
     });
 
     // If there is a click on a tw-link, load the passage!

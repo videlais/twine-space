@@ -104,3 +104,6 @@ typings/
 
 # macOS index
 .DS_Store
+
+# Webpack test bundles (auto-generated)
+test/**/*.bundle.js

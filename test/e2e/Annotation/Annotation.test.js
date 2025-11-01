@@ -22,7 +22,7 @@ describe('Annotation', () => {
 
     it('Should return null if there is no scene', async () => {
       const mesh = await page.evaluate(() => {
-        return Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.' });
+        return Director.Actors.Annotation('annotation', { title: 'annotation', text: 'This is a test annotation.' });
       });
 
       expect(mesh).toBe(null);
@@ -31,7 +31,7 @@ describe('Annotation', () => {
     it('Should create a single annotation with default values', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.' });
+        Director.Actors.Annotation('annotation', { title: 'annotation', text: 'This is a test annotation.' });
         return Director.scene.meshes.length;
       });
 
@@ -41,7 +41,7 @@ describe('Annotation', () => {
     it('Should create a single annotation with custom values', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
+        Director.Actors.Annotation('annotation', { title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
         return Director.scene.meshes.length;
       });
 
@@ -51,9 +51,9 @@ describe('Annotation', () => {
     it('Should create multiple annotations', async () => {
       const meshCount = await page.evaluate(() => {
         Director.createScene();
-        Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
-        Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
-        Director.Actors.Annotation({ title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
+        Director.Actors.Annotation('annotation1', { title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
+        Director.Actors.Annotation('annotation2', { title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
+        Director.Actors.Annotation('annotation3', { title: 'annotation', text: 'This is a test annotation.', position: { x: 1, y: 1, z: 1 } });
         return Director.scene.meshes.length;
       });
 

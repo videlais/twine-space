@@ -22,5 +22,9 @@ describe('Parse/Links', () => {
     it('Should produce left arrow link', () => {
       expect(parse('[[dest<-rename]]')).toBe('<tw-link role="link" data-passage="dest">rename</tw-link>');
     });
+
+    it('Should parse link inside paragraph tags', () => {
+      expect(parse('<p>[[Next]]</p>')).toBe('<p><tw-link role="link" data-passage="Next">Next</tw-link></p>');
+    });
   });
 });

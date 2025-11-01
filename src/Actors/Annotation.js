@@ -12,6 +12,7 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js"
    * 
    * When a user clicks on the sphere, a modal popup will appear with the annotation's title and text.
    * 
+   * @param {string} name - The name of the annotation (not used, kept for consistency).
    * @param {Object} options - The options of the annotation.
    * @param {string} options.title - The title of the annotation.
    * @param {Object} options.position - The position of the annotation.
@@ -21,13 +22,21 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial.js"
    * @param {string} options.text - The text of the annotation.
    * @returns {Object} Annotation or null.
    */
-function create(options) {
+function create(name, options) {
 
   // Create default mesh.
   let mesh = null;
 
+  // Get Director from window if available
+  const Director = (typeof window !== 'undefined') ? window.Director : null;
+
   // Is Director ready?
-  if(Director.isReady()) {
+  if(Director && Director.scene !== null) {
+    // Check if name is a string (for consistency with other actors).
+    if(typeof name !== 'string') {
+      name = '';
+    }
+
     // Create default annotation.
     const annotation = {
       title: 'Annotation',
