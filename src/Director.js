@@ -98,13 +98,37 @@ export default class Director {
        * @param {object} metadata - Mesh metadata.
        * @param {string} metadata.title - Title of annotation.
        * @param {string} metadata.content - Content of annotation.
+       * @description Creates an annotation dialog with sanitized content.
+       * Note: title and content are sanitized to prevent XSS attacks.
        */
       function makeAnnotation ({ title, content }) {
         const el = document.createElement('md-dialog');
         el.setAttribute('type', 'alert');
-        el.innerHTML = `<div slot="headline">${title}</div>
-        <form slot="content" id="form-id" method="dialog">${content}</form>
-        <div slot="actions"><md-text-button form="form-id">Close</md-text-button></div>`;
+        
+        // Create and sanitize headline
+        const headline = document.createElement('div');
+        headline.setAttribute('slot', 'headline');
+        headline.textContent = title; // textContent automatically escapes HTML
+        
+        // Create and sanitize content
+        const form = document.createElement('form');
+        form.setAttribute('slot', 'content');
+        form.setAttribute('id', 'form-id');
+        form.setAttribute('method', 'dialog');
+        form.textContent = content; // textContent automatically escapes HTML
+        
+        // Create actions
+        const actions = document.createElement('div');
+        actions.setAttribute('slot', 'actions');
+        const button = document.createElement('md-text-button');
+        button.setAttribute('form', 'form-id');
+        button.textContent = 'Close';
+        actions.appendChild(button);
+        
+        // Assemble dialog
+        el.appendChild(headline);
+        el.appendChild(form);
+        el.appendChild(actions);
 
         // Add to DOM.
         document.body.appendChild(el);
