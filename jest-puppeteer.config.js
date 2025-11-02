@@ -7,9 +7,13 @@ export default {
       dumpio: false, // should we see logs?
       timeout: 30000, // 30 seconds
       headless: true, // false to open a browser
-      product: "firefox",
+      product: "chrome",
       ignoreHTTPSErrors: true,
-      devtools: true
+      devtools: false,
+      // Add --no-sandbox and --disable-setuid-sandbox for CI environments
+      args: process.env.CI 
+        ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        : []
   },
   browserContext: "default", // "incognito" or "default"
 };
