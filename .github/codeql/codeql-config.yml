@@ -1,0 +1,10 @@
+name: "CodeQL Configuration"
+
+paths-ignore:
+  - 'docs/**'
+  - 'coverage/**'
+  - 'build/**'
+  - 'quicktest/**'
+  - 'test/**/index.twee'
+  - '**/*.bundle.js'
+  - '**/*.chunk.js'
