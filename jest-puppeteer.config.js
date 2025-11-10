@@ -2,6 +2,8 @@ export default {
   server: {
     command: "npx serve ./test",
     port: 3000,
+    launchTimeout: 10000,
+    usedPortAction: 'kill', // automatically kill process using the port
   },
   launch: {
       dumpio: false, // should we see logs?
