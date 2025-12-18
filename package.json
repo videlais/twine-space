@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/videlais/twine-space#readme",
   "dependencies": {
-    "@babylonjs/core": "^8.40.1",
+    "@babylonjs/core": "^8.41.2",
     "@babylonjs/materials": "^8.41.2",
     "@material/web": "^2.4.1",
     "html-entities": "^2.6.0",
