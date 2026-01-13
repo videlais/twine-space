@@ -45,7 +45,7 @@
     "yaml": "^2.8.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
+    "@babel/core": "^7.28.6",
     "@babel/preset-env": "^7.28.5",
     "@types/expect-puppeteer": "^5.0.6",
     "@types/jest-environment-puppeteer": "^5.0.6",
