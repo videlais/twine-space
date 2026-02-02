@@ -1,6 +1,5 @@
 // Description: E2E Test for Story.js
 import shell from 'shelljs';
-import $ from 'jquery';
 import 'expect-puppeteer';
 
 describe('Story', () => {
@@ -16,8 +15,9 @@ describe('Story', () => {
     // Reload the page before each test.
     await page.reload();
 
-    // Wait for the page to load.
-    await page.evaluate(() => {
+    // Wait for jQuery to be loaded before running tests
+    await page.evaluate(async () => {
+      await window.jQueryReady;
       // (Re)start the story.
       window.story.start();
     });

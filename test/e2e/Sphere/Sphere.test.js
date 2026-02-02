@@ -10,11 +10,17 @@ describe('Sphere', () => {
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/Sphere/index.html');
+    
+    // Wait for jQuery to be loaded
+    await page.evaluate(async () => {
+      await window.jQueryReady;
+    });
   });
 
   describe('Self-creation', () => {
     afterEach(async () => {
-      await page.evaluate(() => {
+      await page.evaluate(async () => {
+        await window.jQueryReady;
         // After each test, clear the scene.
         Director.clearScene();
       });

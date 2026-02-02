@@ -8,9 +8,9 @@ describe('ActorFactory', () => {
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/ActorFactory/index.html');
 
-    // Wait for the window to be created.
-    // Create a scene.
-    await page.evaluate(() => {
+    // Wait for jQuery to be loaded and create a scene.
+    await page.evaluate(async () => {
+      await window.jQueryReady;
       window.Director.createScene();
     });
   });

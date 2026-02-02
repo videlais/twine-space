@@ -16,32 +16,34 @@ import '@material/web/menu/menu.js';
 // Material Menu Item
 import '@material/web/menu/menu-item.js';
 
-// Require jQuery
-import $ from 'jquery';
+// Dynamically import jQuery to ensure window is available (jQuery 4.0+ compatibility)
+import('jquery').then(module => {
+  // Create global jQuery
+  window.$ = module.default;
 
-// Require Story
-import Story from './Story.js';
+  // Now import and initialize components that depend on jQuery
+  Promise.all([
+    import('./Story.js'),
+    import('./Director.js'),
+    import('./ActorFactory.js')
+  ]).then(([StoryModule, DirectorModule, ActorFactoryModule]) => {
+    const Story = StoryModule.default;
+    const Director = DirectorModule.default;
+    const ActorFactory = ActorFactoryModule.default;
 
-// Require Director
-import Director from './Director.js';
+    // Create Director
+    window.Director = Director;
 
-// Require ActorFactory
-import ActorFactory from './ActorFactory.js';
+    // Create scene.
+    window.Director.createScene();
 
-// Create global jQuery
-window.$ = $;
+    // Setup ActorFactory.
+    window.ActorFactory = ActorFactory;
 
-// Create Director
-window.Director = Director;
+    // Create global Story object
+    window.story = new Story();
 
-// Create scene.
-window.Director.createScene();
-
-// Setup ActorFactory.
-window.ActorFactory = ActorFactory;
-
-// Create global Story object
-window.story = new Story();
-
-// Start the story.
-window.story.start();
+    // Start the story.
+    window.story.start();
+  });
+});

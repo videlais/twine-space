@@ -1,14 +1,17 @@
 import Director from '../../../src/Director.js';
-import $ from 'jquery';
 import { create as Sphere } from '../../../src/Actors/Sphere.js';
 
-// Setup jQuery.
-window.$ = $;
+// Use top-level await to load jQuery before anything else
+const jQueryModule = await import('jquery');
+window.$ = jQueryModule.default;
 
-// Setup Director.
+// Setup Director after jQuery is loaded.
 window.Director = Director;
 
-// Add Box to Director.Actors.
+// Add Sphere to Director.Actors.
 window.Director.Actors = {
   Sphere
 };
+
+// Mark as ready
+window.jQueryReady = Promise.resolve(true);

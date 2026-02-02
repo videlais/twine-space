@@ -1,6 +1,5 @@
 import shell from 'shelljs';
 import Director from '../../../src/Director.js';
-import $ from 'jquery';
 import 'expect-puppeteer';
 
 describe('Director', () => {
@@ -10,6 +9,11 @@ describe('Director', () => {
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/Director/index.html');
+    
+    // Wait for jQuery to be loaded
+    await page.evaluate(async () => {
+      await window.jQueryReady;
+    });
   });
 
   describe('Initial static state', () => {
@@ -39,7 +43,8 @@ describe('Director', () => {
 
   describe('createScene()', () => {
     beforeAll(async () => {
-      await page.evaluate(() => {
+      await page.evaluate(async () => {
+        await window.jQueryReady;
         // Reset all static values.
         Director.scene = null;
         Director.engine = null;

@@ -1,7 +1,25 @@
 import Director from '../../../src/Director.js';
 import ActorFactory from '../../../src/ActorFactory.js';
 import Story from '../../../src/Story.js';
-import $ from 'jquery';
+
+// Use top-level await to load jQuery before anything else
+const jQueryModule = await import('jquery');
+window.$ = jQueryModule.default;
+
+// Setup Story after jQuery is loaded.
+window.story = new Story();
+
+// Setup Director.
+window.Director = Director;
+
+// Create scene
+window.Director.createScene();
+
+// Setup ActorFactory.
+window.ActorFactory = ActorFactory;
+
+// Mark as ready
+window.jQueryReady = Promise.resolve(true);
 
 // Importing Materialize CSS
 import '@material/web/dialog/dialog.js';
@@ -20,18 +38,3 @@ import '@material/web/menu/menu-item.js';
 
 // Import story.css from src
 import '../../../src/story.css';
-
-// Setup jQuery.
-window.$ = $;
-
-// Setup Story.
-window.story = new Story();
-
-// Setup Director.
-window.Director = Director;
-
-// Create scene
-window.Director.createScene();
-
-// Setup ActorFactory.
-window.ActorFactory = ActorFactory;

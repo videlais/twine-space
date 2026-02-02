@@ -1,4 +1,8 @@
-import $ from 'jquery';
+// jQuery is accessed via window.$ to avoid import issues in Node.js environments
+// where window may not be available at import time (jQuery 4.0+)
+// Use a getter function to access jQuery at runtime, not at module load time
+const $ = (...args) => window.$(...args);
+
 import { parse as parseScene } from './Parse/Scene/index.js';
 import { parse as parseLinks } from './Parse/Links.js';
 import { parse as parseMarkdown } from './Parse/Markdown.js';

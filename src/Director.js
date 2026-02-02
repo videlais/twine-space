@@ -7,8 +7,10 @@ import '@babylonjs/core/Culling/ray.js';
 import '@babylonjs/core/Materials/material.js';
 import '@babylonjs/core/Materials/standardMaterial.js';
 
-// Import jQuery
-import $ from 'jquery';
+// jQuery is accessed via window.$ to avoid import issues in Node.js environments
+// where window may not be available at import time (jQuery 4.0+)
+// Use a getter function to access jQuery at runtime, not at module load time
+const $ = (...args) => window.$(...args);
 
 /**
  * @class Director
