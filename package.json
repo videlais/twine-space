@@ -41,7 +41,7 @@
     "@material/web": "^2.4.1",
     "html-entities": "^2.6.0",
     "jquery": "^4.0.0",
-    "markdown-it": "^14.1.0",
+    "markdown-it": "^14.1.1",
     "yaml": "^2.8.2"
   },
   "devDependencies": {
