@@ -3,6 +3,7 @@
 // Use a getter function to access jQuery at runtime, not at module load time
 const $ = (...args) => window.$(...args);
 
+import DOMPurify from 'dompurify';
 import { parse as parseScene } from './Parse/Scene/index.js';
 import { parse as parseLinks } from './Parse/Links.js';
 import { parse as parseMarkdown } from './Parse/Markdown.js';
@@ -210,13 +211,16 @@ export default class Story {
   start () {
     // For each style, add them to the body as extra style elements.
     this.#userStyles.forEach((style) => {
-      $(document.body).append(`<style>${style}</style>`);
+      const styleEl = document.createElement('style');
+      styleEl.textContent = style;
+      document.body.appendChild(styleEl);
     });
 
     // For each script, append a new element to the page.
     this.#userScripts.forEach((script) => {
-      // Create a new script element with the contents of the script.
-      $('script').text(script).appendTo(document.body);
+      const scriptEl = document.createElement('script');
+      scriptEl.textContent = script;
+      document.body.appendChild(scriptEl);
     });
 
     // Check if the startnode attribute exists.
@@ -299,6 +303,14 @@ export default class Story {
     // Parse HTML unescaped entities.
     text = parseHTML(text);
 
+    // Sanitize the final HTML to prevent XSS attacks.
+    // DOMPurify strips dangerous tags (script, iframe, etc.) and event handlers
+    // (onclick, onerror, etc.) while preserving safe formatting and tw-link elements.
+    text = DOMPurify.sanitize(text, {
+      ADD_TAGS: ['tw-link'],
+      ADD_ATTR: ['data-passage'],
+    });
+
     // Overwrite the parsed with the rendered.
     this.#passageElement.html(text);
 
@@ -313,8 +325,10 @@ export default class Story {
       // Reference the navigation menu.
       const navMenu = $('#menu');
       
-      // Create menu item.
-      const menuItem = $(`<span class="menuLink">${$(this).prop('outerHTML')}</span>`);
+      // Create menu item safely (avoid template literal with outerHTML).
+      const menuItem = document.createElement('span');
+      menuItem.className = 'menuLink';
+      menuItem.appendChild(this.cloneNode(true));
       
       // Append menu-item to navMenu.
       navMenu.append(menuItem);

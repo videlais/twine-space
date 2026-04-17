@@ -91,9 +91,19 @@ async function create(name, options) {
 
     // Check if options.url property exists.
     if(Object.prototype.hasOwnProperty.call(options, 'url')) {
-      // Check if options.url is a number.
+      // Check if options.url is a string.
       if(typeof options.url === 'string') {
-        url = options.url;
+        // Validate the URL protocol to prevent javascript:, data:, and file: attacks.
+        try {
+          const parsedUrl = new URL(options.url, window.location.origin);
+          if (['http:', 'https:'].includes(parsedUrl.protocol)) {
+            url = options.url;
+          } else {
+            console.warn('Photosphere: Blocked URL with disallowed protocol:', parsedUrl.protocol);
+          }
+        } catch (e) {
+          console.warn('Photosphere: Invalid URL provided:', e.message);
+        }
       }
     }
 

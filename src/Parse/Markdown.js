@@ -25,6 +25,9 @@ function parse (text) {
   }
 
     // Create MarkdownIt object.
+    // Note: html: true is required because the parse pipeline processes Markdown
+    // twice (once in parseScene, once in Story.show). XSS prevention is handled
+    // by DOMPurify sanitization before DOM insertion in Story.js.
     const markdown = new MarkdownIt({
       html: true,
       linkify: true,
