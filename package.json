@@ -39,7 +39,7 @@
     "@babylonjs/core": "^9.5.0",
     "@babylonjs/materials": "^9.4.1",
     "@material/web": "^2.4.1",
-    "dompurify": "^3.4.1",
+    "dompurify": "^3.4.2",
     "html-entities": "^2.6.0",
     "jquery": "^4.0.0",
     "markdown-it": "^14.1.1",
