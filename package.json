@@ -43,7 +43,7 @@
     "html-entities": "^2.6.0",
     "jquery": "^4.0.0",
     "markdown-it": "^14.1.1",
-    "yaml": "^2.8.3"
+    "yaml": "^2.8.4"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
