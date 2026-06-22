@@ -46,7 +46,7 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.7",
+    "@babel/core": "^8.0.1",
     "@babel/preset-env": "^7.29.7",
     "@eslint/js": "^10.0.1",
     "@types/expect-puppeteer": "^5.0.6",
