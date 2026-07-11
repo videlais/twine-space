@@ -42,7 +42,7 @@
     "dompurify": "^3.4.11",
     "html-entities": "^2.6.0",
     "jquery": "^4.0.0",
-    "markdown-it": "^14.2.0",
+    "markdown-it": "^14.3.0",
     "yaml": "^2.9.0"
   },
   "devDependencies": {
