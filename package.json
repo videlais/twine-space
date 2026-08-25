@@ -65,7 +65,7 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-puppeteer": "^11.0.0",
     "mini-css-extract-plugin": "^2.10.2",
-    "open": "^11.0.0",
+    "open": "^11.0.1",
     "open-cli": "^9.0.0",
     "puppeteer": "^25.8.0",
     "rimraf": "^6.1.3",
