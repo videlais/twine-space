@@ -34,18 +34,16 @@ function parse(text = '') {
       text: text
     };
 
-    // Does the passage contain the '---' YAML delimiter?
-    // (If so, we need to parse and remove the YAML, if any.)
-    if(text.includes('---')) {
-      // Split the passage into two parts.
-      const yamlToParse = text.split('---')[0];
+    // Does the passage contain a standalone scene delimiter?
+    const separator = /(?:^|\r?\n)[ \t]*---(?=[ \t]*(?:\r?\n|$))/m.exec(text);
+    if(separator !== null) {
+      const yamlToParse = text.slice(0, separator.index);
 
       // Parse the YAML into possible objects.
       // This will be an array of objects.
       result.objects = parseYAML(yamlToParse);
 
-      // Parse the links.
-      result.text = text.split('---')[1];
+      result.text = text.slice(separator.index + separator[0].length);
     }
 
     // Parse the links.

@@ -1,12 +1,13 @@
 // Description: Test for Sphere.js
-import shell from 'shelljs';
+import { execFileSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
 import Director from '../../../src/Director.js';
 import 'expect-puppeteer';
 
 describe('Photosphere', () => {
   beforeAll(async () => {
     // Use webpack to bundle Director.js.
-    shell.exec('npx webpack --config ./test/e2e/Photosphere/webpack.config.cjs');
+    execFileSync('npx', ['webpack', '--config', './test/e2e/Photosphere/webpack.config.cjs'], { stdio: 'inherit' });
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/Photosphere/index.html');
@@ -66,6 +67,6 @@ describe('Photosphere', () => {
 
   afterAll(() => {
     // Remove the bundle.
-    shell.exec('rm ./test/e2e/Photosphere/core.bundle.js');
+    rmSync('./test/e2e/Photosphere/core.bundle.js', { force: true });
   });
 });

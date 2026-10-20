@@ -22,6 +22,22 @@ describe('Parse/Scene', () => {
       });
     });
 
+    it('Should preserve passage text after subsequent horizontal rules', () => {
+      const result = parse('- box:\n    name: Box\n---\nBefore rule\n---\nAfter rule');
+      expect(result).toEqual({
+        objects: [{ box: { name: 'Box' } }],
+        text: '\nBefore rule\n—\nAfter rule'
+      });
+    });
+
+    it('Should not treat an inline sequence of dashes as a scene delimiter', () => {
+      const result = parse('Keep --- this text');
+      expect(result).toEqual({
+        objects: [],
+        text: 'Keep — this text'
+      });
+    });
+
     it('Should return empty array and empty string if no text is provided', () => {
       const result = parse();
       expect(result).toEqual({

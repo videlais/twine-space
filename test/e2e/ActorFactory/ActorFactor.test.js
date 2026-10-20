@@ -1,9 +1,10 @@
-import shell from 'shelljs';
+import { execFileSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
 
 describe('ActorFactory', () => {
   beforeAll(async () => {
     // Use webpack to bundle ActorFactory.js.
-    shell.exec('npx webpack --config ./test/e2e/ActorFactory/webpack.config.cjs');
+    execFileSync('npx', ['webpack', '--config', './test/e2e/ActorFactory/webpack.config.cjs'], { stdio: 'inherit' });
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/ActorFactory/index.html');
@@ -65,6 +66,6 @@ describe('ActorFactory', () => {
 
   afterAll(() => {
     // Remove the bundle.
-    shell.exec('rm ./test/e2e/ActorFactory/core.bundle.js');
+    rmSync('./test/e2e/ActorFactory/core.bundle.js', { force: true });
   });
 });
