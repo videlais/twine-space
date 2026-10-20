@@ -1,12 +1,13 @@
 // Description: Test for Box.js
-import shell from 'shelljs';
+import { execFileSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
 import Director from '../../../src/Director.js';
 import 'expect-puppeteer';
 
 describe('Box', () => {
   beforeAll(async () => {
     // Use webpack to bundle Director.js.
-    shell.exec('npx webpack --config ./test/e2e/Box/webpack.config.cjs');
+    execFileSync('npx', ['webpack', '--config', './test/e2e/Box/webpack.config.cjs'], { stdio: 'inherit' });
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/Box/index.html');
@@ -123,6 +124,6 @@ describe('Box', () => {
 
   afterAll(() => {
     // Remove the bundle.
-    shell.exec('rm ./test/e2e/Box/core.bundle.js');
+    rmSync('./test/e2e/Box/core.bundle.js', { force: true });
   });
 });

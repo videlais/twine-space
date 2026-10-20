@@ -1,11 +1,12 @@
 // Description: E2E Test for Story.js
-import shell from 'shelljs';
+import { execFileSync } from 'node:child_process';
+import { rmSync } from 'node:fs';
 import 'expect-puppeteer';
 
 describe('Story', () => {
   beforeAll(async () => {
     // Use webpack to bundle index.js.
-    shell.exec('npx webpack --config ./test/e2e/Story/webpack.config.cjs');
+    execFileSync('npx', ['webpack', '--config', './test/e2e/Story/webpack.config.cjs'], { stdio: 'inherit' });
 
     // Start a new browser.
     await page.goto('http://localhost:3000/e2e/Story/index.html');
@@ -242,8 +243,8 @@ describe('Story', () => {
 
   afterAll(() => {
     // Remove the bundle.
-    shell.exec('rm ./test/e2e/Story/core.bundle.js');
+    rmSync('./test/e2e/Story/core.bundle.js', { force: true });
     // Remove created CSS.
-    shell.exec('rm ./test/e2e/Story/core.css');
+    rmSync('./test/e2e/Story/core.css', { force: true });
   });
 });
