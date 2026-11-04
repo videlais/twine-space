@@ -80,6 +80,22 @@ describe('Director', () => {
       expect(canvas).not.toBe(null);
     });
 
+    it('Should create a canvas when one does not exist', async () => {
+      const canvas = await page.evaluate(() => {
+        Director.scene = null;
+        Director.engine = null;
+        Director.canvas = null;
+        document.querySelector('#renderCanvas').remove();
+
+        Director.createScene();
+
+        return Director.canvas?.tagName;
+      });
+
+      expect(canvas).toBe('CANVAS');
+      expect(await page.$('#renderCanvas')).not.toBe(null);
+    });
+
     it('Should create a camera', async () => {
       const camera = await page.evaluate(() => {
         return Director.scene.activeCamera.name;
@@ -161,7 +177,7 @@ describe('Director', () => {
 
     it('Should hide the renderCanvas element', async () => {
       const canvas = await page.evaluate(() => {
-        return $('#renderCanvas').css('display');
+        return window.$('#renderCanvas').css('display');
       });
 
       expect(canvas).toBe('none');
@@ -169,7 +185,7 @@ describe('Director', () => {
 
     it('Should show the tw-passage element', async () => {
       const passage = await page.evaluate(() => {
-        return $('tw-passage').css('display');
+        return window.$('tw-passage').css('display');
       });
 
       expect(passage).toBe('inline');
@@ -192,7 +208,7 @@ describe('Director', () => {
 
     it('Should hide the tw-passage element', async () => {
       const passage = await page.evaluate(() => {
-        return $('tw-passage').css('display');
+        return window.$('tw-passage').css('display');
       });
 
       expect(passage).toBe('none');
@@ -200,7 +216,7 @@ describe('Director', () => {
 
     it('Should show the renderCanvas element', async () => {
       const canvas = await page.evaluate(() => {
-        return $('#renderCanvas').css('display');
+        return window.$('#renderCanvas').css('display');
       });
 
       expect(canvas).toBe('inline');

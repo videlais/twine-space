@@ -62,7 +62,7 @@ export default class Director {
       Director.canvas = $('#renderCanvas')[0];
 
       // Does the canvas exist?
-      if (Director.canvas.length === 0) {
+      if (!Director.canvas) {
         // Create canvas.
         Director.canvas = $('<canvas id="renderCanvas" touch-action="none" display="none"></canvas>')[0];
         // Add to body.
