@@ -32,6 +32,14 @@ describe('ActorFactory', () => {
     expect(mesh).not.toBe(null);
   });
 
+  it('Should use default options when options are null', async () => {
+    const mesh = await page.evaluate(() => {
+      return window.ActorFactory.create('box', null);
+    });
+
+    expect(mesh).not.toBe(null);
+  });
+
   it('Should return a sphere', async () => {
     const mesh = await page.evaluate(() => {
       return window.ActorFactory.create('sphere', {});

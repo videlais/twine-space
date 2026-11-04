@@ -23,6 +23,10 @@ export default class ActorFactory {
   static create (type, options) {
     console.log('ActorFactory.create', 'type: ', type, 'options: ', options);
 
+    if (options === null || typeof options !== 'object') {
+      options = {};
+    }
+
     // Default the options to an empty object.
     let result = null;
 
