@@ -27,6 +27,9 @@ export default class Director {
   // Scene.
   static scene = null;
 
+  // Scene revision.
+  static sceneRevision = 0;
+
   // Engine.
   static engine = null;
 
@@ -219,6 +222,8 @@ export default class Director {
    * @returns {void}
    */
   static clearScene () {
+    Director.sceneRevision += 1;
+
     // If there is a scene, clear it.
     if (Director.scene !== null) {
       // Remove all meshes.

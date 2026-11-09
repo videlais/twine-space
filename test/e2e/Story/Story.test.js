@@ -239,6 +239,38 @@ describe('Story', () => {
 
       expect(meshes).toBe(0);
     });
+
+    it('should not load a photosphere after navigating away', async () => {
+      const meshes = await page.evaluate(async () => {
+        const originalImage = window.Image;
+        let pendingImage;
+
+        window.Image = class {
+          set src (value) {
+            this._src = value;
+            pendingImage = this;
+          }
+
+          get src () {
+            return this._src;
+          }
+        };
+
+        try {
+          window.story.getPassageByName('Next').source = '- photosphere:\n    url: /delayed.jpg\n---\nPhoto passage';
+          window.story.show('Next');
+          window.story.show('Start');
+          pendingImage.onload();
+          await new Promise((resolve) => setTimeout(resolve, 0));
+
+          return window.Director.scene.meshes.length;
+        } finally {
+          window.Image = originalImage;
+        }
+      });
+
+      expect(meshes).toBe(0);
+    });
   });
 
   afterAll(() => {

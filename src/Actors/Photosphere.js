@@ -21,6 +21,9 @@ async function create(name, options) {
   const Director = (typeof window !== 'undefined') ? window.Director : null;
 
   if(Director && Director.scene !== null) {
+    const scene = Director.scene;
+    const sceneRevision = Director.sceneRevision;
+
     // Check if name is a string.
     if(typeof name !== 'string') {
       name = '';
@@ -112,8 +115,9 @@ async function create(name, options) {
 
     // Continue loading if the url is an image.
     if(isImage) {
-      // Continue loading.
-      continueLoading();
+      if (Director.scene === scene && Director.sceneRevision === sceneRevision) {
+        continueLoading();
+      }
     }
 
   }
